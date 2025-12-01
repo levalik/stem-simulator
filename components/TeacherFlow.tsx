@@ -42,7 +42,7 @@ const NavButtons = ({ onNext, onPrev, disabled = false, nextLabel }: { onNext: (
             <button
                 onClick={onNext}
                 disabled={disabled}
-                className={`flex items-center bg-zinc-900 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-zinc-200 gap-2 ${disabled ? 'opacity-50 cursor-not-allowed shadow-none' : 'hover:bg-violet-600 hover:shadow-violet-200 hover:-translate-y-0.5'}`}
+                className={`flex items-center bg-zinc-900 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-zinc-200 gap-2 ${disabled ? 'opacity-50 cursor-not-allowed shadow-none' : 'hover:bg-violet-600 hover:shadow-violet-200 hover:-translate-y-1'}`}
             >
                 {nextLabel || t('continue')}
                 {isRTL ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
@@ -51,7 +51,7 @@ const NavButtons = ({ onNext, onPrev, disabled = false, nextLabel }: { onNext: (
     );
 };
 
-const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+const Card: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = "" }) => (
     <div className={`bg-white rounded-2xl border border-zinc-100 shadow-sm ${className}`}>
         {children}
     </div>
@@ -68,7 +68,7 @@ const OpeningStep = () => {
         <div className="max-w-4xl mx-auto animate-fade-in">
             <div className="relative h-[400px] w-full rounded-3xl overflow-hidden shadow-2xl mb-10 group">
                 <img
-                    src={activeScenario.opening.imageUrl || "https://picsum.photos/800/400"}
+                    src={activeScenario.opening.imageUrl || "/placeholder.svg"}
                     alt="Scenario"
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
@@ -90,7 +90,7 @@ const OpeningStep = () => {
                     <div className="prose prose-lg text-zinc-600">
                         <h3 className="text-zinc-900 font-bold mb-2 text-lg flex items-center gap-2">
                             {t('mission_brief')}
-                            <Tooltip content="Overview of the scenario and your role." />
+                            <Tooltip content={t('overview_scenario')} />
                         </h3>
                         <p className="leading-relaxed">{activeScenario.opening.description}</p>
                     </div>
@@ -130,7 +130,7 @@ const ProblemStep = () => {
             <StepHeader
                 title={t('mission_brief')}
                 step={1}
-                helpText="Understand the core problem you need to solve."
+                helpText={t('understand_problem')}
             />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -153,7 +153,7 @@ const ProblemStep = () => {
 
                 <div className="h-full min-h-[300px] relative rounded-2xl overflow-hidden shadow-lg">
                     <img
-                        src={activeScenario.problem.imageUrl || "https://picsum.photos/600/600"}
+                        src={activeScenario.problem.imageUrl || "/placeholder.svg"}
                         className="absolute inset-0 w-full h-full object-cover"
                         alt="Problem Context"
                     />
@@ -234,7 +234,7 @@ const DataStep = () => {
 
     return (
         <div className="max-w-5xl mx-auto">
-            <StepHeader title={t('data_analysis')} step={2} helpText="Analyze the data to identify trends and patterns." />
+            <StepHeader title={t('data_analysis')} step={2} helpText={t('analyze_data_help')} />
 
             <Card className="p-8 overflow-hidden">
                 <div className="flex justify-between items-center mb-8">
@@ -275,7 +275,7 @@ const AnalysisStep = () => {
 
     return (
         <div className="max-w-4xl mx-auto">
-            <StepHeader title={t('critical_analysis')} step={3} helpText="Answer the questions based on your data analysis." />
+            <StepHeader title={t('critical_analysis')} step={3} helpText={t('answer_questions_help')} />
 
             <div className="grid gap-8">
                 <div className="space-y-6">
@@ -284,7 +284,7 @@ const AnalysisStep = () => {
                             <label className="block text-lg font-bold text-zinc-800 mb-4 flex gap-3">
                                 <span className="bg-zinc-100 text-zinc-500 w-8 h-8 flex items-center justify-center rounded-lg text-sm shrink-0">{idx + 1}</span>
                                 {q}
-                                <Tooltip content="Type your detailed answer here. AI will provide feedback." />
+                                <Tooltip content={t('type_answer_help')} />
                             </label>
                             <textarea
                                 className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-4 text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all min-h-[140px] resize-y"
@@ -352,8 +352,8 @@ const SolutionsStep = () => {
                         key={opt.id}
                         onClick={() => handleSelect(opt.id)}
                         className={`cursor-pointer group relative p-6 rounded-2xl border-2 transition-all duration-300 h-full flex flex-col ${selectedId === opt.id
-                                ? 'border-violet-600 bg-violet-50/50 shadow-xl shadow-violet-100'
-                                : 'border-zinc-100 bg-white hover:border-violet-300 hover:shadow-lg hover:-translate-y-1'
+                            ? 'border-violet-600 bg-violet-50/50 shadow-xl shadow-violet-100'
+                            : 'border-zinc-100 bg-white hover:border-violet-300 hover:shadow-lg hover:-translate-y-1'
                             }`}
                     >
                         <div className="mb-4">
@@ -380,7 +380,7 @@ const SolutionsStep = () => {
                             <MessageSquare className="text-violet-500" size={24} />
                             <label className="text-xl font-bold text-zinc-800">{t('justify_choice')}</label>
                         </div>
-                        <p className="text-zinc-500 text-sm mb-4">Why is this the optimal solution given the constraints? (Required)</p>
+                        <p className="text-zinc-500 text-sm mb-4">{t('justify_choice_help')}</p>
                         <textarea
                             className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-4 focus:bg-white focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all min-h-[150px]"
                             placeholder="..."
@@ -448,16 +448,16 @@ const SimulationStep = () => {
 
             {result && (
                 <div className={`overflow-hidden rounded-3xl border-2 transition-all duration-500 shadow-2xl ${result.outcomeType === 'success' ? 'bg-emerald-50/50 border-emerald-200' :
-                        result.outcomeType === 'neutral' ? 'bg-amber-50/50 border-amber-200' :
-                            'bg-rose-50/50 border-rose-200'
+                    result.outcomeType === 'neutral' ? 'bg-amber-50/50 border-amber-200' :
+                        'bg-rose-50/50 border-rose-200'
                     }`}>
                     <div className={`p-10 text-center ${result.outcomeType === 'success' ? 'text-emerald-900' :
-                            result.outcomeType === 'neutral' ? 'text-amber-900' :
-                                'text-rose-900'
+                        result.outcomeType === 'neutral' ? 'text-amber-900' :
+                            'text-rose-900'
                         }`}>
                         <div className={`mx-auto w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-sm ${result.outcomeType === 'success' ? 'bg-emerald-100 text-emerald-600' :
-                                result.outcomeType === 'neutral' ? 'bg-amber-100 text-amber-600' :
-                                    'bg-rose-100 text-rose-600'
+                            result.outcomeType === 'neutral' ? 'bg-amber-100 text-amber-600' :
+                                'bg-rose-100 text-rose-600'
                             }`}>
                             {result.outcomeType === 'success' ? <CheckCircle size={40} /> : <AlertTriangle size={40} />}
                         </div>
@@ -558,18 +558,18 @@ ${Object.values(activeSession.responses.reflection).join('\n')}
 
                 <div className="relative z-10">
                     <h2 className="text-3xl font-extrabold mb-2">{t('finish')}!</h2>
-                    <p className="text-zinc-400 max-w-lg mx-auto text-lg">You've successfully completed the module. Great work.</p>
+                    <p className="text-zinc-400 max-w-lg mx-auto text-lg">{t('completed_module')}</p>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8">
                         <button
                             onClick={handleDownload}
                             className={`px-8 py-3.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 ${downloaded
-                                    ? 'bg-emerald-500 text-white hover:bg-emerald-600'
-                                    : 'bg-white text-zinc-900 hover:bg-zinc-100'
+                                ? 'bg-emerald-500 text-white hover:bg-emerald-600'
+                                : 'bg-white text-zinc-900 hover:bg-zinc-100'
                                 }`}
                         >
                             {downloaded ? <CheckCircle size={18} /> : <Download size={18} />}
-                            {downloaded ? 'Report Saved' : t('download_report')}
+                            {downloaded ? t('report_saved') : t('download_report')}
                         </button>
                         <button
                             onClick={resetSimulation}
@@ -606,10 +606,10 @@ export const TeacherFlow = () => {
                     </div>
                     <div className="h-2.5 w-full bg-zinc-200 rounded-full overflow-hidden" dir="ltr">
                         <div
-                            className="h-full bg-gradient-to-r from-violet-500 to-indigo-600 shadow-[0_0_10px_rgba(139,92,246,0.5)] transition-all duration-700 ease-out relative"
+                            className="h-full bg-gradient-primary shadow-[0_0_10px_rgba(139,92,246,0.5)] transition-all duration-700 ease-out relative"
                             style={{ width: `${Math.max(5, progress)}%`, marginLeft: isRTL ? 'auto' : 0, marginRight: isRTL ? 0 : 'auto' }}
                         >
-                            <div className="absolute right-0 top-0 h-full w-full bg-white/20 animate-pulse"></div>
+                            <div className="absolute right-0 top-0 h-full w-full bg-white/20 animate-pulse-soft"></div>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,8 @@ import { useStore } from './store';
 import { Layout } from './components/Layout';
 import { TeacherFlow } from './components/TeacherFlow';
 import { AdminPanel } from './components/AdminPanel';
-import { PlayCircle, ShieldCheck, Sparkles, Clock, Tag, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Logo } from './components/Logo';
+import { PlayCircle, ShieldCheck, Clock, Tag, ArrowRight, ArrowLeft } from 'lucide-react';
 
 const LoginView = () => {
   const { login, language, setLanguage, t } = useStore();
@@ -27,7 +28,7 @@ const LoginView = () => {
     } else if (email === 'admin' && password === 'admin') {
       login({ id: 'a1', name: 'Admin User', role: 'admin', email: 'admin@edu.com' });
     } else {
-      setError('Invalid credentials. Try user:demo / pass:demo');
+      setError(t('invalid_credentials'));
     }
   };
 
@@ -37,7 +38,7 @@ const LoginView = () => {
       <div className="bg-blob blob-1"></div>
       <div className="bg-blob blob-2"></div>
 
-      <div className="login-card">
+      <div className="login-card glass animate-fade-in-up">
         <div className="absolute top-4 right-4 flex gap-2">
           <button
             onClick={() => setLanguage('en')}
@@ -50,8 +51,8 @@ const LoginView = () => {
         </div>
 
         <div className="login-header">
-          <div className="logo-container">
-            <Sparkles className="text-white w-10 h-10" />
+          <div className="logo-container animate-float">
+            <Logo className="w-12 h-12" />
           </div>
           <h1 className="app-title">STEM Simulator</h1>
           <p className="app-subtitle">AI-Enhanced Training for Modern Educators</p>
@@ -70,7 +71,7 @@ const LoginView = () => {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Password</label>
+            <label className="form-label">{t('password')}</label>
             <input
               type="password"
               className="form-input"
@@ -83,7 +84,7 @@ const LoginView = () => {
           {error && <div className="error-message">{error}</div>}
 
           <button type="submit" className="btn-primary">
-            {t('login_teacher')} <ArrowRight size={20} />
+            {t('login')} <ArrowRight size={20} />
           </button>
 
           <div className="text-center text-xs text-zinc-400 mt-4 bg-zinc-50 p-2 rounded-lg border border-zinc-100">
@@ -91,7 +92,10 @@ const LoginView = () => {
           </div>
         </form>
 
-        <p className="text-xs text-zinc-400 font-medium pt-6 text-center">Version 1.0.0 • Powered by Google Gemini</p>
+        <div className="text-center space-y-2 pt-6">
+          <p className="text-xs text-zinc-400 font-medium">{t('version')} 1.0.0 • <a href="https://www.siema.co.il/" target="_blank" rel="noopener noreferrer" className="text-violet-600 hover:underline">{t('powered_by_siema')}</a></p>
+          <p className="text-[10px] text-zinc-300 uppercase tracking-widest">{t('demo_mode_warning')}</p>
+        </div>
       </div>
     </div>
   );
@@ -104,9 +108,9 @@ const TeacherDashboard = () => {
   return (
     <div className="space-y-10">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-zinc-200 pb-8">
-        <div className="space-y-2">
+        <div className="space-y-2 animate-fade-in-up">
           <h2 className="text-4xl font-extrabold text-zinc-900 tracking-tight">{t('dashboard')}</h2>
-          <p className="text-lg text-zinc-500">{t('welcome')}, select a training module.</p>
+          <p className="text-lg text-zinc-500">{t('welcome')}, {t('select_training_module')}</p>
         </div>
         <div className="flex gap-2">
           <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-bold uppercase tracking-wide">
@@ -116,11 +120,11 @@ const TeacherDashboard = () => {
       </div>
 
       <div className="dashboard-grid">
-        {scenarios.map((scenario) => (
-          <div key={scenario.id} className="scenario-card group">
+        {scenarios.map((scenario, index) => (
+          <div key={scenario.id} className="scenario-card group animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
             <div className="card-image-container">
               <img
-                src={scenario.opening.imageUrl || "https://picsum.photos/400/200"}
+                src={scenario.opening.imageUrl || "/placeholder.svg"}
                 alt={scenario.title}
                 className="card-image"
               />
@@ -141,7 +145,8 @@ const TeacherDashboard = () => {
                 </span>
                 <button
                   onClick={() => startSimulation(scenario.id)}
-                  className="btn-start"
+                  className="btn-start group-hover:bg-violet-600 group-hover:text-white"
+                  title={t('tooltip_start_scenario')}
                 >
                   {t('start')} {isRTL ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
                 </button>

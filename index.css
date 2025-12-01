@@ -1,20 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --primary: #7c3aed;
   /* Violet 600 */
-  --primary-hover: #6d28d9;
-  /* Violet 700 */
-  --primary-light: #ddd6fe;
-  /* Violet 200 */
-  --bg-color: #fafafa;
+  --primary-light: #a78bfa;
+  /* Violet 400 */
+  --bg-color: #f8fafc;
+  /* Slate 50 */
   --surface-color: #ffffff;
-  --text-main: #18181b;
-  /* Zinc 900 */
-  --zinc-300: #d4d4d8;
-  --zinc-400: #a1a1aa;
-  --zinc-500: #71717a;
-  --zinc-600: #52525b;
-  --zinc-800: #27272a;
-  --zinc-900: #18181b;
+  --text-main: #0f172a;
+  /* Slate 900 */
+  --text-secondary: #64748b;
+  /* Slate 500 */
+  --border-color: #e2e8f0;
+  /* Slate 200 */
+  --error: #ef4444;
+  /* Red 500 */
+
+  --zinc-50: #f8fafc;
+  --zinc-100: #f1f5f9;
+  --zinc-200: #e2e8f0;
+  --zinc-300: #cbd5e1;
+  --zinc-400: #94a3b8;
+  --zinc-500: #64748b;
+  --zinc-600: #475569;
+  --zinc-800: #1e293b;
+  --zinc-900: #0f172a;
 
   --violet-50: #f5f3ff;
   --violet-100: #ede9fe;
@@ -43,6 +55,16 @@
   --rose-500: #f43f5e;
   --rose-600: #e11d48;
   --rose-900: #881337;
+
+  --font-sans: 'Inter',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
 }
 
 * {
@@ -870,16 +892,9 @@ button {
 .blob-2 {
   bottom: -10%;
   left: -10%;
-  width: 500px;
-  height: 500px;
-  background: #c7d2fe;
-}
-
-/* Dashboard Styles */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  width: 600px;
+  height: 600px;
+  background: #c4b5fd;
 }
 
 .scenario-card {
@@ -999,4 +1014,163 @@ button {
 
 [dir="rtl"] .rtl\:right-4 {
   right: 1rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes pulseSoft {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulseSoft 2s infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Logical Properties for RTL */
+.ms-1 {
+  margin-inline-start: 0.25rem;
+}
+
+.ms-2 {
+  margin-inline-start: 0.5rem;
+}
+
+.ms-3 {
+  margin-inline-start: 0.75rem;
+}
+
+.ms-4 {
+  margin-inline-start: 1rem;
+}
+
+.ms-auto {
+  margin-inline-start: auto;
+}
+
+.me-1 {
+  margin-inline-end: 0.25rem;
+}
+
+.me-2 {
+  margin-inline-end: 0.5rem;
+}
+
+.me-3 {
+  margin-inline-end: 0.75rem;
+}
+
+.me-4 {
+  margin-inline-end: 1rem;
+}
+
+.me-auto {
+  margin-inline-end: auto;
+}
+
+.ps-4 {
+  padding-inline-start: 1rem;
+}
+
+.pe-4 {
+  padding-inline-end: 1rem;
+}
+
+/* Gradients */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--violet-600), var(--violet-500));
+}
+
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right, var(--violet-600), var(--violet-500));
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
