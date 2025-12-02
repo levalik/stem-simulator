@@ -1,6 +1,3 @@
-import { create } from 'zustand';
-import { Scenario, User, SimulationSession } from './types';
-
 export const TRANSLATIONS = {
   en: {
     start: "Start",
@@ -70,10 +67,7 @@ export const TRANSLATIONS = {
     inactive: "Inactive",
     edit: "Edit",
     delete: "Delete",
-    // Admin Panel
     login_hint: "Demo: demo/demo | Admin: admin/admin",
-
-    // Creator
     scenario_title: "Scenario Title",
     scenario_description: "Description",
     image_url: "Image URL",
@@ -140,6 +134,95 @@ export const TRANSLATIONS = {
     tooltip_start_scenario: "Begin this training module.",
     tooltip_edit_scenario: "Edit this scenario.",
     tooltip_delete_scenario: "Delete this scenario.",
+    manage_scenarios_desc: "Manage and organize your training modules",
+    search_scenarios: "Search scenarios...",
+    no_scenarios_found: "No scenarios found",
+    try_adjusting_search: "Try adjusting your search criteria",
+    key_terms: "Key Terms",
+    all_categories: "All Categories",
+    filter_by_category: "Filter by category",
+    sessions_count: "Sessions",
+    difficulty: "Difficulty",
+    beginner: "Beginner",
+    intermediate: "Intermediate",
+    advanced: "Advanced",
+    your_progress: "Your Progress",
+    completed_scenarios: "Completed Scenarios",
+    in_progress: "In Progress",
+    not_started: "Not Started",
+    recent_activity: "Recent Activity",
+    view_all: "View All",
+    quick_stats: "Quick Stats",
+    success_rate: "Success Rate",
+    avg_time: "Avg. Time",
+    last_session: "Last Session",
+    select_solution: "Select a solution",
+    your_choice: "Your Choice",
+    outcome: "Outcome",
+    session_summary: "Session Summary",
+    time_spent: "Time Spent",
+    questions_answered: "Questions Answered",
+    solution_selected: "Solution Selected",
+    ai_analysis: "AI Analysis",
+    export_pdf: "Export PDF",
+    share_results: "Share Results",
+    try_again: "Try Again",
+    next_scenario: "Next Scenario",
+    congratulations: "Congratulations!",
+    good_job: "Good Job!",
+    needs_improvement: "Needs Improvement",
+    excellent_analysis: "Excellent analysis!",
+    processing: "Processing...",
+    loading: "Loading...",
+    error_occurred: "An error occurred",
+    try_later: "Please try again later",
+    min: "min",
+    mins: "mins",
+    hour: "hour",
+    hours: "hours",
+    today: "Today",
+    yesterday: "Yesterday",
+    this_week: "This Week",
+    teacher: "Teacher",
+    admin: "Admin",
+    guest: "Guest",
+    profile: "Profile",
+    help: "Help",
+    about: "About",
+    contact: "Contact",
+    feedback: "Feedback",
+    report_bug: "Report Bug",
+    suggest_feature: "Suggest Feature",
+    terms_of_service: "Terms of Service",
+    privacy_policy: "Privacy Policy",
+    no_data: "No data available",
+    chart_bar: "Bar Chart",
+    chart_line: "Line Chart",
+    chart_pie: "Pie Chart",
+    basic_info: "Basic scenario information",
+    enter_title: "Enter scenario title...",
+    select_category: "Select category...",
+    select_duration: "Select duration...",
+    brief_description: "Briefly describe the scenario...",
+    use_image_url: "Use Unsplash image or any URL",
+    separate_lines: "Separate questions with a new line",
+    comma_separated: "Comma separated",
+    json_mode_hint: "Edit solutions in JSON mode for advanced control.",
+    top_performers: "Top Performers",
+    last_week: "Last Week",
+    this_month: "This Month",
+    last_month: "Last Month",
+    simulation_process: "Simulation Process",
+    identify_trends: "Identify Trends",
+    evidence_based: "Evidence Based",
+    improvement: "Improvement",
+    no_facts: "No additional facts available.",
+    analysis_tip: "Analysis Tip",
+    analysis_tip_content: "Look for outliers or significant trends. Is there a correlation between variables?",
+    visual_outcome: "Visual Outcome",
+    key_facts: "Key Facts",
+    selected: "Selected",
+    click_to_select: "Click to Select",
   },
   he: {
     start: "התחלה",
@@ -260,103 +343,112 @@ export const TRANSLATIONS = {
     tooltip_start_scenario: "התחל את מודול האימון הזה.",
     tooltip_edit_scenario: "ערוך תרחיש זה.",
     tooltip_delete_scenario: "מחק תרחיש זה.",
+    manage_scenarios_desc: "נהל וארגן את מודולי האימון שלך",
+    search_scenarios: "חפש תרחישים...",
+    no_scenarios_found: "לא נמצאו תרחישים",
+    try_adjusting_search: "נסה לשנות את קריטריוני החיפוש",
+    key_terms: "מונחי מפתח",
+    scenario_title: "כותרת התרחיש",
+    scenario_description: "תיאור",
+    image_url: "כתובת תמונה",
+    problem_statement: "הצהרת הבעיה",
+    context: "הקשר",
+    chart_type: "סוג תרשים",
+    data_points: "נקודות נתונים",
+    analysis_questions: "שאלות ניתוח",
+    solution_options: "אפשרויות פתרון",
+    results: "תוצאות",
+    reflection_questions: "שאלות רפלקציה",
+    add_option: "הוסף אפשרות",
+    add_question: "הוסף שאלה",
+    is_correct: "נכון?",
+    result_summary: "סיכום תוצאה",
+    result_detail: "פירוט תוצאה",
+    all_categories: "כל הקטגוריות",
+    filter_by_category: "סנן לפי קטגוריה",
+    sessions_count: "סשנים",
+    difficulty: "רמת קושי",
+    beginner: "מתחיל",
+    intermediate: "בינוני",
+    advanced: "מתקדם",
+    your_progress: "ההתקדמות שלך",
+    completed_scenarios: "תרחישים שהושלמו",
+    in_progress: "בתהליך",
+    not_started: "לא התחיל",
+    recent_activity: "פעילות אחרונה",
+    view_all: "צפה בהכל",
+    quick_stats: "סטטיסטיקה מהירה",
+    success_rate: "אחוז הצלחה",
+    avg_time: "זמן ממוצע",
+    last_session: "סשן אחרון",
+    select_solution: "בחר פתרון",
+    your_choice: "הבחירה שלך",
+    outcome: "תוצאה",
+    session_summary: "סיכום סשן",
+    time_spent: "זמן שהושקע",
+    questions_answered: "שאלות שנענו",
+    solution_selected: "פתרון שנבחר",
+    ai_analysis: "ניתוח AI",
+    export_pdf: "ייצא PDF",
+    share_results: "שתף תוצאות",
+    try_again: "נסה שוב",
+    next_scenario: "התרחיש הבא",
+    congratulations: "מזל טוב!",
+    good_job: "עבודה טובה!",
+    needs_improvement: "דרוש שיפור",
+    excellent_analysis: "ניתוח מצוין!",
+    processing: "מעבד...",
+    loading: "טוען...",
+    error_occurred: "אירעה שגיאה",
+    try_later: "אנא נסה שוב מאוחר יותר",
+    min: "דקה",
+    mins: "דקות",
+    hour: "שעה",
+    hours: "שעות",
+    today: "היום",
+    yesterday: "אתמול",
+    this_week: "השבוע",
+    teacher: "מורה",
+    admin: "מנהל",
+    guest: "אורח",
+    profile: "פרופיל",
+    help: "עזרה",
+    about: "אודות",
+    contact: "צור קשר",
+    feedback: "משוב",
+    report_bug: "דווח על באג",
+    suggest_feature: "הצע תכונה",
+    terms_of_service: "תנאי שימוש",
+    privacy_policy: "מדיניות פרטיות",
+    no_data: "אין נתונים זמינים",
+    chart_bar: "תרשים עמודות",
+    chart_line: "תרשים קווי",
+    chart_pie: "תרשים עוגה",
+    basic_info: "מידע בסיסי על התרחיש",
+    enter_title: "הכנס כותרת לתרחיש...",
+    select_category: "בחר קטגוריה...",
+    select_duration: "בחר משך...",
+    brief_description: "תאר את התרחיש בקצרה...",
+    use_image_url: "השתמש בתמונה מ-Unsplash או כתובת URL אחרת",
+    separate_lines: "הפרד שאלות בשורה חדשה",
+    comma_separated: "מופרד בפסיקים",
+    json_mode_hint: "ערוך פתרונות במצב JSON לשליטה מתקדמת.",
+    top_performers: "המבצעים הטובים ביותר",
+    last_week: "שבוע שעבר",
+    this_month: "החודש",
+    last_month: "חודש שעבר",
+    simulation_process: "תהליך הסימולציה",
+    identify_trends: "זיהוי מגמות",
+    evidence_based: "מבוסס ראיות",
+    improvement: "שיפור",
+    no_facts: "אין עובדות נוספות זמינות.",
+    analysis_tip: "טיפ לניתוח",
+    analysis_tip_content: "חפש חריגות או מגמות בולטות. האם יש קשר בין המשתנים?",
+    visual_outcome: "תוצאה חזותית",
+    key_facts: "עובדות מפתח",
+    selected: "נבחר",
+    click_to_select: "לחץ לבחירה",
   }
-};
+} as const;
 
-interface AppState {
-  currentUser: User | null;
-  currentView: 'login' | 'teacher_dashboard' | 'teacher_simulation' | 'admin_dashboard' | 'admin_editor';
-  scenarios: Scenario[];
-  activeScenario: Scenario | null;
-  activeSession: SimulationSession | null;
-  currentStep: number; // 0-6 for the 7 steps
-  language: 'en' | 'he';
-
-  // Actions
-  login: (user: User) => void;
-  logout: () => void;
-  setView: (view: AppState['currentView']) => void;
-  startSimulation: (scenarioId: string) => void;
-  nextStep: () => void;
-  prevStep: () => void;
-  updateSessionResponse: (section: keyof SimulationSession['responses'], data: any) => void;
-  addScenario: (scenario: Scenario) => void;
-  updateScenario: (scenario: Scenario) => void;
-  deleteScenario: (id: string) => void;
-  resetSimulation: () => void;
-  setLanguage: (lang: 'en' | 'he') => void;
-  t: (key: keyof typeof TRANSLATIONS['en']) => string;
-}
-
-import { HEBREW_MOCK_SCENARIOS } from './mockData';
-
-const MOCK_SCENARIOS: Scenario[] = HEBREW_MOCK_SCENARIOS;
-
-export const useStore = create<AppState>((set, get) => ({
-  currentUser: null,
-  currentView: 'login',
-  scenarios: MOCK_SCENARIOS,
-  activeScenario: null,
-  activeSession: null,
-  currentStep: 0,
-  language: 'he', // Default Hebrew
-
-  login: (user) => set({ currentUser: user, currentView: user.role === 'admin' ? 'admin_dashboard' : 'teacher_dashboard' }),
-  logout: () => set({ currentUser: null, currentView: 'login', activeScenario: null, activeSession: null }),
-  setView: (view) => set({ currentView: view }),
-
-  startSimulation: (scenarioId) => {
-    const scenario = get().scenarios.find(s => s.id === scenarioId);
-    if (!scenario) return;
-
-    const newSession: SimulationSession = {
-      id: crypto.randomUUID(),
-      scenarioId: scenario.id,
-      userId: get().currentUser?.id || 'guest',
-      startedAt: Date.now(),
-      responses: {
-        analysis: {},
-        reflection: {}
-      }
-    };
-
-    set({ activeScenario: scenario, activeSession: newSession, currentView: 'teacher_simulation', currentStep: 0 });
-  },
-
-  nextStep: () => set((state) => ({ currentStep: Math.min(state.currentStep + 1, 6) })),
-  prevStep: () => set((state) => ({ currentStep: Math.max(state.currentStep - 1, 0) })),
-
-  updateSessionResponse: (section, data) => set((state) => {
-    if (!state.activeSession) return {};
-    const updatedSession = { ...state.activeSession };
-
-    if (section === 'analysis') {
-      updatedSession.responses.analysis = { ...updatedSession.responses.analysis, ...data };
-    } else if (section === 'reflection') {
-      updatedSession.responses.reflection = { ...updatedSession.responses.reflection, ...data };
-    } else {
-      // @ts-ignore
-      updatedSession.responses[section] = data;
-    }
-    return { activeSession: updatedSession };
-  }),
-
-  addScenario: (scenario) => set((state) => ({ scenarios: [...state.scenarios, scenario] })),
-
-  updateScenario: (updatedScenario) => set((state) => ({
-    scenarios: state.scenarios.map(s => s.id === updatedScenario.id ? updatedScenario : s)
-  })),
-
-  deleteScenario: (id) => set((state) => ({
-    scenarios: state.scenarios.filter(s => s.id !== id)
-  })),
-
-  resetSimulation: () => set({ activeScenario: null, activeSession: null, currentView: 'teacher_dashboard', currentStep: 0 }),
-
-  setLanguage: (lang) => set({ language: lang }),
-
-  t: (key) => {
-    const lang = get().language;
-    return TRANSLATIONS[lang][key] || key;
-  }
-}));
+export type TranslationKey = keyof typeof TRANSLATIONS['en'];

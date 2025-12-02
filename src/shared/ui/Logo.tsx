@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Logo = ({ className = "w-10 h-10", classNamePath = "fill-violet-600" }: { className?: string, classNamePath?: string }) => (
+export const Logo = ({ className = "w-10 h-10", classNamePath = "fill-primary-600" }: { className?: string, classNamePath?: string }) => (
     <svg
         viewBox="0 0 100 100"
         className={className}

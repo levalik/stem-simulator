@@ -25,6 +25,7 @@ export interface Scenario {
     chartType: 'line' | 'bar' | 'pie';
     chartData: Array<{ name: string; value: number; [key: string]: any }>;
     description: string;
+    facts?: string[]; // Added for extra context
   };
   analysis: {
     questions: string[];
@@ -52,6 +53,7 @@ export interface SimulationResult {
   summary: string;
   detail: string;
   outcomeType: 'success' | 'failure' | 'neutral';
+  outcomeImageUrl?: string; // Added for visual feedback
 }
 
 export interface SimulationSession {

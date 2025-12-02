@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { Scenario } from '../types';
+import { Scenario } from '../model/types';
 
 // Ensure API key is present
 const API_KEY = process.env.API_KEY || '';
