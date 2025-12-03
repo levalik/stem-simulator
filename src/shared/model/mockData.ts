@@ -45,21 +45,21 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "backlash": { 
-                    summary: "קיפאון כלכלי", 
-                    detail: "מפעלים איימו לעזוב את העיר עקב הרגולציה הנוקשה, מה שגרם לאובדן מקומות עבודה.", 
+                "backlash": {
+                    summary: "קיפאון כלכלי",
+                    detail: "מפעלים איימו לעזוב את העיר עקב הרגולציה הנוקשה, מה שגרם לאובדן מקומות עבודה.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1535132012373-3085fb089e3d?auto=format&fit=crop&w=800&q=80"
                 },
-                "sustainable": { 
-                    summary: "הפחתה הדרגתית", 
-                    detail: "צריכת האנרגיה ירדה ב-15% בשנה הראשונה עם תמיכה ציבורית גבוהה.", 
+                "sustainable": {
+                    summary: "הפחתה הדרגתית",
+                    detail: "צריכת האנרגיה ירדה ב-15% בשנה הראשונה עם תמיכה ציבורית גבוהה.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
                 },
-                "pollution": { 
-                    summary: "משבר סביבתי", 
-                    detail: "אספקת האנרגיה ענתה על הביקוש, אך מדד איכות האוויר החמיר משמעותית.", 
+                "pollution": {
+                    summary: "משבר סביבתי",
+                    detail: "אספקת האנרגיה ענתה על הביקוש, אך מדד איכות האוויר החמיר משמעותית.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1611273426761-53c8577a20fa?auto=format&fit=crop&w=800&q=80"
                 }
@@ -113,21 +113,21 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "panic": { 
-                    summary: "מהומות ציבוריות", 
-                    detail: "התושבים התמרדו עקב הקיצוצים הדרסטיים בעוד החוות המשיכו להשתמש במים בחופשיות.", 
+                "panic": {
+                    summary: "מהומות ציבוריות",
+                    detail: "התושבים התמרדו עקב הקיצוצים הדרסטיים בעוד החוות המשיכו להשתמש במים בחופשיות.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1555862124-a4ebf4c16482?auto=format&fit=crop&w=800&q=80"
                 },
-                "efficiency": { 
-                    summary: "יציבות לטווח ארוך", 
-                    detail: "שימוש המים בחקלאות ירד ב-30%, מה שייצב את המאגר.", 
+                "efficiency": {
+                    summary: "יציבות לטווח ארוך",
+                    detail: "שימוש המים בחקלאות ירד ב-30%, מה שייצב את המאגר.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1622383563227-0440114a8517?auto=format&fit=crop&w=800&q=80"
                 },
-                "debt": { 
-                    summary: "משבר פיננסי", 
-                    detail: "המים הובטחו, אך העיר פשטה רגל.", 
+                "debt": {
+                    summary: "משבר פיננסי",
+                    detail: "המים הובטחו, אך העיר פשטה רגל.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80"
                 }
@@ -181,21 +181,21 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "traffic_chaos": { 
-                    summary: "סיוט תחבורתי", 
-                    detail: "העיר בפקק מוחלט. הגשר היה בטוח, אך המחיר היה גבוה מדי.", 
+                "traffic_chaos": {
+                    summary: "סיוט תחבורתי",
+                    detail: "העיר בפקק מוחלט. הגשר היה בטוח, אך המחיר היה גבוה מדי.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1566232392379-afd9298e6a46?auto=format&fit=crop&w=800&q=80"
                 },
-                "safe_extend": { 
-                    summary: "בטיחות אופטימלית", 
-                    detail: "חיי הגשר הוארכו ב-10 שנים עם הפרעה מינימלית.", 
+                "safe_extend": {
+                    summary: "בטיחות אופטימלית",
+                    detail: "חיי הגשר הוארכו ב-10 שנים עם הפרעה מינימלית.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1513415277900-a62401e19be4?auto=format&fit=crop&w=800&q=80"
                 },
-                "collapse": { 
-                    summary: "כשל קטסטרופלי", 
-                    detail: "הגשר קרס בשעת העומס.", 
+                "collapse": {
+                    summary: "כשל קטסטרופלי",
+                    detail: "הגשר קרס בשעת העומס.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1594718360228-45c857632596?auto=format&fit=crop&w=800&q=80"
                 }
@@ -251,21 +251,21 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "budget_deficit": { 
-                    summary: "חריגה תקציבית", 
-                    detail: "הבעיה נפתרה, אך בית הספר נכנס לגירעון ונאלץ לקצץ בשעות הוראה.", 
+                "budget_deficit": {
+                    summary: "חריגה תקציבית",
+                    detail: "הבעיה נפתרה, אך בית הספר נכנס לגירעון ונאלץ לקצץ בשעות הוראה.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
                 },
-                "optimized": { 
-                    summary: "יעילות מרבית", 
-                    detail: "הצפיפות ירדה ב-40% ללא עלות נוספת. התלמידים מגיעים בזמן ובנוחות.", 
+                "optimized": {
+                    summary: "יעילות מרבית",
+                    detail: "הצפיפות ירדה ב-40% ללא עלות נוספת. התלמידים מגיעים בזמן ובנוחות.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80"
                 },
-                "parent_anger": { 
-                    summary: "התנגדות הורים", 
-                    detail: "ההורים סירבו לשינוי שעת ההתחלה, והאוטובוסים נותרו ריקים ב-07:00.", 
+                "parent_anger": {
+                    summary: "התנגדות הורים",
+                    detail: "ההורים סירבו לשינוי שעת ההתחלה, והאוטובוסים נותרו ריקים ב-07:00.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1572953109213-3be62398eb95?auto=format&fit=crop&w=800&q=80"
                 }
@@ -321,21 +321,21 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "resistance": { 
-                    summary: "החמרת העמידות", 
-                    detail: "החיידקים פיתחו עמידות גם למינון הגבוה, והזיהום התפשט למחלקות נוספות.", 
+                "resistance": {
+                    summary: "החמרת העמידות",
+                    detail: "החיידקים פיתחו עמידות גם למינון הגבוה, והזיהום התפשט למחלקות נוספות.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=800&q=80"
                 },
-                "eradication": { 
-                    summary: "מיגור ההתפרצות", 
-                    detail: "הזיהום נעצר תוך 48 שעות. לא נרשמו מקרי הדבקה נוספים.", 
+                "eradication": {
+                    summary: "מיגור ההתפרצות",
+                    detail: "הזיהום נעצר תוך 48 שעות. לא נרשמו מקרי הדבקה נוספים.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=800&q=80"
                 },
-                "sepsis": { 
-                    summary: "קריסת מערכות", 
-                    detail: "ללא טיפול, מצב החולים הידרדר במהירות.", 
+                "sepsis": {
+                    summary: "קריסת מערכות",
+                    detail: "ללא טיפול, מצב החולים הידרדר במהירות.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80"
                 }
@@ -389,21 +389,21 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "safe_stop": { 
-                    summary: "איזון בטיחותי", 
-                    detail: "מספר התאונות ירד ב-80% וזרימת התנועה נשמרה סבירה.", 
+                "safe_stop": {
+                    summary: "איזון בטיחותי",
+                    detail: "מספר התאונות ירד ב-80% וזרימת התנועה נשמרה סבירה.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80"
                 },
-                "accidents_continue": { 
-                    summary: "ללא שינוי", 
-                    detail: "נהגים התעלמו מהתמרור והתאונות המשיכו להתרחש.", 
+                "accidents_continue": {
+                    summary: "ללא שינוי",
+                    detail: "נהגים התעלמו מהתמרור והתאונות המשיכו להתרחש.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1566041510639-8d95a2490bfb?auto=format&fit=crop&w=800&q=80"
                 },
-                "traffic_jam": { 
-                    summary: "עומס תנועה כבד", 
-                    detail: "התאונות פסקו, אך נוצרו פקקים אדירים ששיתקו את האזור.", 
+                "traffic_jam": {
+                    summary: "עומס תנועה כבד",
+                    detail: "התאונות פסקו, אך נוצרו פקקים אדירים ששיתקו את האזור.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=800&q=80"
                 }
@@ -457,21 +457,21 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "partial_fix": { 
-                    summary: "שיפור זמני", 
-                    detail: "החומציות ירדה מעט, אך לא מספיק כדי להציל את הדגים באזור הקרוב.", 
+                "partial_fix": {
+                    summary: "שיפור זמני",
+                    detail: "החומציות ירדה מעט, אך לא מספיק כדי להציל את הדגים באזור הקרוב.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1583324113626-70df0f4deaab?auto=format&fit=crop&w=800&q=80"
                 },
-                "neutralized": { 
-                    summary: "שיקום מוצלח", 
-                    detail: "הוספת הבסיס העלתה את ה-pH ל-7 (ניטרלי) והמערכת האקולוגית ניצלה.", 
+                "neutralized": {
+                    summary: "שיקום מוצלח",
+                    detail: "הוספת הבסיס העלתה את ה-pH ל-7 (ניטרלי) והמערכת האקולוגית ניצלה.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80"
                 },
-                "ecological_death": { 
-                    summary: "אסון אקולוגי", 
-                    detail: "כל הדגים ברדיוס של 1 ק״מ מתו. הנזק בלתי הפיך לשנים הקרובות.", 
+                "ecological_death": {
+                    summary: "אסון אקולוגי",
+                    detail: "כל הדגים ברדיוס של 1 ק״מ מתו. הנזק בלתי הפיך לשנים הקרובות.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1535083793061-5adb313ece4c?auto=format&fit=crop&w=800&q=80"
                 }
@@ -524,21 +524,21 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "low_margin": { 
-                    summary: "עבודה קשה, רווח נמוך", 
-                    detail: "מכרתם 100 פיצות! אבל הרווח היה רק 1,500 ש״ח. המטבח קרס תחת העומס.", 
+                "low_margin": {
+                    summary: "עבודה קשה, רווח נמוך",
+                    detail: "מכרתם 100 פיצות! אבל הרווח היה רק 1,500 ש״ח. המטבח קרס תחת העומס.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=800&q=80"
                 },
-                "optimal": { 
-                    summary: "רווח מקסימלי", 
-                    detail: "מכרתם 60 פיצות. הרווח היומי הוא 1,900 ש״ח. העסק משגשג!", 
+                "optimal": {
+                    summary: "רווח מקסימלי",
+                    detail: "מכרתם 60 פיצות. הרווח היומי הוא 1,900 ש״ח. העסק משגשג!",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1574126154517-d1e0d89e7344?auto=format&fit=crop&w=800&q=80"
                 },
-                "low_sales": { 
-                    summary: "לקוחות מאוכזבים", 
-                    detail: "מכרתם רק 20 פיצות. הרווח הוא 700 ש״ח בלבד. הלקוחות הלכו למתחרים.", 
+                "low_sales": {
+                    summary: "לקוחות מאוכזבים",
+                    detail: "מכרתם רק 20 פיצות. הרווח הוא 700 ש״ח בלבד. הלקוחות הלכו למתחרים.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80"
                 }
@@ -592,21 +592,21 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "fun_but_failing": { 
-                    summary: "כיף אך לא יעיל", 
-                    detail: "התלמידים נהנו בטיול, אך התקשו ללמוד ללא ציוד מתאים.", 
+                "fun_but_failing": {
+                    summary: "כיף אך לא יעיל",
+                    detail: "התלמידים נהנו בטיול, אך התקשו ללמוד ללא ציוד מתאים.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
                 },
-                "balanced": { 
-                    summary: "איזון מושלם", 
-                    detail: "הכיתה מגובשת וההישגים הלימודיים השתפרו בזכות הציוד החדש.", 
+                "balanced": {
+                    summary: "איזון מושלם",
+                    detail: "הכיתה מגובשת וההישגים הלימודיים השתפרו בזכות הציוד החדש.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1427504746696-ea5abd7dfe03?auto=format&fit=crop&w=800&q=80"
                 },
-                "boring": { 
-                    summary: "מרמור כיתתי", 
-                    detail: "הציונים עלו, אך האווירה בכיתה עכורה והתלמידים כועסים.", 
+                "boring": {
+                    summary: "מרמור כיתתי",
+                    detail: "הציונים עלו, אך האווירה בכיתה עכורה והתלמידים כועסים.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80"
                 }
@@ -659,21 +659,21 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "engagement": { 
-                    summary: "למידה מותאמת אישית", 
-                    detail: "התלמידים גילו עניין רב והתקדמו בקצב אישי. המורה עבר לתפקיד מנחה.", 
+                "engagement": {
+                    summary: "למידה מותאמת אישית",
+                    detail: "התלמידים גילו עניין רב והתקדמו בקצב אישי. המורה עבר לתפקיד מנחה.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80"
                 },
-                "passive": { 
-                    summary: "שיפור קל", 
-                    detail: "השיעורים הפכו ויזואליים יותר, אך שיטת ההוראה נותרה פרונטלית.", 
+                "passive": {
+                    summary: "שיפור קל",
+                    detail: "השיעורים הפכו ויזואליים יותר, אך שיטת ההוראה נותרה פרונטלית.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
                 },
-                "niche": { 
-                    summary: "שימוש מוגבל", 
-                    detail: "רק קבוצה קטנה של תלמידים השתמשה במדפסת. רוב הכיתה לא הרוויחה.", 
+                "niche": {
+                    summary: "שימוש מוגבל",
+                    detail: "רק קבוצה קטנה של תלמידים השתמשה במדפסת. רוב הכיתה לא הרוויחה.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1631541909061-71e349d1f203?auto=format&fit=crop&w=800&q=80"
                 }
@@ -727,21 +727,21 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "dusty": { 
-                    summary: "בעיות תחזוקה", 
-                    detail: "התפוקה הייתה טובה בקיץ, אך בחורף הצטבר בוץ והיעילות צנחה.", 
+                "dusty": {
+                    summary: "בעיות תחזוקה",
+                    detail: "התפוקה הייתה טובה בקיץ, אך בחורף הצטבר בוץ והיעילות צנחה.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1508514177221-188b1cf2f24f?auto=format&fit=crop&w=800&q=80"
                 },
-                "optimal_solar": { 
-                    summary: "יעילות מקסימלית", 
-                    detail: "המערכת הפיקה את המקסימום האפשרי לאורך השנה והחזירה את ההשקעה מהר.", 
+                "optimal_solar": {
+                    summary: "יעילות מקסימלית",
+                    detail: "המערכת הפיקה את המקסימום האפשרי לאורך השנה והחזירה את ההשקעה מהר.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80"
                 },
-                "summer_loss": { 
-                    summary: "הפסד בקיץ", 
-                    detail: "התפוקה בחורף הייתה מצוינת, אך הפסדנו את שעות השמש הארוכות של הקיץ.", 
+                "summer_loss": {
+                    summary: "הפסד בקיץ",
+                    detail: "התפוקה בחורף הייתה מצוינת, אך הפסדנו את שעות השמש הארוכות של הקיץ.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
                 }
@@ -749,6 +749,124 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["מה הקשר בין קו הרוחב לזווית הפאנל?", "כיצד שיקולי תחזוקה משפיעים על התכנון ההנדסי?"]
+        }
+    },
+    {
+        id: "scenario_012",
+        title: "חשבון - חיבור בסיסי",
+        category: "מתמטיקה / חשבון",
+        duration: "10 דקות",
+        opening: {
+            description: "תרגול חיבור בסיסי באמצעות פירות.",
+            imageUrl: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "ליוסי יש 5 תפוחים. דנה נתנה לו עוד 3 תפוחים. כמה תפוחים יש ליוסי כעת?",
+            context: "חיבור פשוט של מספרים חד-ספרתיים."
+        },
+        data: {
+            chartType: 'bar',
+            description: "מספר התפוחים",
+            chartData: [
+                { name: "יוסי (התחלה)", value: 5 },
+                { name: "דנה נתנה", value: 3 }
+            ],
+            facts: [
+                "חיבור היא פעולה של הוספת כמות אחת לאחרת.",
+                "הסימן לחיבור הוא +."
+            ]
+        },
+        analysis: {
+            questions: [
+                "כמה תפוחים היו ליוסי בהתחלה?",
+                "כמה תפוחים הוא קיבל?"
+            ],
+            keyTerms: ["חיבור", "סכום", "פלוס"]
+        },
+        solutions: {
+            options: [
+                { id: "s12_1", text: "7 תפוחים", correct: false, resultId: "wrong_sum" },
+                { id: "s12_2", text: "8 תפוחים", correct: true, resultId: "correct_sum" },
+                { id: "s12_3", text: "9 תפוחים", correct: false, resultId: "wrong_sum" }
+            ]
+        },
+        simulation: {
+            results: {
+                "wrong_sum": {
+                    summary: "תשובה שגויה",
+                    detail: "נסה לספור שוב את התפוחים ביחד.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80"
+                },
+                "correct_sum": {
+                    summary: "כל הכבוד!",
+                    detail: "5 ועוד 3 הם אכן 8.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["איך הגעת לתשובה?", "האם אפשר לחבר דברים אחרים באותה דרך?"]
+        }
+    },
+    {
+        id: "scenario_013",
+        title: "חשבון - חיסור בסיסי",
+        category: "מתמטיקה / חשבון",
+        duration: "10 דקות",
+        opening: {
+            description: "תרגול חיסור בסיסי באמצעות ממתקים.",
+            imageUrl: "https://images.unsplash.com/photo-1582058928232-216836896e00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "לדני היו 10 סוכריות. הוא אכל 4 סוכריות. כמה סוכריות נשארו לדני?",
+            context: "חיסור פשוט של מספרים."
+        },
+        data: {
+            chartType: 'bar',
+            description: "מספר הסוכריות",
+            chartData: [
+                { name: "סוכריות (התחלה)", value: 10 },
+                { name: "נאכלו", value: 4 }
+            ],
+            facts: [
+                "חיסור היא פעולה של הפחתת כמות אחת מאחרת.",
+                "הסימן לחיסור הוא -."
+            ]
+        },
+        analysis: {
+            questions: [
+                "כמה סוכריות היו בהתחלה?",
+                "כמה ירדו?"
+            ],
+            keyTerms: ["חיסור", "הפרש", "מינוס"]
+        },
+        solutions: {
+            options: [
+                { id: "s13_1", text: "5 סוכריות", correct: false, resultId: "wrong_diff" },
+                { id: "s13_2", text: "6 סוכריות", correct: true, resultId: "correct_diff" },
+                { id: "s13_3", text: "7 סוכריות", correct: false, resultId: "wrong_diff" }
+            ]
+        },
+        simulation: {
+            results: {
+                "wrong_diff": {
+                    summary: "תשובה שגויה",
+                    detail: "נסה לחשב שוב כמה נשאר.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80"
+                },
+                "correct_diff": {
+                    summary: "מצוין!",
+                    detail: "10 פחות 4 הם אכן 6.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["האם נשארו יותר או פחות סוכריות ממה שהיו בהתחלה?", "למה זה קרה?"]
         }
     }
 ];
@@ -798,21 +916,21 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "backlash": { 
-                    summary: "Economic Stagnation", 
-                    detail: "Factories threatened to leave the city due to strict regulations, causing job losses.", 
+                "backlash": {
+                    summary: "Economic Stagnation",
+                    detail: "Factories threatened to leave the city due to strict regulations, causing job losses.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1535132012373-3085fb089e3d?auto=format&fit=crop&w=800&q=80"
                 },
-                "sustainable": { 
-                    summary: "Gradual Reduction", 
-                    detail: "Energy consumption dropped by 15% in the first year with high public support.", 
+                "sustainable": {
+                    summary: "Gradual Reduction",
+                    detail: "Energy consumption dropped by 15% in the first year with high public support.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
                 },
-                "pollution": { 
-                    summary: "Environmental Crisis", 
-                    detail: "Energy supply met demand, but the air quality index worsened significantly.", 
+                "pollution": {
+                    summary: "Environmental Crisis",
+                    detail: "Energy supply met demand, but the air quality index worsened significantly.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1611273426761-53c8577a20fa?auto=format&fit=crop&w=800&q=80"
                 }
@@ -866,21 +984,21 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "panic": { 
-                    summary: "Public Riots", 
-                    detail: "Residents revolted due to drastic cuts while farms continued to use water freely.", 
+                "panic": {
+                    summary: "Public Riots",
+                    detail: "Residents revolted due to drastic cuts while farms continued to use water freely.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1555862124-a4ebf4c16482?auto=format&fit=crop&w=800&q=80"
                 },
-                "efficiency": { 
-                    summary: "Long-term Stability", 
-                    detail: "Agricultural water use dropped by 30%, stabilizing the reservoir.", 
+                "efficiency": {
+                    summary: "Long-term Stability",
+                    detail: "Agricultural water use dropped by 30%, stabilizing the reservoir.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1622383563227-0440114a8517?auto=format&fit=crop&w=800&q=80"
                 },
-                "debt": { 
-                    summary: "Financial Crisis", 
-                    detail: "Water was secured, but the city went bankrupt.", 
+                "debt": {
+                    summary: "Financial Crisis",
+                    detail: "Water was secured, but the city went bankrupt.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80"
                 }
@@ -934,21 +1052,21 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "traffic_chaos": { 
-                    summary: "Traffic Nightmare", 
-                    detail: "The city is gridlocked. The bridge was safe, but the cost was too high.", 
+                "traffic_chaos": {
+                    summary: "Traffic Nightmare",
+                    detail: "The city is gridlocked. The bridge was safe, but the cost was too high.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1566232392379-afd9298e6a46?auto=format&fit=crop&w=800&q=80"
                 },
-                "safe_extend": { 
-                    summary: "Optimal Safety", 
-                    detail: "Bridge life extended by 10 years with minimal disruption.", 
+                "safe_extend": {
+                    summary: "Optimal Safety",
+                    detail: "Bridge life extended by 10 years with minimal disruption.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1513415277900-a62401e19be4?auto=format&fit=crop&w=800&q=80"
                 },
-                "collapse": { 
-                    summary: "Catastrophic Failure", 
-                    detail: "The bridge collapsed during rush hour.", 
+                "collapse": {
+                    summary: "Catastrophic Failure",
+                    detail: "The bridge collapsed during rush hour.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1594718360228-45c857632596?auto=format&fit=crop&w=800&q=80"
                 }
@@ -1004,21 +1122,21 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "budget_deficit": { 
-                    summary: "Budget Overrun", 
-                    detail: "The problem was solved, but the school went into deficit and had to cut teaching hours.", 
+                "budget_deficit": {
+                    summary: "Budget Overrun",
+                    detail: "The problem was solved, but the school went into deficit and had to cut teaching hours.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80"
                 },
-                "optimized": { 
-                    summary: "Maximum Efficiency", 
-                    detail: "Crowding dropped by 40% at no extra cost. Students arrive on time and comfortably.", 
+                "optimized": {
+                    summary: "Maximum Efficiency",
+                    detail: "Crowding dropped by 40% at no extra cost. Students arrive on time and comfortably.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80"
                 },
-                "parent_anger": { 
-                    summary: "Parental Resistance", 
-                    detail: "Parents refused the start time change, and buses remained empty at 07:00.", 
+                "parent_anger": {
+                    summary: "Parental Resistance",
+                    detail: "Parents refused the start time change, and buses remained empty at 07:00.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1572953109213-3be62398eb95?auto=format&fit=crop&w=800&q=80"
                 }
@@ -1074,21 +1192,21 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "resistance": { 
-                    summary: "Worsening Resistance", 
-                    detail: "Bacteria developed resistance even to the high dose, and the infection spread to other wards.", 
+                "resistance": {
+                    summary: "Worsening Resistance",
+                    detail: "Bacteria developed resistance even to the high dose, and the infection spread to other wards.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1584036561566-b93a9499cb6d?auto=format&fit=crop&w=800&q=80"
                 },
-                "eradication": { 
-                    summary: "Outbreak Eradicated", 
-                    detail: "The infection stopped within 48 hours. No further cases were recorded.", 
+                "eradication": {
+                    summary: "Outbreak Eradicated",
+                    detail: "The infection stopped within 48 hours. No further cases were recorded.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=800&q=80"
                 },
-                "sepsis": { 
-                    summary: "System Failure", 
-                    detail: "Without treatment, patients' conditions deteriorated rapidly.", 
+                "sepsis": {
+                    summary: "System Failure",
+                    detail: "Without treatment, patients' conditions deteriorated rapidly.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1516574187841-693017951ac9?auto=format&fit=crop&w=800&q=80"
                 }
@@ -1142,21 +1260,21 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "safe_stop": { 
-                    summary: "Safety Balance", 
-                    detail: "Accidents dropped by 80% and traffic flow remained reasonable.", 
+                "safe_stop": {
+                    summary: "Safety Balance",
+                    detail: "Accidents dropped by 80% and traffic flow remained reasonable.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1465447142348-e9952c393450?auto=format&fit=crop&w=800&q=80"
                 },
-                "accidents_continue": { 
-                    summary: "No Change", 
-                    detail: "Drivers ignored the sign and accidents continued to occur.", 
+                "accidents_continue": {
+                    summary: "No Change",
+                    detail: "Drivers ignored the sign and accidents continued to occur.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80"
                 },
-                "traffic_jam": { 
-                    summary: "Heavy Traffic", 
-                    detail: "Accidents stopped, but massive traffic jams paralyzed the area.", 
+                "traffic_jam": {
+                    summary: "Heavy Traffic",
+                    detail: "Accidents stopped, but massive traffic jams paralyzed the area.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80"
                 }
@@ -1210,21 +1328,21 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "partial_fix": { 
-                    summary: "Temporary Improvement", 
-                    detail: "Acidity dropped slightly, but not enough to save fish in the immediate area.", 
+                "partial_fix": {
+                    summary: "Temporary Improvement",
+                    detail: "Acidity dropped slightly, but not enough to save fish in the immediate area.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1583325958573-3c89e40551ad?auto=format&fit=crop&w=800&q=80"
                 },
-                "neutralized": { 
-                    summary: "Successful Restoration", 
-                    detail: "Adding the base raised the pH to 7 (neutral) and the ecosystem was saved.", 
+                "neutralized": {
+                    summary: "Successful Restoration",
+                    detail: "Adding the base raised the pH to 7 (neutral) and the ecosystem was saved.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1467197663608-c5a279ce6c15?auto=format&fit=crop&w=800&q=80"
                 },
-                "ecological_death": { 
-                    summary: "Ecological Disaster", 
-                    detail: "All fish within a 1 km radius died. The damage is irreversible for years.", 
+                "ecological_death": {
+                    summary: "Ecological Disaster",
+                    detail: "All fish within a 1 km radius died. The damage is irreversible for years.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1569060367013-2e93a3af3a59?auto=format&fit=crop&w=800&q=80"
                 }
@@ -1277,21 +1395,21 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "low_margin": { 
-                    summary: "Hard Work, Low Profit", 
-                    detail: "You sold 100 pizzas! But profit was only 1,500 NIS. The kitchen collapsed under the load.", 
+                "low_margin": {
+                    summary: "Hard Work, Low Profit",
+                    detail: "You sold 100 pizzas! But profit was only 1,500 NIS. The kitchen collapsed under the load.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=800&q=80"
                 },
-                "optimal": { 
-                    summary: "Maximum Profit", 
-                    detail: "You sold 60 pizzas. Daily profit is 1,900 NIS. The business is thriving!", 
+                "optimal": {
+                    summary: "Maximum Profit",
+                    detail: "You sold 60 pizzas. Daily profit is 1,900 NIS. The business is thriving!",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1574126154517-d1e0d89e7344?auto=format&fit=crop&w=800&q=80"
                 },
-                "low_sales": { 
-                    summary: "Disappointed Customers", 
-                    detail: "You sold only 20 pizzas. Profit is just 700 NIS. Customers went to competitors.", 
+                "low_sales": {
+                    summary: "Disappointed Customers",
+                    detail: "You sold only 20 pizzas. Profit is just 700 NIS. Customers went to competitors.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80"
                 }
@@ -1345,21 +1463,21 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "fun_but_failing": { 
-                    summary: "Fun but Inefficient", 
-                    detail: "Students enjoyed the trip, but struggled to learn without proper equipment.", 
+                "fun_but_failing": {
+                    summary: "Fun but Inefficient",
+                    detail: "Students enjoyed the trip, but struggled to learn without proper equipment.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
                 },
-                "balanced": { 
-                    summary: "Perfect Balance", 
-                    detail: "The class is cohesive and academic achievements improved thanks to new equipment.", 
+                "balanced": {
+                    summary: "Perfect Balance",
+                    detail: "The class is cohesive and academic achievements improved thanks to new equipment.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1427504746696-ea5abd7dfe03?auto=format&fit=crop&w=800&q=80"
                 },
-                "boring": { 
-                    summary: "Class Resentment", 
-                    detail: "Grades went up, but the atmosphere in class is gloomy and students are angry.", 
+                "boring": {
+                    summary: "Class Resentment",
+                    detail: "Grades went up, but the atmosphere in class is gloomy and students are angry.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80"
                 }
@@ -1412,21 +1530,21 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "engagement": { 
-                    summary: "Personalized Learning", 
-                    detail: "Students showed great interest and progressed at their own pace. The teacher moved to a facilitator role.", 
+                "engagement": {
+                    summary: "Personalized Learning",
+                    detail: "Students showed great interest and progressed at their own pace. The teacher moved to a facilitator role.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80"
                 },
-                "passive": { 
-                    summary: "Slight Improvement", 
-                    detail: "Lessons became more visual, but the teaching method remained frontal.", 
+                "passive": {
+                    summary: "Slight Improvement",
+                    detail: "Lessons became more visual, but the teaching method remained frontal.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
                 },
-                "niche": { 
-                    summary: "Limited Use", 
-                    detail: "Only a small group of students used the printer. The majority of the class did not benefit.", 
+                "niche": {
+                    summary: "Limited Use",
+                    detail: "Only a small group of students used the printer. The majority of the class did not benefit.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1631541909061-71e349d1f203?auto=format&fit=crop&w=800&q=80"
                 }
@@ -1480,21 +1598,21 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         simulation: {
             results: {
-                "dusty": { 
-                    summary: "Maintenance Issues", 
-                    detail: "Output was good in summer, but mud accumulated in winter and efficiency dropped.", 
+                "dusty": {
+                    summary: "Maintenance Issues",
+                    detail: "Output was good in summer, but mud accumulated in winter and efficiency dropped.",
                     outcomeType: "neutral",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1508514177221-188b1cf2f24f?auto=format&fit=crop&w=800&q=80"
                 },
-                "optimal_solar": { 
-                    summary: "Maximum Efficiency", 
-                    detail: "The system produced the maximum possible throughout the year and returned the investment quickly.", 
+                "optimal_solar": {
+                    summary: "Maximum Efficiency",
+                    detail: "The system produced the maximum possible throughout the year and returned the investment quickly.",
                     outcomeType: "success",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80"
                 },
-                "summer_loss": { 
-                    summary: "Summer Loss", 
-                    detail: "Winter output was excellent, but we lost the long sun hours of summer.", 
+                "summer_loss": {
+                    summary: "Summer Loss",
+                    detail: "Winter output was excellent, but we lost the long sun hours of summer.",
                     outcomeType: "failure",
                     outcomeImageUrl: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
                 }
@@ -1502,6 +1620,124 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["What is the relationship between latitude and panel angle?", "How do maintenance considerations affect engineering design?"]
+        }
+    },
+    {
+        id: "scenario_012",
+        title: "Arithmetic - Basic Addition",
+        category: "Mathematics / Arithmetic",
+        duration: "10 mins",
+        opening: {
+            description: "Practice basic addition using apples.",
+            imageUrl: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "Yossi has 5 apples. Dana gave him 3 more apples. How many apples does Yossi have now?",
+            context: "Simple addition of single-digit numbers."
+        },
+        data: {
+            chartType: 'bar',
+            description: "Number of Apples",
+            chartData: [
+                { name: "Yossi (Start)", value: 5 },
+                { name: "Dana gave", value: 3 }
+            ],
+            facts: [
+                "Addition is the action of adding one quantity to another.",
+                "The sign for addition is +."
+            ]
+        },
+        analysis: {
+            questions: [
+                "How many apples did Yossi have initially?",
+                "How many did he receive?"
+            ],
+            keyTerms: ["Addition", "Sum", "Plus"]
+        },
+        solutions: {
+            options: [
+                { id: "s12_1", text: "7 apples", correct: false, resultId: "wrong_sum" },
+                { id: "s12_2", text: "8 apples", correct: true, resultId: "correct_sum" },
+                { id: "s12_3", text: "9 apples", correct: false, resultId: "wrong_sum" }
+            ]
+        },
+        simulation: {
+            results: {
+                "wrong_sum": {
+                    summary: "Incorrect Answer",
+                    detail: "Try counting the apples together again.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80"
+                },
+                "correct_sum": {
+                    summary: "Well Done!",
+                    detail: "5 plus 3 is indeed 8.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["How did you reach the answer?", "Can you add other things in the same way?"]
+        }
+    },
+    {
+        id: "scenario_013",
+        title: "Arithmetic - Basic Subtraction",
+        category: "Mathematics / Arithmetic",
+        duration: "10 mins",
+        opening: {
+            description: "Practice basic subtraction using candies.",
+            imageUrl: "https://images.unsplash.com/photo-1582058928232-216836896e00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "Danny had 10 candies. He ate 4 candies. How many candies does Danny have left?",
+            context: "Simple subtraction of numbers."
+        },
+        data: {
+            chartType: 'bar',
+            description: "Number of Candies",
+            chartData: [
+                { name: "Candies (Start)", value: 10 },
+                { name: "Eaten", value: 4 }
+            ],
+            facts: [
+                "Subtraction is the action of taking one quantity away from another.",
+                "The sign for subtraction is -."
+            ]
+        },
+        analysis: {
+            questions: [
+                "How many candies were there initially?",
+                "How many were eaten?"
+            ],
+            keyTerms: ["Subtraction", "Difference", "Minus"]
+        },
+        solutions: {
+            options: [
+                { id: "s13_1", text: "5 candies", correct: false, resultId: "wrong_diff" },
+                { id: "s13_2", text: "6 candies", correct: true, resultId: "correct_diff" },
+                { id: "s13_3", text: "7 candies", correct: false, resultId: "wrong_diff" }
+            ]
+        },
+        simulation: {
+            results: {
+                "wrong_diff": {
+                    summary: "Incorrect Answer",
+                    detail: "Try calculating how many are left again.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80"
+                },
+                "correct_diff": {
+                    summary: "Excellent!",
+                    detail: "10 minus 4 is indeed 6.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["Are there more or fewer candies left than at the start?", "Why did this happen?"]
         }
     }
 ];

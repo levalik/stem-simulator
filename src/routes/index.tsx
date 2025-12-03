@@ -46,7 +46,7 @@ const LoginPage = () => {
 
         <div className="text-center mb-8">
           <div className="inline-block mb-4 animate-float">
-            <Logo className="w-16 h-16" classNamePath="fill-primary-600" />
+            <Logo className="w-16 h-16" classNamePath="fill-primary-600" spin={true} />
           </div>
           <h1 className="text-3xl font-bold text-surface-900 mb-2">STEM Simulator</h1>
           <p className="text-surface-500">AI-Enhanced Training for Modern Educators</p>

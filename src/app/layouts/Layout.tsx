@@ -170,23 +170,36 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
             {currentUser && (
               <div className="flex items-center gap-4 pl-4 rtl:pl-0 rtl:pr-4 border-l rtl:border-l-0 rtl:border-r border-surface-200">
-                <button className="relative p-3 bg-white rounded-full text-surface-400 hover:text-primary-600 hover:bg-primary-50 border border-surface-200 shadow-sm transition-all group">
-                  <span className="absolute top-2.5 right-3 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white group-hover:animate-pulse"></span>
-                  <Bell size={20} />
-                </button>
+                <Tooltip content={t('tooltip_notifications')}>
+                  <button className="relative p-3 bg-white rounded-full text-surface-400 hover:text-primary-600 hover:bg-primary-50 border border-surface-200 shadow-sm transition-all group">
+                    <span className="absolute top-2.5 right-3 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white group-hover:animate-pulse"></span>
+                    <Bell size={20} />
+                  </button>
+                </Tooltip>
 
-                <div className="flex items-center gap-3 pl-2 rtl:pr-2 cursor-pointer group" onClick={handleLogout} title={t('sign_out')}>
-                  <div className="relative">
-                    <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white text-sm font-bold shadow-md ring-4 ring-white group-hover:ring-primary-100 transition-all">
-                      {currentUser.name?.charAt(0) || 'U'}
+                <Tooltip content={t('tooltip_logout')}>
+                  <button
+                    onClick={handleLogout}
+                    className="p-3 bg-white rounded-full text-surface-400 hover:text-red-600 hover:bg-red-50 border border-surface-200 shadow-sm transition-all"
+                  >
+                    <LogOut size={20} />
+                  </button>
+                </Tooltip>
+
+                <Tooltip content={t('tooltip_user_profile')}>
+                  <div className="flex items-center gap-3 pl-2 rtl:pr-2 cursor-pointer group">
+                    <div className="relative">
+                      <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white text-sm font-bold shadow-md ring-4 ring-white group-hover:ring-primary-100 transition-all">
+                        {currentUser.name?.charAt(0) || 'U'}
+                      </div>
+                      <div className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-green-500 ring-2 ring-white"></div>
                     </div>
-                    <div className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-green-500 ring-2 ring-white"></div>
+                    <div className="hidden lg:flex flex-col items-start">
+                      <span className="text-sm font-bold text-surface-900 leading-tight group-hover:text-primary-600 transition-colors">{currentUser.name?.split(' ')[0]}</span>
+                      <span className="text-[10px] font-bold text-surface-400 uppercase tracking-wider">{isAdmin ? 'Admin' : 'Teacher'}</span>
+                    </div>
                   </div>
-                  <div className="hidden lg:flex flex-col items-start">
-                    <span className="text-sm font-bold text-surface-900 leading-tight group-hover:text-primary-600 transition-colors">{currentUser.name?.split(' ')[0]}</span>
-                    <span className="text-[10px] font-bold text-surface-400 uppercase tracking-wider">{isAdmin ? 'Admin' : 'Teacher'}</span>
-                  </div>
-                </div>
+                </Tooltip>
               </div>
             )}
           </div>

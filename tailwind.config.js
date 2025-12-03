@@ -70,6 +70,7 @@ export default {
         'fade-in-up': 'fadeInUp 0.5s ease-out',
         'scale-in': 'scaleIn 0.3s ease-out',
         'pulse-soft': 'pulseSoft 3s infinite',
+        'spin-slow': 'spin 10s linear infinite',
       },
       keyframes: {
         fadeIn: {
