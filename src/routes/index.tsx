@@ -87,7 +87,7 @@ const LoginPage = () => {
         </form>
 
         <div className="text-center space-y-2 pt-6">
-          <p className="text-xs text-surface-400 font-medium">{t('version')} 1.0.0 • <a href="https://www.siema.co.il/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">{t('powered_by_siema')}</a></p>
+          <p className="text-xs text-surface-400 font-medium">{t('version')} {__APP_VERSION__} • <a href="https://www.siema.co.il/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">{t('powered_by_siema')}</a></p>
           <p className="text-[10px] text-surface-300 uppercase tracking-widest">{t('demo_mode_warning')}</p>
         </div>
       </div>

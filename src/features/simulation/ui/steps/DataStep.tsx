@@ -1,78 +1,15 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useStore } from '../../../../app/store';
 import { Activity, Lightbulb } from 'lucide-react';
 import { StepHeader, NavButtons } from './StepComponents';
 import { Card } from '../../../../shared/ui/DesignSystem';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, Cell, PieChart, Pie, LineChart, Line } from 'recharts';
+
+// Lazy load the chart component
+const LazyChart = React.lazy(() => import('../../../../shared/ui/LazyChart'));
 
 export const DataStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) => {
     const { activeScenario, t, language } = useStore();
     if (!activeScenario) return null;
-
-    const renderChart = () => {
-        const type = activeScenario.data.chartType;
-        const data = activeScenario.data.chartData;
-        
-        // Theme colors
-        const colors = ['#8b5cf6', '#14b8a6', '#f43f5e', '#f59e0b']; // Primary, Secondary, Accent, Amber
-
-        if (type === 'pie') {
-            return (
-                <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                        <Pie
-                            data={data}
-                            cx="50%"
-                            cy="50%"
-                            labelLine={false}
-                            outerRadius={120}
-                            fill="#8884d8"
-                            dataKey="value"
-                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                        >
-                            {data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-                            ))}
-                        </Pie>
-                        <RechartsTooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
-                        <Legend />
-                    </PieChart>
-                </ResponsiveContainer>
-            )
-        }
-
-        if (type === 'line') {
-            return (
-                <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f4f4f5" />
-                        <XAxis dataKey="name" axisLine={false} tickLine={false} dy={10} tick={{ fill: '#71717a' }} />
-                        <YAxis axisLine={false} tickLine={false} tick={{ fill: '#71717a' }} />
-                        <RechartsTooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
-                        <Legend />
-                        <Line type="monotone" dataKey="value" stroke="#8b5cf6" strokeWidth={4} dot={{ r: 6, fill: '#fff', strokeWidth: 3 }} activeDot={{ r: 8 }} />
-                    </LineChart>
-                </ResponsiveContainer>
-            )
-        }
-
-        return (
-            <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f4f4f5" vertical={false} />
-                    <XAxis dataKey="name" tick={{ fill: '#71717a', fontSize: 12 }} axisLine={false} tickLine={false} dy={10} />
-                    <YAxis tick={{ fill: '#71717a', fontSize: 12 }} axisLine={false} tickLine={false} />
-                    <RechartsTooltip cursor={{ fill: '#f4f4f5' }} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
-                    <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                    <Bar dataKey="value" fill="#8b5cf6" radius={[8, 8, 0, 0]} maxBarSize={60}>
-                        {data.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-                        ))}
-                    </Bar>
-                </BarChart>
-            </ResponsiveContainer>
-        );
-    }
 
     return (
         <div className="max-w-6xl mx-auto">
@@ -91,7 +28,16 @@ export const DataStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: () =>
                     </div>
 
                     <div className="h-[400px] w-full">
-                        {renderChart()}
+                        <Suspense fallback={
+                            <div className="h-full w-full flex items-center justify-center bg-surface-50 rounded-xl">
+                                <div className="animate-spin rounded-full h-8 w-8 border-4 border-primary-500 border-t-transparent"></div>
+                            </div>
+                        }>
+                            <LazyChart
+                                type={activeScenario.data.chartType}
+                                data={activeScenario.data.chartData}
+                            />
+                        </Suspense>
                     </div>
                 </Card>
 
@@ -127,3 +73,4 @@ export const DataStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: () =>
         </div>
     );
 };
+

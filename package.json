@@ -1,12 +1,13 @@
 {
   "name": "stem-simulator",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "homepage": "https://levalik.github.io/stem-simulator",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "update-version": "node scripts/update-version.js",
+    "build": "npm run update-version && vite build && copy dist\\index.html dist\\404.html",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
