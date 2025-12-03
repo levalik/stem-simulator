@@ -1,4 +1,4 @@
-import{c as a}from"./Logo-2fIic4rr.js";/**
+import{c as a}from"./Logo-Csmy6Gdv.js";/**
  * @license lucide-react v0.555.0 - ISC
  *
  * This source code is licensed under the ISC license.
