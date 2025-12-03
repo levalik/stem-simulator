@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useStore } from '../../../../app/store';
-import { BrainCircuit } from 'lucide-react';
+import { BrainCircuit, Info } from 'lucide-react';
 import { StepHeader, NavButtons } from './StepComponents';
 import { analyzeAnalysisResponse } from '../../../../shared/api/geminiService';
 import { Card, TextArea } from '../../../../shared/ui/DesignSystem';
+import { Tooltip } from '../../../../shared/ui/Tooltip';
 
 export const AnalysisStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) => {
     const { activeScenario, activeSession, updateSessionResponse, t } = useStore();
@@ -31,9 +32,12 @@ export const AnalysisStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: (
                 <div className="space-y-6">
                     {activeScenario.analysis.questions.map((q, idx) => (
                         <Card key={idx} className="p-8 shadow-lg shadow-surface-200/50 transition-all focus-within:ring-4 focus-within:ring-primary-100 focus-within:border-primary-300">
-                            <label className="block text-lg font-bold text-surface-800 mb-4 flex gap-3">
-                                <span className="bg-surface-100 text-surface-500 w-8 h-8 flex items-center justify-center rounded-lg text-sm shrink-0 font-mono">{idx + 1}</span>
-                                {q}
+                            <label className="block text-lg font-bold text-surface-800 mb-4 flex gap-3 items-start">
+                                <span className="bg-surface-100 text-surface-500 w-8 h-8 flex items-center justify-center rounded-lg text-sm shrink-0 font-mono mt-0.5">{idx + 1}</span>
+                                <span className="flex-1">{q}</span>
+                                <Tooltip content={t('ai_hint') || "Analyze the data carefully before answering."}>
+                                    <Info size={18} className="text-surface-400 hover:text-primary-500 transition-colors cursor-help mt-1" />
+                                </Tooltip>
                             </label>
                             <TextArea
                                 className="bg-surface-50 border-surface-200 focus:bg-white min-h-[140px] text-base leading-relaxed"

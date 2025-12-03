@@ -1,8 +1,9 @@
 import React from 'react';
 import { useStore } from '../../../../app/store';
-import { Lightbulb } from 'lucide-react';
+import { Lightbulb, Info } from 'lucide-react';
 import { StepHeader, NavButtons } from './StepComponents';
 import { Card } from '../../../../shared/ui/DesignSystem';
+import { Tooltip } from '../../../../shared/ui/Tooltip';
 
 export const ProblemStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) => {
     const { activeScenario, t } = useStore();
@@ -19,7 +20,12 @@ export const ProblemStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: ()
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                 <div className="space-y-8">
                     <Card className="shadow-xl shadow-surface-200/50 relative overflow-hidden group border-l-8 border-l-blue-500">
-                        <h3 className="text-2xl font-extrabold text-surface-900 mb-4">{t('core_problem')}</h3>
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-2xl font-extrabold text-surface-900">{t('core_problem')}</h3>
+                            <Tooltip content={t('ai_hint') || "Read the problem statement carefully."}>
+                                <Info size={20} className="text-surface-400 hover:text-primary-500 transition-colors cursor-help" />
+                            </Tooltip>
+                        </div>
                         <p className="text-lg text-surface-600 leading-relaxed">{activeScenario.problem.text}</p>
                     </Card>
 

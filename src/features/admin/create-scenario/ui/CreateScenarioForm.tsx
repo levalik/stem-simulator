@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Wand2, FileText, Image as ImageIcon, BarChart3, TrendingUp, HelpCircle, CheckCircle, Save, PieChart as PieChartIcon } from 'lucide-react';
+import { Wand2, FileText, Image as ImageIcon, BarChart3, TrendingUp, HelpCircle, CheckCircle, Save, PieChart as PieChartIcon, Trash2, Plus, X } from 'lucide-react';
 import { useStore } from '../../../../app/store';
 import { generateScenarioFromTopic } from '../../../../shared/api/geminiService';
 import { Scenario } from '../../../../entities/scenario';
@@ -100,14 +100,14 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
                                 <h3>{t('ai_generator') || "AI Scenario Generator"}</h3>
                             </div>
                             <div className="flex gap-3">
-                                <Input 
+                                <Input
                                     placeholder={t('enter_topic') || "Enter a topic (e.g., 'Water Conservation in Urban Areas')"}
                                     value={topicPrompt}
                                     onChange={(e) => setTopicPrompt(e.target.value)}
                                     className="bg-white"
                                 />
-                                <Button 
-                                    onClick={handleGenerate} 
+                                <Button
+                                    onClick={handleGenerate}
                                     isLoading={isGenerating}
                                     variant="secondary"
                                     leftIcon={<Wand2 size={16} />}
@@ -248,11 +248,10 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
                                         key={opt.value}
                                         type="button"
                                         onClick={() => handleInputChange('data', 'chartType', opt.value)}
-                                        className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
-                                            formData.data?.chartType === opt.value
+                                        className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${formData.data?.chartType === opt.value
                                                 ? 'border-primary-500 bg-primary-50 text-primary-700'
                                                 : 'border-surface-200 bg-white text-surface-600 hover:border-primary-200 hover:bg-primary-50/50'
-                                        }`}
+                                            }`}
                                     >
                                         {opt.value === 'bar' && <BarChart3 size={24} />}
                                         {opt.value === 'pie' && <PieChartIcon size={24} />}
@@ -294,28 +293,171 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
             );
             case 5: return (
                 <div className="space-y-6 animate-fade-in">
-                    <h3 className="text-xl font-bold text-surface-900">{t('proposed_solution')}</h3>
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-xl font-bold text-surface-900">{t('solution_options')}</h3>
+                        <Button
+                            onClick={() => {
+                                const newId = `opt_${Date.now()}`;
+                                const newResultId = `res_${Date.now()}`;
+                                setFormData(prev => ({
+                                    ...prev,
+                                    solutions: {
+                                        options: [
+                                            ...(prev.solutions?.options || []),
+                                            { id: newId, text: '', correct: false, resultId: newResultId }
+                                        ]
+                                    },
+                                    simulation: {
+                                        results: {
+                                            ...(prev.simulation?.results || {}),
+                                            [newResultId]: { summary: '', detail: '', outcomeType: 'neutral' }
+                                        }
+                                    }
+                                }));
+                            }}
+                            leftIcon={<Plus size={16} />}
+                            size="sm"
+                        >
+                            {t('add_option')}
+                        </Button>
+                    </div>
                     <div className="grid gap-4">
-                        {/* Simplified solution editor for MVP */}
-                        <p className="text-sm text-surface-500">Edit solutions in JSON mode for advanced control.</p>
-                        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                            <pre className="text-xs overflow-auto max-h-60">
-                                {JSON.stringify(formData.solutions, null, 2)}
-                            </pre>
-                        </div>
+                        {formData.solutions?.options.map((option, idx) => (
+                            <div key={option.id} className="bg-surface-50 p-4 rounded-xl border border-surface-200 relative group">
+                                <button
+                                    onClick={() => {
+                                        const newOptions = [...(formData.solutions?.options || [])];
+                                        newOptions.splice(idx, 1);
+                                        // Also remove associated result
+                                        const newResults = { ...(formData.simulation?.results || {}) };
+                                        delete newResults[option.resultId];
+
+                                        setFormData(prev => ({
+                                            ...prev,
+                                            solutions: { options: newOptions },
+                                            simulation: { results: newResults }
+                                        }));
+                                    }}
+                                    className="absolute top-2 right-2 rtl:right-auto rtl:left-2 text-surface-400 hover:text-red-500 transition-colors"
+                                >
+                                    <X size={16} />
+                                </button>
+                                <div className="grid gap-3">
+                                    <Input
+                                        label={`${t('option')} ${idx + 1}`}
+                                        value={option.text}
+                                        onChange={e => {
+                                            const newOptions = [...(formData.solutions?.options || [])];
+                                            newOptions[idx].text = e.target.value;
+                                            setFormData(prev => ({ ...prev, solutions: { options: newOptions } }));
+                                        }}
+                                        placeholder={language === 'he' ? 'תיאור הפתרון...' : 'Solution description...'}
+                                    />
+                                    <div className="flex items-center gap-4">
+                                        <label className="flex items-center gap-2 cursor-pointer">
+                                            <input
+                                                type="checkbox"
+                                                checked={option.correct}
+                                                onChange={e => {
+                                                    const newOptions = [...(formData.solutions?.options || [])];
+                                                    newOptions[idx].correct = e.target.checked;
+                                                    setFormData(prev => ({ ...prev, solutions: { options: newOptions } }));
+                                                }}
+                                                className="w-4 h-4 rounded border-surface-300 text-primary-600 focus:ring-primary-500"
+                                            />
+                                            <span className="text-sm font-medium text-surface-700">{t('is_correct')}</span>
+                                        </label>
+                                        <div className="text-xs text-surface-400 font-mono bg-surface-100 px-2 py-1 rounded">
+                                            ID: {option.resultId}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                        {(!formData.solutions?.options || formData.solutions.options.length === 0) && (
+                            <div className="text-center py-8 text-surface-500 bg-surface-50 rounded-xl border border-dashed border-surface-300">
+                                {language === 'he' ? 'אין אפשרויות. הוסף אפשרות חדשה.' : 'No options. Add a new option.'}
+                            </div>
+                        )}
                     </div>
                 </div>
             );
             case 6: return (
                 <div className="space-y-6 animate-fade-in">
-                    <h3 className="text-xl font-bold text-surface-900">{t('reflection')}</h3>
-                    <div className="grid gap-4">
-                        <TextArea
-                            label={t('reflection_questions')}
-                            value={formData.reflection?.questions.join('\n')}
-                            onChange={e => handleInputChange('reflection', 'questions', e.target.value.split('\n'))}
-                            rows={6}
-                        />
+                    <h3 className="text-xl font-bold text-surface-900">{t('simulation_results')}</h3>
+                    <p className="text-sm text-surface-500 mb-4">
+                        {language === 'he'
+                            ? 'הגדר את התוצאה עבור כל אפשרות פתרון שהוגדרה בשלב הקודם.'
+                            : 'Define the outcome for each solution option defined in the previous step.'}
+                    </p>
+                    <div className="grid gap-6">
+                        {formData.solutions?.options.map((option, idx) => {
+                            const result = formData.simulation?.results[option.resultId] || { summary: '', detail: '', outcomeType: 'neutral' };
+                            return (
+                                <div key={option.id} className="bg-surface-50 p-5 rounded-xl border border-surface-200">
+                                    <div className="mb-4 pb-3 border-b border-surface-200 flex justify-between items-center">
+                                        <h4 className="font-bold text-surface-800 flex items-center gap-2">
+                                            <span className="w-6 h-6 rounded-full bg-surface-200 flex items-center justify-center text-xs">{idx + 1}</span>
+                                            {option.text || (language === 'he' ? '(ללא כותרת)' : '(Untitled Option)')}
+                                        </h4>
+                                        <span className={`text-xs px-2 py-1 rounded-full font-bold ${option.correct ? 'bg-emerald-100 text-emerald-700' : 'bg-surface-200 text-surface-600'}`}>
+                                            {option.correct ? t('correct') : t('incorrect')}
+                                        </span>
+                                    </div>
+                                    <div className="grid gap-4">
+                                        <Input
+                                            label={t('result_summary')}
+                                            value={result.summary}
+                                            onChange={e => {
+                                                const newResults = { ...(formData.simulation?.results || {}) };
+                                                newResults[option.resultId] = { ...result, summary: e.target.value };
+                                                setFormData(prev => ({ ...prev, simulation: { results: newResults } }));
+                                            }}
+                                            placeholder={language === 'he' ? 'כותרת התוצאה...' : 'Outcome headline...'}
+                                        />
+                                        <TextArea
+                                            label={t('result_detail')}
+                                            value={result.detail}
+                                            onChange={e => {
+                                                const newResults = { ...(formData.simulation?.results || {}) };
+                                                newResults[option.resultId] = { ...result, detail: e.target.value };
+                                                setFormData(prev => ({ ...prev, simulation: { results: newResults } }));
+                                            }}
+                                            rows={3}
+                                            placeholder={language === 'he' ? 'תיאור מפורט של מה קרה בעקבות הבחירה...' : 'Detailed description of what happened...'}
+                                        />
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-sm font-semibold text-surface-700 mb-2">{t('outcome')} <span className="text-accent-500">*</span></label>
+                                                <select
+                                                    className="w-full p-2.5 border border-surface-200 rounded-lg bg-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                                                    value={result.outcomeType}
+                                                    onChange={e => {
+                                                        const newResults = { ...(formData.simulation?.results || {}) };
+                                                        newResults[option.resultId] = { ...result, outcomeType: e.target.value as any };
+                                                        setFormData(prev => ({ ...prev, simulation: { results: newResults } }));
+                                                    }}
+                                                >
+                                                    <option value="success">{language === 'he' ? 'הצלחה' : 'Success'}</option>
+                                                    <option value="failure">{language === 'he' ? 'כישלון' : 'Failure'}</option>
+                                                    <option value="neutral">{language === 'he' ? 'ניטרלי' : 'Neutral'}</option>
+                                                </select>
+                                            </div>
+                                            <Input
+                                                label={t('image_url')}
+                                                value={result.outcomeImageUrl || ''}
+                                                onChange={e => {
+                                                    const newResults = { ...(formData.simulation?.results || {}) };
+                                                    newResults[option.resultId] = { ...result, outcomeImageUrl: e.target.value };
+                                                    setFormData(prev => ({ ...prev, simulation: { results: newResults } }));
+                                                }}
+                                                placeholder="https://..."
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             );
