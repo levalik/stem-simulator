@@ -24,7 +24,7 @@ export const ReflectionStep = () => {
 
     const handleNextScenario = () => {
         if (nextScenario) {
-            navigate({ to: '/simulation/$scenarioId', params: { scenarioId: nextScenario.id } as any });
+            navigate({ to: '/simulation/$scenarioId', params: { scenarioId: nextScenario.id }, search: { step: 0 } } as any);
         }
     };
 
@@ -117,14 +117,14 @@ A${i + 1}: ${activeSession.responses.reflection[i] || 'Not answered'}
             {/* Session Summary Card */}
             <Card className="p-10 shadow-xl shadow-surface-200/50 mb-12 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary-50 rounded-full -mr-20 -mt-20 blur-3xl"></div>
-                
+
                 <h3 className="text-2xl font-bold text-surface-900 mb-8 flex items-center gap-3 relative z-10">
                     <div className="bg-primary-100 p-2 rounded-lg text-primary-600">
                         <FileText size={24} />
                     </div>
                     {t('session_summary')}
                 </h3>
-                
+
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
                     <div className="text-center p-6 bg-surface-50 rounded-2xl border border-surface-100 hover:shadow-md transition-all">
                         <Clock size={28} className="mx-auto text-primary-500 mb-3" />
