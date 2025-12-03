@@ -234,6 +234,7 @@ export const TRANSLATIONS = {
     tooltip_status_new: "Start this new scenario",
     tooltip_menu_toggle: "Toggle menu",
     tooltip_user_profile: "Your profile settings",
+    generate_with_ai: "Generate with AI",
   },
   he: {
     start: "התחלה",
@@ -481,6 +482,7 @@ export const TRANSLATIONS = {
     tooltip_status_new: "התחל תרחיש חדש זה",
     tooltip_menu_toggle: "פתח/סגור תפריט",
     tooltip_user_profile: "הגדרות הפרופיל שלך",
+    generate_with_ai: "צור בעזרת AI",
   }
 } as const;
 

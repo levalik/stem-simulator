@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Wand2, FileText, Image as ImageIcon, BarChart3, TrendingUp, HelpCircle, CheckCircle, Save, PieChart as PieChartIcon, Trash2, Plus, X } from 'lucide-react';
 import { useStore } from '../../../../app/store';
-import { generateScenarioFromTopic } from '../../../../shared/api/geminiService';
+import { generateScenarioFromTopic, generateSection } from '../../../../shared/api/geminiService';
 import { Scenario } from '../../../../entities/scenario';
 import { Button, Input, TextArea } from '../../../../shared/ui/DesignSystem';
 
@@ -40,6 +40,7 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
     const { t, language } = useStore();
     const [step, setStep] = useState(1);
     const [isGenerating, setIsGenerating] = useState(false);
+    const [generatingSection, setGeneratingSection] = useState<string | null>(null);
     const [topicPrompt, setTopicPrompt] = useState('');
     const [formData, setFormData] = useState<Partial<Scenario>>(initialData || {
         id: crypto.randomUUID(),
@@ -71,6 +72,24 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
             console.error("Failed to generate", error);
         } finally {
             setIsGenerating(false);
+        }
+    };
+
+    const handleSectionGenerate = async (section: 'problem' | 'data' | 'analysis' | 'solutions' | 'reflection') => {
+        const topic = topicPrompt || formData.title || "STEM Scenario";
+        setGeneratingSection(section);
+        try {
+            const result = await generateSection(section, topic);
+            if (result) {
+                setFormData(prev => ({
+                    ...prev,
+                    [section]: { ...prev[section] as any, ...result }
+                }));
+            }
+        } catch (error) {
+            console.error(`Failed to generate ${section}`, error);
+        } finally {
+            setGeneratingSection(null);
         }
     };
 
@@ -199,7 +218,19 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
             );
             case 2: return (
                 <div className="space-y-6 animate-fade-in">
-                    <h3 className="text-xl font-bold text-surface-900">{t('step_2_problem')}</h3>
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-xl font-bold text-surface-900">{t('step_2_problem')}</h3>
+                        <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleSectionGenerate('problem')}
+                            isLoading={generatingSection === 'problem'}
+                            leftIcon={<Wand2 size={16} />}
+                            className="text-purple-600 hover:bg-purple-50"
+                        >
+                            {t('generate_with_ai') || "Generate with AI"}
+                        </Button>
+                    </div>
                     <div className="grid gap-4">
                         <TextArea
                             label={t('problem_statement')}
@@ -231,6 +262,16 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
                             <h3 className="text-xl font-bold text-surface-900">{t('data_analysis')}</h3>
                             <p className="text-sm text-surface-500">{language === 'he' ? 'הגדר את הנתונים שיוצגו לתלמידים' : 'Configure data to be shown to students'}</p>
                         </div>
+                        <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleSectionGenerate('data')}
+                            isLoading={generatingSection === 'data'}
+                            leftIcon={<Wand2 size={16} />}
+                            className="text-purple-600 hover:bg-purple-50 ml-auto"
+                        >
+                            {t('generate_with_ai') || "Generate with AI"}
+                        </Button>
                     </div>
                     <div className="grid gap-5">
                         <TextArea
@@ -249,8 +290,8 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
                                         type="button"
                                         onClick={() => handleInputChange('data', 'chartType', opt.value)}
                                         className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${formData.data?.chartType === opt.value
-                                                ? 'border-primary-500 bg-primary-50 text-primary-700'
-                                                : 'border-surface-200 bg-white text-surface-600 hover:border-primary-200 hover:bg-primary-50/50'
+                                            ? 'border-primary-500 bg-primary-50 text-primary-700'
+                                            : 'border-surface-200 bg-white text-surface-600 hover:border-primary-200 hover:bg-primary-50/50'
                                             }`}
                                     >
                                         {opt.value === 'bar' && <BarChart3 size={24} />}
@@ -273,7 +314,19 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
             );
             case 4: return (
                 <div className="space-y-6 animate-fade-in">
-                    <h3 className="text-xl font-bold text-surface-900">{t('critical_analysis')}</h3>
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-xl font-bold text-surface-900">{t('critical_analysis')}</h3>
+                        <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleSectionGenerate('analysis')}
+                            isLoading={generatingSection === 'analysis'}
+                            leftIcon={<Wand2 size={16} />}
+                            className="text-purple-600 hover:bg-purple-50"
+                        >
+                            {t('generate_with_ai') || "Generate with AI"}
+                        </Button>
+                    </div>
                     <div className="grid gap-4">
                         <TextArea
                             label={t('analysis_questions')}
@@ -295,31 +348,43 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
                 <div className="space-y-6 animate-fade-in">
                     <div className="flex justify-between items-center">
                         <h3 className="text-xl font-bold text-surface-900">{t('solution_options')}</h3>
-                        <Button
-                            onClick={() => {
-                                const newId = `opt_${Date.now()}`;
-                                const newResultId = `res_${Date.now()}`;
-                                setFormData(prev => ({
-                                    ...prev,
-                                    solutions: {
-                                        options: [
-                                            ...(prev.solutions?.options || []),
-                                            { id: newId, text: '', correct: false, resultId: newResultId }
-                                        ]
-                                    },
-                                    simulation: {
-                                        results: {
-                                            ...(prev.simulation?.results || {}),
-                                            [newResultId]: { summary: '', detail: '', outcomeType: 'neutral' }
+                        <div className="flex gap-2">
+                            <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => handleSectionGenerate('solutions')}
+                                isLoading={generatingSection === 'solutions'}
+                                leftIcon={<Wand2 size={16} />}
+                                className="text-purple-600 hover:bg-purple-50"
+                            >
+                                {t('generate_with_ai') || "Generate with AI"}
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    const newId = `opt_${Date.now()}`;
+                                    const newResultId = `res_${Date.now()}`;
+                                    setFormData(prev => ({
+                                        ...prev,
+                                        solutions: {
+                                            options: [
+                                                ...(prev.solutions?.options || []),
+                                                { id: newId, text: '', correct: false, resultId: newResultId }
+                                            ]
+                                        },
+                                        simulation: {
+                                            results: {
+                                                ...(prev.simulation?.results || {}),
+                                                [newResultId]: { summary: '', detail: '', outcomeType: 'neutral' }
+                                            }
                                         }
-                                    }
-                                }));
-                            }}
-                            leftIcon={<Plus size={16} />}
-                            size="sm"
-                        >
-                            {t('add_option')}
-                        </Button>
+                                    }));
+                                }}
+                                leftIcon={<Plus size={16} />}
+                                size="sm"
+                            >
+                                {t('add_option')}
+                            </Button>
+                        </div>
                     </div>
                     <div className="grid gap-4">
                         {formData.solutions?.options.map((option, idx) => (
@@ -461,6 +526,32 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
                     </div>
                 </div>
             );
+            case 7: return (
+                <div className="space-y-6 animate-fade-in">
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-xl font-bold text-surface-900">{t('reflection')}</h3>
+                        <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleSectionGenerate('reflection')}
+                            isLoading={generatingSection === 'reflection'}
+                            leftIcon={<Wand2 size={16} />}
+                            className="text-purple-600 hover:bg-purple-50"
+                        >
+                            {t('generate_with_ai') || "Generate with AI"}
+                        </Button>
+                    </div>
+                    <div className="grid gap-4">
+                        <TextArea
+                            label={t('reflection_questions')}
+                            helperText="Separate questions with a new line"
+                            value={formData.reflection?.questions.join('\n')}
+                            onChange={e => handleInputChange('reflection', 'questions', e.target.value.split('\n'))}
+                            rows={6}
+                        />
+                    </div>
+                </div>
+            );
             default: return (
                 <div className="text-center py-10">
                     <CheckCircle size={48} className="mx-auto text-secondary-500 mb-4" />
@@ -479,7 +570,7 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
                     <p className="text-surface-500 text-sm">{t('step')} {step} {t('of')} 7</p>
                 </div>
                 <div className="flex gap-1">
-                    {[1, 2, 3, 4, 5, 6, 7].map(s => (
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(s => (
                         <div key={s} className={`w-2 h-2 rounded-full transition-all ${step >= s ? 'bg-primary-600' : 'bg-surface-200'}`}></div>
                     ))}
                 </div>
@@ -497,9 +588,9 @@ export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: 
                     {t('back')}
                 </Button>
 
-                {step < 7 ? (
+                {step < 8 ? (
                     <Button
-                        onClick={() => setStep(s => Math.min(7, s + 1))}
+                        onClick={() => setStep(s => Math.min(8, s + 1))}
                     >
                         {t('continue')}
                     </Button>

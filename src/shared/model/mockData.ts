@@ -868,6 +868,185 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         reflection: {
             questions: ["האם נשארו יותר או פחות סוכריות ממה שהיו בהתחלה?", "למה זה קרה?"]
         }
+    },
+    {
+        id: "scenario_014",
+        title: "חשבון - כפל בסיסי",
+        category: "מתמטיקה / חשבון",
+        duration: "10 דקות",
+        opening: {
+            description: "תרגול כפל באמצעות סידור פרחים בגינה.",
+            imageUrl: "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "בגינה יש 3 ערוגות. בכל ערוגה שתלנו 4 פרחים. כמה פרחים יש בסך הכל?",
+            context: "הבנת כפל כחיבור חוזר."
+        },
+        data: {
+            chartType: 'bar',
+            description: "מספר הפרחים",
+            chartData: [
+                { name: "ערוגה 1", value: 4 },
+                { name: "ערוגה 2", value: 4 },
+                { name: "ערוגה 3", value: 4 }
+            ],
+            facts: [
+                "כפל הוא דרך מהירה לחבר את אותו המספר כמה פעמים.",
+                "הסימן לכפל הוא ×."
+            ]
+        },
+        analysis: {
+            questions: [
+                "כמה ערוגות יש?",
+                "כמה פרחים בכל ערוגה?"
+            ],
+            keyTerms: ["כפל", "מכפלה", "פעמים"]
+        },
+        solutions: {
+            options: [
+                { id: "s14_1", text: "7 פרחים (3+4)", correct: false, resultId: "wrong_mult" },
+                { id: "s14_2", text: "12 פרחים (3×4)", correct: true, resultId: "correct_mult" },
+                { id: "s14_3", text: "10 פרחים", correct: false, resultId: "wrong_mult" }
+            ]
+        },
+        simulation: {
+            results: {
+                "wrong_mult": {
+                    summary: "תשובה שגויה",
+                    detail: "נסה לחבר 4 ועוד 4 ועוד 4.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80"
+                },
+                "correct_mult": {
+                    summary: "מצוין!",
+                    detail: "3 פעמים 4 הם 12.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["איך כפל עוזר לנו לספור מהר יותר?", "איפה עוד משתמשים בכפל?"]
+        }
+    },
+    {
+        id: "scenario_015",
+        title: "חשבון - חילוק בסיסי",
+        category: "מתמטיקה / חשבון",
+        duration: "10 דקות",
+        opening: {
+            description: "חלוקת עוגיות שווה בשווה בין חברים.",
+            imageUrl: "https://images.unsplash.com/photo-1499636138143-bd649043ea52?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "יש לנו 12 עוגיות. אנחנו רוצים לחלק אותן שווה בשווה בין 3 חברים. כמה עוגיות יקבל כל חבר?",
+            context: "הבנת חילוק כחלוקה לקבוצות שוות."
+        },
+        data: {
+            chartType: 'pie',
+            description: "חלוקת העוגיות",
+            chartData: [
+                { name: "חבר 1", value: 1 },
+                { name: "חבר 2", value: 1 },
+                { name: "חבר 3", value: 1 }
+            ],
+            facts: [
+                "חילוק הוא הפעולה ההפוכה לכפל.",
+                "הסימן לחילוק הוא ÷ או :."
+            ]
+        },
+        analysis: {
+            questions: [
+                "כמה עוגיות יש בסך הכל?",
+                "לכמה חברים מחלקים?"
+            ],
+            keyTerms: ["חילוק", "מנה", "שווה בשווה"]
+        },
+        solutions: {
+            options: [
+                { id: "s15_1", text: "3 עוגיות לכל אחד", correct: false, resultId: "wrong_div" },
+                { id: "s15_2", text: "4 עוגיות לכל אחד", correct: true, resultId: "correct_div" },
+                { id: "s15_3", text: "5 עוגיות לכל אחד", correct: false, resultId: "wrong_div" }
+            ]
+        },
+        simulation: {
+            results: {
+                "wrong_div": {
+                    summary: "לא שווה",
+                    detail: "אם ניתן כמות זו, יישארו עוגיות או שיחסרו.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80"
+                },
+                "correct_div": {
+                    summary: "חלוקה הוגנת!",
+                    detail: "12 לחלק ל-3 זה 4. כולם קיבלו אותו דבר.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["מה קורה אם אי אפשר לחלק שווה בשווה?", "איך בדקתם את התשובה?"]
+        }
+    },
+    {
+        id: "scenario_016",
+        title: "חשבון - שברים (פיצה)",
+        category: "מתמטיקה / שברים",
+        duration: "15 דקות",
+        opening: {
+            description: "הבנת שברים באמצעות משולשי פיצה.",
+            imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "פיצה משפחתית מחולקת ל-8 משולשים שווים. דני אכל 2 משולשים. איזה חלק מהפיצה אכל דני?",
+            context: "זיהוי שברים וצמצום שברים."
+        },
+        data: {
+            chartType: 'pie',
+            description: "מגש הפיצה",
+            chartData: [
+                { name: "נאכל", value: 2 },
+                { name: "נשאר", value: 6 }
+            ],
+            facts: [
+                "המספר למטה (מכנה) אומר לכמה חלקים חילקנו את השלם.",
+                "המספר למעלה (מונה) אומר כמה חלקים לקחנו."
+            ]
+        },
+        analysis: {
+            questions: [
+                "כמה משולשים היו בהתחלה?",
+                "כמה משולשים דני אכל?"
+            ],
+            keyTerms: ["שבר", "רבע", "שמינית", "מונה", "מכנה"]
+        },
+        solutions: {
+            options: [
+                { id: "s16_1", text: "1/8 (שמינית)", correct: false, resultId: "wrong_frac" },
+                { id: "s16_2", text: "2/8 או 1/4 (רבע)", correct: true, resultId: "correct_frac" },
+                { id: "s16_3", text: "1/2 (חצי)", correct: false, resultId: "wrong_frac" }
+            ]
+        },
+        simulation: {
+            results: {
+                "wrong_frac": {
+                    summary: "טעות בחישוב",
+                    detail: "הסתכל שוב על הציור. כמה משולשים צבועים מתוך כמה?",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80"
+                },
+                "correct_frac": {
+                    summary: "תשובה נכונה!",
+                    detail: "2 מתוך 8 זה כמו 1 מתוך 4. דני אכל רבע פיצה.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["למה 2/8 זה אותו דבר כמו 1/4?", "האם עדיף לקבל 1/4 פיצה או 1/8 פיצה?"]
+        }
     }
 ];
 
@@ -1738,6 +1917,185 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["Are there more or fewer candies left than at the start?", "Why did this happen?"]
+        }
+    },
+    {
+        id: "scenario_014",
+        title: "Arithmetic - Basic Multiplication",
+        category: "Mathematics / Arithmetic",
+        duration: "10 mins",
+        opening: {
+            description: "Practice multiplication by arranging flowers in a garden.",
+            imageUrl: "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "There are 3 flower beds in the garden. We planted 4 flowers in each bed. How many flowers are there in total?",
+            context: "Understanding multiplication as repeated addition."
+        },
+        data: {
+            chartType: 'bar',
+            description: "Number of Flowers",
+            chartData: [
+                { name: "Bed 1", value: 4 },
+                { name: "Bed 2", value: 4 },
+                { name: "Bed 3", value: 4 }
+            ],
+            facts: [
+                "Multiplication is a fast way to add the same number multiple times.",
+                "The sign for multiplication is ×."
+            ]
+        },
+        analysis: {
+            questions: [
+                "How many beds are there?",
+                "How many flowers in each bed?"
+            ],
+            keyTerms: ["Multiplication", "Product", "Times"]
+        },
+        solutions: {
+            options: [
+                { id: "s14_1", text: "7 flowers (3+4)", correct: false, resultId: "wrong_mult" },
+                { id: "s14_2", text: "12 flowers (3×4)", correct: true, resultId: "correct_mult" },
+                { id: "s14_3", text: "10 flowers", correct: false, resultId: "wrong_mult" }
+            ]
+        },
+        simulation: {
+            results: {
+                "wrong_mult": {
+                    summary: "Incorrect Answer",
+                    detail: "Try adding 4 plus 4 plus 4.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80"
+                },
+                "correct_mult": {
+                    summary: "Excellent!",
+                    detail: "3 times 4 is 12.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["How does multiplication help us count faster?", "Where else do we use multiplication?"]
+        }
+    },
+    {
+        id: "scenario_015",
+        title: "Arithmetic - Basic Division",
+        category: "Mathematics / Arithmetic",
+        duration: "10 mins",
+        opening: {
+            description: "Sharing cookies equally among friends.",
+            imageUrl: "https://images.unsplash.com/photo-1499636138143-bd649043ea52?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "We have 12 cookies. We want to share them equally among 3 friends. How many cookies will each friend get?",
+            context: "Understanding division as sharing into equal groups."
+        },
+        data: {
+            chartType: 'pie',
+            description: "Cookie Distribution",
+            chartData: [
+                { name: "Friend 1", value: 1 },
+                { name: "Friend 2", value: 1 },
+                { name: "Friend 3", value: 1 }
+            ],
+            facts: [
+                "Division is the opposite of multiplication.",
+                "The sign for division is ÷."
+            ]
+        },
+        analysis: {
+            questions: [
+                "How many cookies are there in total?",
+                "How many friends are sharing?"
+            ],
+            keyTerms: ["Division", "Quotient", "Equally"]
+        },
+        solutions: {
+            options: [
+                { id: "s15_1", text: "3 cookies each", correct: false, resultId: "wrong_div" },
+                { id: "s15_2", text: "4 cookies each", correct: true, resultId: "correct_div" },
+                { id: "s15_3", text: "5 cookies each", correct: false, resultId: "wrong_div" }
+            ]
+        },
+        simulation: {
+            results: {
+                "wrong_div": {
+                    summary: "Not Equal",
+                    detail: "If we give this amount, there will be leftovers or not enough.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80"
+                },
+                "correct_div": {
+                    summary: "Fair Share!",
+                    detail: "12 divided by 3 is 4. Everyone got the same amount.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["What happens if we can't share equally?", "How did you check your answer?"]
+        }
+    },
+    {
+        id: "scenario_016",
+        title: "Arithmetic - Fractions (Pizza)",
+        category: "Mathematics / Fractions",
+        duration: "15 mins",
+        opening: {
+            description: "Understanding fractions using pizza slices.",
+            imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "A family pizza is cut into 8 equal slices. Danny ate 2 slices. What fraction of the pizza did Danny eat?",
+            context: "Identifying fractions and simplifying them."
+        },
+        data: {
+            chartType: 'pie',
+            description: "Pizza Tray",
+            chartData: [
+                { name: "Eaten", value: 2 },
+                { name: "Left", value: 6 }
+            ],
+            facts: [
+                "The bottom number (denominator) says how many parts the whole is divided into.",
+                "The top number (numerator) says how many parts we took."
+            ]
+        },
+        analysis: {
+            questions: [
+                "How many slices were there initially?",
+                "How many slices did Danny eat?"
+            ],
+            keyTerms: ["Fraction", "Quarter", "Eighth", "Numerator", "Denominator"]
+        },
+        solutions: {
+            options: [
+                { id: "s16_1", text: "1/8", correct: false, resultId: "wrong_frac" },
+                { id: "s16_2", text: "2/8 or 1/4", correct: true, resultId: "correct_frac" },
+                { id: "s16_3", text: "1/2", correct: false, resultId: "wrong_frac" }
+            ]
+        },
+        simulation: {
+            results: {
+                "wrong_frac": {
+                    summary: "Calculation Error",
+                    detail: "Look at the picture again. How many slices are colored out of how many?",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=800&q=80"
+                },
+                "correct_frac": {
+                    summary: "Correct Answer!",
+                    detail: "2 out of 8 is the same as 1 out of 4. Danny ate a quarter of the pizza.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["Why is 2/8 the same as 1/4?", "Is it better to get 1/4 of a pizza or 1/8?"]
         }
     }
 ];

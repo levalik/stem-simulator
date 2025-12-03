@@ -87,12 +87,60 @@ export const generateScenarioFromTopic = async (topic: string): Promise<Partial<
         responseMimeType: "application/json"
       }
     });
-    
+
     const text = response.text;
     if (!text) return null;
     return JSON.parse(text) as Partial<Scenario>;
   } catch (error) {
     console.error("Scenario Generation Error:", error);
+    return null;
+  }
+};
+
+export const generateSection = async (section: 'problem' | 'data' | 'analysis' | 'solutions' | 'reflection', topic: string, currentContext?: any) => {
+  if (!API_KEY) return null;
+
+  let prompt = '';
+  let responseSchema = {};
+
+  switch (section) {
+    case 'problem':
+      prompt = `Generate a STEM problem statement and context about "${topic}". 
+      Return JSON: { text: string, context: string }`;
+      break;
+    case 'data':
+      prompt = `Generate a dataset for a STEM scenario about "${topic}".
+      Return JSON: { description: string, chartType: 'bar'|'pie'|'line', chartData: [{name: string, value: number}], facts: string[] }`;
+      break;
+    case 'analysis':
+      prompt = `Generate analysis questions and key terms for a STEM scenario about "${topic}".
+      Return JSON: { questions: string[], keyTerms: string[] }`;
+      break;
+    case 'solutions':
+      prompt = `Generate 3 solution options for a STEM scenario about "${topic}".
+      Return JSON: { options: [{id: string, text: string, correct: boolean, resultId: string}] }
+      Use unique IDs like "opt_1", "opt_2", "opt_3" and resultIds like "res_1", "res_2", "res_3".`;
+      break;
+    case 'reflection':
+      prompt = `Generate reflection questions for a STEM scenario about "${topic}".
+      Return JSON: { questions: string[] }`;
+      break;
+  }
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+      config: {
+        responseMimeType: "application/json"
+      }
+    });
+
+    const text = response.text;
+    if (!text) return null;
+    return JSON.parse(text);
+  } catch (error) {
+    console.error(`Section Generation Error (${section}):`, error);
     return null;
   }
 };
