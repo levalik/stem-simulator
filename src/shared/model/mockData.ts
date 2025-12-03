@@ -117,7 +117,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
                     summary: "מהומות ציבוריות",
                     detail: "התושבים התמרדו עקב הקיצוצים הדרסטיים בעוד החוות המשיכו להשתמש במים בחופשיות.",
                     outcomeType: "failure",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1555862124-a4ebf4c16482?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1555862124-94036092ab14?auto=format&fit=crop&w=800&q=80"
                 },
                 "efficiency": {
                     summary: "יציבות לטווח ארוך",
@@ -212,7 +212,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         duration: "30 דקות",
         opening: {
             description: "תלמידים והורים מתלוננים על צפיפות בלתי נסבלת בקווי האוטובוס לבית הספר בשעות הבוקר.",
-            imageUrl: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לתכנן מחדש את לוח הזמנים של האוטובוסים כדי להפחית את הצפיפות, מבלי לחרוג מתקציב ההסעות הקבוע.",
@@ -282,7 +282,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         duration: "25 דקות",
         opening: {
             description: "במחלקה הפנימית בבית החולים זוהתה התפרצות של זיהום חיידקי שאינו מגיב לטיפול האנטיביוטי הסטנדרטי.",
-            imageUrl: "https://images.unsplash.com/photo-1584036561566-b93a9016b1d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1584362917165-526a968579e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך להחליט על פרוטוקול טיפול חדש כדי לעצור את ההתפרצות ולמנוע תמותה, תוך מזעור הסיכון ליצירת עמידות נוספת.",
@@ -352,7 +352,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         duration: "20 דקות",
         opening: {
             description: "בצומת עירוני ראשי מתרחשות תאונות רבות בימי גשם, למרות שהנהגים נוסעים במהירות המותרת (50 קמ״ש).",
-            imageUrl: "https://images.unsplash.com/photo-1495554605298-8d74386b4cf6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1465447142348-e9952c393450?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לקבוע את מהירות הנסיעה הבטוחה החדשה לימי גשם, בהתבסס על הפיזיקה של מרחקי עצירה.",
@@ -420,7 +420,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         duration: "30 דקות",
         opening: {
             description: "דגים רבים נמצאו מתים בנהר הקישון. בדיקות מעבדה גילו חומציות גבוהה (pH נמוך) במים.",
-            imageUrl: "https://images.unsplash.com/photo-1617410036528-f99085605430?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1583325958573-3c89e40551ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לזהות את מקור הזיהום ולבחור בשיטת הטיפול הכימית המתאימה ביותר לנטרול החומציות והצלת המערכת האקולוגית.",
@@ -488,7 +488,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         duration: "25 דקות",
         opening: {
             description: "פיצרייה שכונתית חדשה רוצה למקסם את הרווח היומי שלה, אך מתלבטת לגבי המחיר הנכון למגש.",
-            imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לקבוע את מחיר הפיצה האופטימלי (בין 40, 60, או 80 ש״ח) כדי להשיג את הרווח המקסימלי.",
@@ -540,7 +540,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
                     summary: "לקוחות מאוכזבים",
                     detail: "מכרתם רק 20 פיצות. הרווח הוא 700 ש״ח בלבד. הלקוחות הלכו למתחרים.",
                     outcomeType: "failure",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
@@ -555,7 +555,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         duration: "20 דקות",
         opening: {
             description: "קיבלת תקציב שנתי של 5,000 ש״ח לכיתה שלך. עליך להחליט כיצד לחלק אותו בין צרכים שונים.",
-            imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לבחור את אסטרטגיית ההוצאה הטובה ביותר שתמקסם את הלמידה והגיבוש החברתי, מבלי לחרוג מהתקציב.",
@@ -623,7 +623,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         duration: "15 דקות",
         opening: {
             description: "בית הספר קיבל תרומה לרכישת טכנולוגיה חדשה לכיתה אחת.",
-            imageUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לבחור את הטכנולוגיה שתביא את הערך המוסף הגבוה ביותר ללמידה.",
@@ -758,7 +758,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         duration: "10 דקות",
         opening: {
             description: "תרגול חיבור בסיסי באמצעות פירות.",
-            imageUrl: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "ליוסי יש 5 תפוחים. דנה נתנה לו עוד 3 תפוחים. כמה תפוחים יש ליוסי כעת?",
@@ -802,7 +802,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
                     summary: "כל הכבוד!",
                     detail: "5 ועוד 3 הם אכן 8.",
                     outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
@@ -817,7 +817,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         duration: "10 דקות",
         opening: {
             description: "תרגול חיסור בסיסי באמצעות ממתקים.",
-            imageUrl: "https://images.unsplash.com/photo-1582058928232-216836896e00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1499195333224-3ce974eecb47?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "לדני היו 10 סוכריות. הוא אכל 4 סוכריות. כמה סוכריות נשארו לדני?",
@@ -861,7 +861,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
                     summary: "מצוין!",
                     detail: "10 פחות 4 הם אכן 6.",
                     outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
@@ -921,7 +921,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
                     summary: "מצוין!",
                     detail: "3 פעמים 4 הם 12.",
                     outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
@@ -936,7 +936,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         duration: "10 דקות",
         opening: {
             description: "חלוקת עוגיות שווה בשווה בין חברים.",
-            imageUrl: "https://images.unsplash.com/photo-1499636138143-bd649043ea52?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "יש לנו 12 עוגיות. אנחנו רוצים לחלק אותן שווה בשווה בין 3 חברים. כמה עוגיות יקבל כל חבר?",
@@ -981,7 +981,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
                     summary: "חלוקה הוגנת!",
                     detail: "12 לחלק ל-3 זה 4. כולם קיבלו אותו דבר.",
                     outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
@@ -996,7 +996,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         duration: "15 דקות",
         opening: {
             description: "הבנת שברים באמצעות משולשי פיצה.",
-            imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "פיצה משפחתית מחולקת ל-8 משולשים שווים. דני אכל 2 משולשים. איזה חלק מהפיצה אכל דני?",
@@ -1040,7 +1040,7 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
                     summary: "תשובה נכונה!",
                     detail: "2 מתוך 8 זה כמו 1 מתוך 4. דני אכל רבע פיצה.",
                     outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
@@ -1167,7 +1167,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
                     summary: "Public Riots",
                     detail: "Residents revolted due to drastic cuts while farms continued to use water freely.",
                     outcomeType: "failure",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1555862124-a4ebf4c16482?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1555862124-94036092ab14?auto=format&fit=crop&w=800&q=80"
                 },
                 "efficiency": {
                     summary: "Long-term Stability",
@@ -1262,7 +1262,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         duration: "30 mins",
         opening: {
             description: "Students and parents are complaining about unbearable overcrowding on school bus lines in the morning.",
-            imageUrl: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "You must redesign the bus schedule to reduce overcrowding without exceeding the fixed transport budget.",
@@ -1332,7 +1332,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         duration: "25 mins",
         opening: {
             description: "An outbreak of a bacterial infection that does not respond to standard antibiotic treatment has been identified in the internal medicine ward.",
-            imageUrl: "https://images.unsplash.com/photo-1584036561566-b93a9016b1d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1584362917165-526a968579e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "You must decide on a new treatment protocol to stop the outbreak and prevent mortality, while minimizing the risk of creating further resistance.",
@@ -1402,7 +1402,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         duration: "20 mins",
         opening: {
             description: "Many accidents occur at a main city intersection on rainy days, even though drivers are driving at the speed limit (50 km/h).",
-            imageUrl: "https://images.unsplash.com/photo-1495554605298-8d74386b4cf6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1465447142348-e9952c393450?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "You must determine the new safe driving speed for rainy days, based on the physics of stopping distances.",
@@ -1470,7 +1470,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         duration: "30 mins",
         opening: {
             description: "Many dead fish were found in the Kishon River. Lab tests revealed high acidity (low pH) in the water.",
-            imageUrl: "https://images.unsplash.com/photo-1617410036528-f99085605430?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1583325958573-3c89e40551ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "You must identify the source of pollution and choose the most appropriate chemical treatment method to neutralize acidity and save the ecosystem.",
@@ -1538,7 +1538,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         duration: "25 mins",
         opening: {
             description: "A new neighborhood pizza place wants to maximize its daily profit but is unsure about the right price per tray.",
-            imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "You must determine the optimal pizza price (between 40, 60, or 80 NIS) to achieve maximum profit.",
@@ -1590,7 +1590,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
                     summary: "Disappointed Customers",
                     detail: "You sold only 20 pizzas. Profit is just 700 NIS. Customers went to competitors.",
                     outcomeType: "failure",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
@@ -1605,7 +1605,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         duration: "20 mins",
         opening: {
             description: "You received an annual budget of 5,000 NIS for your class. You must decide how to allocate it between different needs.",
-            imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "You must choose the best spending strategy to maximize learning and social cohesion, without exceeding the budget.",
@@ -1673,7 +1673,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         duration: "15 mins",
         opening: {
             description: "The school received a donation to purchase new technology for one classroom.",
-            imageUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "You must choose the technology that will bring the highest added value to learning.",
@@ -1808,7 +1808,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         duration: "10 mins",
         opening: {
             description: "Practice basic addition using apples.",
-            imageUrl: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "Yossi has 5 apples. Dana gave him 3 more apples. How many apples does Yossi have now?",
@@ -1852,7 +1852,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
                     summary: "Well Done!",
                     detail: "5 plus 3 is indeed 8.",
                     outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
@@ -1867,7 +1867,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         duration: "10 mins",
         opening: {
             description: "Practice basic subtraction using candies.",
-            imageUrl: "https://images.unsplash.com/photo-1582058928232-216836896e00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1499195333224-3ce974eecb47?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "Danny had 10 candies. He ate 4 candies. How many candies does Danny have left?",
@@ -1911,7 +1911,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
                     summary: "Excellent!",
                     detail: "10 minus 4 is indeed 6.",
                     outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
@@ -1971,7 +1971,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
                     summary: "Excellent!",
                     detail: "3 times 4 is 12.",
                     outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
@@ -1986,7 +1986,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         duration: "10 mins",
         opening: {
             description: "Sharing cookies equally among friends.",
-            imageUrl: "https://images.unsplash.com/photo-1499636138143-bd649043ea52?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "We have 12 cookies. We want to share them equally among 3 friends. How many cookies will each friend get?",
@@ -2031,7 +2031,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
                     summary: "Fair Share!",
                     detail: "12 divided by 3 is 4. Everyone got the same amount.",
                     outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
@@ -2046,7 +2046,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         duration: "15 mins",
         opening: {
             description: "Understanding fractions using pizza slices.",
-            imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "A family pizza is cut into 8 equal slices. Danny ate 2 slices. What fraction of the pizza did Danny eat?",
@@ -2090,7 +2090,7 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
                     summary: "Correct Answer!",
                     detail: "2 out of 8 is the same as 1 out of 4. Danny ate a quarter of the pizza.",
                     outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1576158187530-986388606206?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
