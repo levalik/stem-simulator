@@ -26,7 +26,7 @@ export const TeacherFlow = ({ currentStep, onStepChange }: { currentStep: number
     return (
         <div className="pb-20 relative">
             {/* Sticky Progress Header */}
-            <div className="sticky top-16 z-40 bg-surface-50/95 backdrop-blur-sm py-6 mb-8 border-b border-surface-200/50 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 transition-all">
+            <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm py-6 mb-8 border-b border-surface-200/50 -mx-6 sm:-mx-8 lg:-mx-10 px-6 sm:px-8 lg:px-10 transition-all">
                 <div className="max-w-5xl mx-auto">
                     <div className="flex justify-between text-xs font-bold text-surface-400 uppercase tracking-widest mb-2">
                         <span className={currentStep >= 0 ? "text-primary-600" : ""}>{t('start')}</span>
