@@ -3,6 +3,7 @@ import { useStore } from '../../../../app/store';
 import { useNavigate } from '@tanstack/react-router';
 import { FileText, Clock, MessageSquare, Lightbulb, CheckCircle, AlertTriangle, Award, Download, ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react';
 import { StepHeader } from './StepComponents';
+import { Card, TextArea, Button } from '../../../../shared/ui/DesignSystem';
 
 export const ReflectionStep = () => {
     const { activeScenario, activeSession, updateSessionResponse, resetSimulation, scenarios, t, language } = useStore();
@@ -101,20 +102,20 @@ A${i + 1}: ${activeSession.responses.reflection[i] || 'Not answered'}
 
             <div className="space-y-8 mb-16">
                 {activeScenario.reflection.questions.map((q, idx) => (
-                    <div key={idx} className="bg-white p-8 rounded-3xl border border-surface-100 shadow-lg shadow-surface-200/50 transition-all focus-within:ring-4 focus-within:ring-primary-100 focus-within:border-primary-300">
+                    <Card key={idx} className="p-8 shadow-lg shadow-surface-200/50 transition-all focus-within:ring-4 focus-within:ring-primary-100 focus-within:border-primary-300">
                         <label className="block text-lg font-bold text-surface-800 mb-4">{q}</label>
-                        <textarea
-                            className="w-full bg-surface-50 border border-surface-200 rounded-2xl p-5 focus:bg-white focus:ring-0 transition-all min-h-[120px] text-base resize-y"
+                        <TextArea
+                            className="bg-surface-50 border-surface-200 focus:bg-white min-h-[120px] text-base"
                             placeholder={t('type_answer_help')}
                             value={activeSession.responses.reflection[idx] || ''}
                             onChange={(e) => updateSessionResponse('reflection', { [idx]: e.target.value })}
                         />
-                    </div>
+                    </Card>
                 ))}
             </div>
 
             {/* Session Summary Card */}
-            <div className="bg-white rounded-3xl p-10 border border-surface-100 shadow-xl shadow-surface-200/50 mb-12 relative overflow-hidden">
+            <Card className="p-10 shadow-xl shadow-surface-200/50 mb-12 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary-50 rounded-full -mr-20 -mt-20 blur-3xl"></div>
                 
                 <h3 className="text-2xl font-bold text-surface-900 mb-8 flex items-center gap-3 relative z-10">
@@ -152,9 +153,9 @@ A${i + 1}: ${activeSession.responses.reflection[i] || 'Not answered'}
                         <p className="text-sm font-medium text-surface-500 uppercase tracking-wide">{t('outcome')}</p>
                     </div>
                 </div>
-            </div>
+            </Card>
 
-            <div className="bg-surface-900 text-white p-12 rounded-[2.5rem] text-center space-y-8 shadow-2xl shadow-surface-900/20 relative overflow-hidden">
+            <Card className="!bg-surface-900 text-white p-12 !rounded-[2.5rem] text-center space-y-8 shadow-2xl shadow-surface-900/20 relative overflow-hidden">
                 {/* Decorative circles */}
                 <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -mr-24 -mt-24 blur-3xl"></div>
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-500/20 rounded-full -ml-24 -mb-24 blur-3xl"></div>
@@ -167,35 +168,38 @@ A${i + 1}: ${activeSession.responses.reflection[i] || 'Not answered'}
                     <p className="text-surface-400 max-w-lg mx-auto text-xl leading-relaxed">{t('completed_module')}</p>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-5 pt-10">
-                        <button
+                        <Button
                             onClick={handleDownload}
-                            className={`px-8 py-4 rounded-2xl font-bold transition-all flex items-center justify-center gap-3 text-lg ${downloaded
-                                ? 'bg-secondary-500 text-white hover:bg-secondary-600 shadow-lg shadow-secondary-900/20'
-                                : 'bg-white text-surface-900 hover:bg-surface-100 shadow-lg shadow-white/10'
-                                }`}
+                            variant={downloaded ? 'secondary' : 'outline'}
+                            className={`px-8 py-4 text-lg !rounded-2xl ${downloaded ? '' : '!bg-white !text-surface-900 !border-none shadow-lg'}`}
+                            icon={downloaded ? CheckCircle : Download}
                         >
-                            {downloaded ? <CheckCircle size={20} /> : <Download size={20} />}
                             {downloaded ? t('report_saved') : t('download_report')}
-                        </button>
+                        </Button>
 
                         {nextScenario && (
-                            <button
+                            <Button
                                 onClick={handleNextScenario}
-                                className="px-8 py-4 rounded-2xl font-bold bg-primary-600 hover:bg-primary-700 text-white transition-all flex items-center justify-center gap-3 text-lg shadow-lg shadow-primary-900/20"
+                                variant="primary"
+                                className="px-8 py-4 text-lg !rounded-2xl shadow-lg"
+                                icon={isRTL ? ArrowLeft : ArrowRight}
+                                iconPosition="right"
                             >
-                                {t('next_scenario')} {isRTL ? <ArrowLeft size={20} /> : <ArrowRight size={20} />}
-                            </button>
+                                {t('next_scenario')}
+                            </Button>
                         )}
 
-                        <button
+                        <Button
                             onClick={handleReturnToDashboard}
-                            className="px-8 py-4 rounded-2xl font-bold border border-surface-700 hover:bg-surface-800 text-surface-300 hover:text-white transition-all flex items-center justify-center gap-3 text-lg"
+                            variant="ghost"
+                            className="px-8 py-4 text-lg !rounded-2xl border !border-surface-700 !text-surface-300 hover:!bg-surface-800 hover:!text-white"
+                            icon={RotateCcw}
                         >
-                            <RotateCcw size={20} /> {t('return_dashboard')}
-                        </button>
+                            {t('return_dashboard')}
+                        </Button>
                     </div>
                 </div>
-            </div>
+            </Card>
         </div>
     );
 };

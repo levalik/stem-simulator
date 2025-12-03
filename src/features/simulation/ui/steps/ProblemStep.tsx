@@ -2,6 +2,7 @@ import React from 'react';
 import { useStore } from '../../../../app/store';
 import { Lightbulb } from 'lucide-react';
 import { StepHeader, NavButtons } from './StepComponents';
+import { Card } from '../../../../shared/ui/DesignSystem';
 
 export const ProblemStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) => {
     const { activeScenario, t } = useStore();
@@ -17,21 +18,22 @@ export const ProblemStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: ()
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                 <div className="space-y-8">
-                    <div className="bg-white p-8 rounded-3xl border border-surface-100 shadow-xl shadow-surface-200/50 relative overflow-hidden group">
-                        <div className="absolute top-0 left-0 w-2 h-full bg-primary-500"></div>
+                    <Card className="shadow-xl shadow-surface-200/50 relative overflow-hidden group border-l-8 border-l-blue-500">
                         <h3 className="text-2xl font-extrabold text-surface-900 mb-4">{t('core_problem')}</h3>
                         <p className="text-lg text-surface-600 leading-relaxed">{activeScenario.problem.text}</p>
-                    </div>
+                    </Card>
 
-                    <div className="bg-secondary-50 p-8 rounded-3xl border border-secondary-100 flex gap-5 items-start shadow-sm">
-                        <div className="bg-white p-3 rounded-2xl text-secondary-500 shrink-0 shadow-sm border border-secondary-100">
-                            <Lightbulb size={28} />
+                    <Card className="!bg-purple-50 !border-purple-100 shadow-sm">
+                        <div className="flex gap-5 items-start">
+                            <div className="bg-white p-3 rounded-2xl text-purple-500 shrink-0 shadow-sm border border-purple-100">
+                                <Lightbulb size={28} />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-purple-900 mb-2 text-lg">{t('contextual_info')}</h4>
+                                <p className="text-purple-800/80 leading-relaxed">{activeScenario.problem.context}</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 className="font-bold text-secondary-900 mb-2 text-lg">{t('contextual_info')}</h4>
-                            <p className="text-secondary-800/80 leading-relaxed">{activeScenario.problem.context}</p>
-                        </div>
-                    </div>
+                    </Card>
                 </div>
 
                 <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white ring-1 ring-surface-900/5 rotate-1 hover:rotate-0 transition-all duration-500">

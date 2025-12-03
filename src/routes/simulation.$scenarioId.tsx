@@ -4,7 +4,7 @@ import { useStore } from '../app/store';
 import { Layout } from '../app/layouts/Layout';
 import { TeacherFlow } from '../widgets/TeacherFlow';
 
-type SimulationSearch = {
+export type SimulationSearch = {
   step: number;
 };
 
@@ -12,7 +12,11 @@ const SimulationPage = () => {
   const { scenarioId } = Route.useParams();
   const { step } = Route.useSearch();
   const { scenarios, startSimulation, activeScenario } = useStore();
-  const navigate = useNavigate();
+  const navigate = useNavigate({ from: '/simulation/$scenarioId' });
+
+  const handleStepChange = (newStep: number) => {
+    navigate({ search: { step: newStep } } as any);
+  };
 
   useEffect(() => {
     // Find and start simulation if not already active
@@ -37,7 +41,7 @@ const SimulationPage = () => {
 
   return (
     <Layout>
-      <TeacherFlow currentStep={step} />
+      <TeacherFlow currentStep={step} onStepChange={handleStepChange} />
     </Layout>
   );
 };

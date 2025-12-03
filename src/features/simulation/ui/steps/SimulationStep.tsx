@@ -3,6 +3,7 @@ import { useStore } from '../../../../app/store';
 import { Activity, CheckCircle, AlertTriangle, BrainCircuit, ArrowLeft, ArrowRight } from 'lucide-react';
 import { StepHeader } from './StepComponents';
 import { analyzeJustification } from '../../../../shared/api/geminiService';
+import { Card, Button } from '../../../../shared/ui/DesignSystem';
 
 export const SimulationStep = ({ onNext }: { onNext: () => void }) => {
     const { activeScenario, activeSession, updateSessionResponse, t, language } = useStore();
@@ -58,31 +59,31 @@ export const SimulationStep = ({ onNext }: { onNext: () => void }) => {
 
             {result && (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-                    <div className={`overflow-hidden rounded-3xl border-2 transition-all duration-500 shadow-2xl flex flex-col justify-center p-10 relative ${result.outcomeType === 'success' ? 'bg-secondary-50/50 border-secondary-200' :
-                        result.outcomeType === 'neutral' ? 'bg-amber-50/50 border-amber-200' :
-                            'bg-accent-50/50 border-accent-200'
+                    <Card className={`!overflow-hidden !rounded-3xl border-2 transition-all duration-500 shadow-2xl flex flex-col justify-center p-10 relative ${result.outcomeType === 'success' ? '!bg-purple-50/50 !border-purple-200' :
+                        result.outcomeType === 'neutral' ? '!bg-amber-50/50 !border-amber-200' :
+                            '!bg-red-50/50 !border-red-200'
                         }`}>
                         
                         <div className={`absolute top-0 right-0 w-64 h-64 rounded-full -mr-16 -mt-16 blur-3xl opacity-50 ${
-                             result.outcomeType === 'success' ? 'bg-secondary-200' :
+                             result.outcomeType === 'success' ? 'bg-purple-200' :
                              result.outcomeType === 'neutral' ? 'bg-amber-200' :
-                             'bg-accent-200'
+                             'bg-red-200'
                         }`}></div>
 
-                        <div className={`relative z-10 text-center ${result.outcomeType === 'success' ? 'text-secondary-900' :
+                        <div className={`relative z-10 text-center ${result.outcomeType === 'success' ? 'text-purple-900' :
                             result.outcomeType === 'neutral' ? 'text-amber-900' :
-                                'text-accent-900'
+                                'text-red-900'
                             }`}>
-                            <div className={`mx-auto w-24 h-24 rounded-full flex items-center justify-center mb-8 shadow-sm ${result.outcomeType === 'success' ? 'bg-secondary-100 text-secondary-600' :
+                            <div className={`mx-auto w-24 h-24 rounded-full flex items-center justify-center mb-8 shadow-sm ${result.outcomeType === 'success' ? 'bg-purple-100 text-purple-600' :
                                 result.outcomeType === 'neutral' ? 'bg-amber-100 text-amber-600' :
-                                    'bg-accent-100 text-accent-600'
+                                    'bg-red-100 text-red-600'
                                 }`}>
                                 {result.outcomeType === 'success' ? <CheckCircle size={48} /> : <AlertTriangle size={48} />}
                             </div>
                             <h2 className="text-4xl font-extrabold mb-6 tracking-tight">{result.summary}</h2>
                             <p className="text-xl opacity-90 leading-relaxed">{result.detail}</p>
                         </div>
-                    </div>
+                    </Card>
 
                     <div className="relative h-full min-h-[400px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white ring-1 ring-surface-900/5">
                          <img
@@ -104,7 +105,7 @@ export const SimulationStep = ({ onNext }: { onNext: () => void }) => {
             {aiAnalysis && (
                 <div className="relative group animate-fade-in-up">
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-primary-600 rounded-3xl opacity-20 group-hover:opacity-30 transition duration-500 blur"></div>
-                    <div className="relative bg-white p-8 rounded-3xl border border-surface-100 shadow-xl flex flex-col md:flex-row gap-8 items-start">
+                    <Card className="relative p-8 shadow-xl flex flex-col md:flex-row gap-8 items-start !rounded-3xl">
                         <div className="bg-primary-50 p-4 rounded-2xl text-primary-600 shrink-0 border border-primary-100">
                             <BrainCircuit size={32} />
                         </div>
@@ -112,17 +113,20 @@ export const SimulationStep = ({ onNext }: { onNext: () => void }) => {
                             <h4 className="text-xl font-bold text-surface-900">{t('ai_feedback')}</h4>
                             <p className="text-surface-600 leading-relaxed text-lg">{aiAnalysis}</p>
                         </div>
-                    </div>
+                    </Card>
                 </div>
             )}
 
             <div className="flex justify-end pt-8">
-                <button
+                <Button
+                    variant="primary"
                     onClick={onNext}
-                    className="bg-surface-900 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-primary-600 hover:shadow-xl hover:shadow-primary-200 hover:-translate-y-1 transition-all flex items-center shadow-lg shadow-surface-200 gap-3"
+                    className="px-10 py-4 text-lg !rounded-2xl shadow-lg shadow-surface-200 hover:shadow-xl hover:shadow-primary-200 hover:-translate-y-1"
+                    icon={isRTL ? ArrowLeft : ArrowRight}
+                    iconPosition="right"
                 >
-                    {t('reflection')} {isRTL ? <ArrowLeft size={22} /> : <ArrowRight size={22} />}
-                </button>
+                    {t('reflection')}
+                </Button>
             </div>
         </div>
     );

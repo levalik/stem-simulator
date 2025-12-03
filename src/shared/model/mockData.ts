@@ -547,6 +547,209 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         reflection: {
             questions: ["מדוע מקסימום מכירות לא תמיד מוביל למקסימום רווח?", "כיצד משפיעות הוצאות קבועות על ההחלטה?"]
         }
+    },
+    {
+        id: "scenario_009",
+        title: "ניהול תקציב כיתתי",
+        category: "ניהול / חינוך פיננסי",
+        duration: "20 דקות",
+        opening: {
+            description: "קיבלת תקציב שנתי של 5,000 ש״ח לכיתה שלך. עליך להחליט כיצד לחלק אותו בין צרכים שונים.",
+            imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "עליך לבחור את אסטרטגיית ההוצאה הטובה ביותר שתמקסם את הלמידה והגיבוש החברתי, מבלי לחרוג מהתקציב.",
+            context: "התלמידים רוצים טיול יקר, אך חסר ציוד לימודי בסיסי."
+        },
+        data: {
+            chartType: 'pie',
+            description: "התפלגות עלויות משוערת",
+            chartData: [
+                { name: "טיול שנתי", value: 3000 },
+                { name: "ציוד לימודי", value: 1500 },
+                { name: "פעילויות גיבוש", value: 1000 },
+                { name: "קישוט כיתה", value: 500 }
+            ],
+            facts: [
+                "התקציב הכולל הוא 5,000 ש״ח.",
+                "טיול שנתי הוא חובה, אך ניתן להוזיל אותו.",
+                "מחסור בציוד לימודי פוגע בציונים."
+            ]
+        },
+        analysis: {
+            questions: [
+                "האם התקציב מספיק לכל הרצונות?",
+                "על מה היית מוותר כדי לאפשר את הטיול?"
+            ],
+            keyTerms: ["תקציב", "תיעדוף", "ויתור", "עלות אלטרנטיבית"]
+        },
+        solutions: {
+            options: [
+                { id: "s9_1", text: "הוצאת רוב התקציב על הטיול וצמצום בציוד.", correct: false, resultId: "fun_but_failing" },
+                { id: "s9_2", text: "חלוקה מאוזנת: טיול זול יותר ורכישת ציוד חיוני.", correct: true, resultId: "balanced" },
+                { id: "s9_3", text: "ביטול הטיול והשקעה מלאה בציוד וטכנולוגיה.", correct: false, resultId: "boring" }
+            ]
+        },
+        simulation: {
+            results: {
+                "fun_but_failing": { 
+                    summary: "כיף אך לא יעיל", 
+                    detail: "התלמידים נהנו בטיול, אך התקשו ללמוד ללא ציוד מתאים.", 
+                    outcomeType: "neutral",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
+                },
+                "balanced": { 
+                    summary: "איזון מושלם", 
+                    detail: "הכיתה מגובשת וההישגים הלימודיים השתפרו בזכות הציוד החדש.", 
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1427504746696-ea5abd7dfe03?auto=format&fit=crop&w=800&q=80"
+                },
+                "boring": { 
+                    summary: "מרמור כיתתי", 
+                    detail: "הציונים עלו, אך האווירה בכיתה עכורה והתלמידים כועסים.", 
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["מה למדת על ניהול תקציב מוגבל?", "כיצד איזנת בין צרכים לימודיים לחברתיים?"]
+        }
+    },
+    {
+        id: "scenario_010",
+        title: "שילוב טכנולוגיה בכיתה",
+        category: "טכנולוגיה בחינוך",
+        duration: "15 דקות",
+        opening: {
+            description: "בית הספר קיבל תרומה לרכישת טכנולוגיה חדשה לכיתה אחת.",
+            imageUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "עליך לבחור את הטכנולוגיה שתביא את הערך המוסף הגבוה ביותר ללמידה.",
+            context: "המורים חלוקים בדעותיהם בין טאבלטים, לוח חכם או מדפסת תלת-ממד."
+        },
+        data: {
+            chartType: 'bar',
+            description: "השפעה משוערת על מעורבות תלמידים (סולם 1-10)",
+            chartData: [
+                { name: "טאבלטים אישיים", value: 9 },
+                { name: "לוח חכם", value: 7 },
+                { name: "מדפסת תלת-ממד", value: 8 }
+            ],
+            facts: [
+                "טאבלטים דורשים תחזוקה שוטפת וחיבור אינטרנט יציב.",
+                "לוח חכם משמש בעיקר את המורה להוראה פרונטלית.",
+                "מדפסת תלת-ממד מעודדת יצירתיות אך דורשת ידע טכני."
+            ]
+        },
+        analysis: {
+            questions: [
+                "איזו טכנולוגיה מעודדת למידה פעילה ביותר?",
+                "מהם האתגרים ביישום כל אחת מהאפשרויות?"
+            ],
+            keyTerms: ["למידה פעילה", "תחזוקה", "מעורבות", "יישום"]
+        },
+        solutions: {
+            options: [
+                { id: "s10_1", text: "רכישת טאבלטים אישיים לכל תלמיד.", correct: true, resultId: "engagement" },
+                { id: "s10_2", text: "התקנת לוח חכם מתקדם.", correct: false, resultId: "passive" },
+                { id: "s10_3", text: "רכישת מדפסת תלת-ממד.", correct: false, resultId: "niche" }
+            ]
+        },
+        simulation: {
+            results: {
+                "engagement": { 
+                    summary: "למידה מותאמת אישית", 
+                    detail: "התלמידים גילו עניין רב והתקדמו בקצב אישי. המורה עבר לתפקיד מנחה.", 
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80"
+                },
+                "passive": { 
+                    summary: "שיפור קל", 
+                    detail: "השיעורים הפכו ויזואליים יותר, אך שיטת ההוראה נותרה פרונטלית.", 
+                    outcomeType: "neutral",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
+                },
+                "niche": { 
+                    summary: "שימוש מוגבל", 
+                    detail: "רק קבוצה קטנה של תלמידים השתמשה במדפסת. רוב הכיתה לא הרוויחה.", 
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1631541909061-71e349d1f203?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["כיצד הטכנולוגיה משנה את תפקיד המורה?", "האם הכלי היקר ביותר הוא תמיד הטוב ביותר?"]
+        }
+    },
+    {
+        id: "scenario_011",
+        title: "אופטימיזציה של אנרגיה סולארית",
+        category: "פיזיקה / אנרגיה מתחדשת",
+        duration: "20 דקות",
+        opening: {
+            description: "בית הספר החליט להתקין פאנלים סולאריים על הגג כדי לחסוך בחשמל ולתרום לסביבה.",
+            imageUrl: "https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "עליך לקבוע את הזווית האופטימלית להצבת הפאנלים כדי להפיק את המקסימום אנרגיה שנתית.",
+            context: "זווית שטוחה טובה לקיץ, זווית תלולה טובה לחורף. התקציב מוגבל למערכת קבועה."
+        },
+        data: {
+            chartType: 'line',
+            description: "תפוקת אנרגיה חודשית (קוט\"ש) לפי זווית התקנה",
+            chartData: [
+                { name: "ינואר", value: 300 },
+                { name: "אפריל", value: 550 },
+                { name: "יולי", value: 700 },
+                { name: "אוקטובר", value: 450 }
+            ],
+            facts: [
+                "ישראל נמצאת בקו רוחב 32 צפון.",
+                "הזווית האופטימלית השנתית היא בדרך כלל קו הרוחב.",
+                "אבק מצטבר יותר על פאנלים שטוחים ומפחית יעילות."
+            ]
+        },
+        analysis: {
+            questions: [
+                "כיצד משפיעה עונת השנה על תפוקת האנרגיה?",
+                "מדוע זווית ההתקנה חשובה כל כך?"
+            ],
+            keyTerms: ["זווית פגיעה", "קרינה", "יעילות", "עונתיות"]
+        },
+        solutions: {
+            options: [
+                { id: "s11_1", text: "התקנה שטוחה (0 מעלות) לחיסכון בעלויות.", correct: false, resultId: "dusty" },
+                { id: "s11_2", text: "התקנה בזווית 30 מעלות דרומה.", correct: true, resultId: "optimal_solar" },
+                { id: "s11_3", text: "התקנה בזווית 60 מעלות למיקסום חורף.", correct: false, resultId: "summer_loss" }
+            ]
+        },
+        simulation: {
+            results: {
+                "dusty": { 
+                    summary: "בעיות תחזוקה", 
+                    detail: "התפוקה הייתה טובה בקיץ, אך בחורף הצטבר בוץ והיעילות צנחה.", 
+                    outcomeType: "neutral",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1508514177221-188b1cf2f24f?auto=format&fit=crop&w=800&q=80"
+                },
+                "optimal_solar": { 
+                    summary: "יעילות מקסימלית", 
+                    detail: "המערכת הפיקה את המקסימום האפשרי לאורך השנה והחזירה את ההשקעה מהר.", 
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80"
+                },
+                "summer_loss": { 
+                    summary: "הפסד בקיץ", 
+                    detail: "התפוקה בחורף הייתה מצוינת, אך הפסדנו את שעות השמש הארוכות של הקיץ.", 
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["מה הקשר בין קו הרוחב לזווית הפאנל?", "כיצד שיקולי תחזוקה משפיעים על התכנון ההנדסי?"]
+        }
     }
 ];
 
@@ -1097,5 +1300,209 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         reflection: {
             questions: ["Why does maximum sales not always lead to maximum profit?", "How do fixed costs affect the decision?"]
         }
+    },
+    {
+        id: "scenario_009",
+        title: "Classroom Budget Management",
+        category: "Management / Financial Literacy",
+        duration: "20 mins",
+        opening: {
+            description: "You received an annual budget of 5,000 NIS for your class. You must decide how to allocate it between different needs.",
+            imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "You must choose the best spending strategy to maximize learning and social cohesion, without exceeding the budget.",
+            context: "Students want an expensive trip, but basic study supplies are missing."
+        },
+        data: {
+            chartType: 'pie',
+            description: "Estimated cost distribution",
+            chartData: [
+                { name: "Annual Trip", value: 3000 },
+                { name: "Study Supplies", value: 1500 },
+                { name: "Social Activities", value: 1000 },
+                { name: "Class Decoration", value: 500 }
+            ],
+            facts: [
+                "Total budget is 5,000 NIS.",
+                "Annual trip is mandatory, but can be made cheaper.",
+                "Lack of study supplies affects grades."
+            ]
+        },
+        analysis: {
+            questions: [
+                "Is the budget sufficient for all wants?",
+                "What would you give up to allow for the trip?"
+            ],
+            keyTerms: ["Budget", "Prioritization", "Trade-off", "Opportunity Cost"]
+        },
+        solutions: {
+            options: [
+                { id: "s9_1", text: "Spend most of the budget on the trip and cut back on supplies.", correct: false, resultId: "fun_but_failing" },
+                { id: "s9_2", text: "Balanced split: Cheaper trip and buying essential supplies.", correct: true, resultId: "balanced" },
+                { id: "s9_3", text: "Cancel the trip and invest fully in supplies and technology.", correct: false, resultId: "boring" }
+            ]
+        },
+        simulation: {
+            results: {
+                "fun_but_failing": { 
+                    summary: "Fun but Inefficient", 
+                    detail: "Students enjoyed the trip, but struggled to learn without proper equipment.", 
+                    outcomeType: "neutral",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
+                },
+                "balanced": { 
+                    summary: "Perfect Balance", 
+                    detail: "The class is cohesive and academic achievements improved thanks to new equipment.", 
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1427504746696-ea5abd7dfe03?auto=format&fit=crop&w=800&q=80"
+                },
+                "boring": { 
+                    summary: "Class Resentment", 
+                    detail: "Grades went up, but the atmosphere in class is gloomy and students are angry.", 
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["What did you learn about managing a limited budget?", "How did you balance academic vs social needs?"]
+        }
+    },
+    {
+        id: "scenario_010",
+        title: "Integrating Technology in Class",
+        category: "EdTech",
+        duration: "15 mins",
+        opening: {
+            description: "The school received a donation to purchase new technology for one classroom.",
+            imageUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "You must choose the technology that will bring the highest added value to learning.",
+            context: "Teachers are divided between tablets, a smart board, or a 3D printer."
+        },
+        data: {
+            chartType: 'bar',
+            description: "Estimated impact on student engagement (1-10 scale)",
+            chartData: [
+                { name: "Personal Tablets", value: 9 },
+                { name: "Smart Board", value: 7 },
+                { name: "3D Printer", value: 8 }
+            ],
+            facts: [
+                "Tablets require ongoing maintenance and stable internet.",
+                "Smart board is mainly used by the teacher for frontal teaching.",
+                "3D printer encourages creativity but requires technical knowledge."
+            ]
+        },
+        analysis: {
+            questions: [
+                "Which technology encourages active learning the most?",
+                "What are the challenges in implementing each option?"
+            ],
+            keyTerms: ["Active Learning", "Maintenance", "Engagement", "Implementation"]
+        },
+        solutions: {
+            options: [
+                { id: "s10_1", text: "Purchase personal tablets for every student.", correct: true, resultId: "engagement" },
+                { id: "s10_2", text: "Install an advanced smart board.", correct: false, resultId: "passive" },
+                { id: "s10_3", text: "Purchase a 3D printer.", correct: false, resultId: "niche" }
+            ]
+        },
+        simulation: {
+            results: {
+                "engagement": { 
+                    summary: "Personalized Learning", 
+                    detail: "Students showed great interest and progressed at their own pace. The teacher moved to a facilitator role.", 
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80"
+                },
+                "passive": { 
+                    summary: "Slight Improvement", 
+                    detail: "Lessons became more visual, but the teaching method remained frontal.", 
+                    outcomeType: "neutral",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
+                },
+                "niche": { 
+                    summary: "Limited Use", 
+                    detail: "Only a small group of students used the printer. The majority of the class did not benefit.", 
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1631541909061-71e349d1f203?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["How does technology change the teacher's role?", "Is the most expensive tool always the best?"]
+        }
+    },
+    {
+        id: "scenario_011",
+        title: "Solar Energy Optimization",
+        category: "Physics / Renewable Energy",
+        duration: "20 mins",
+        opening: {
+            description: "The school has decided to install solar panels on the roof to save electricity and contribute to the environment.",
+            imageUrl: "https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "You must determine the optimal angle for placing the panels to maximize annual energy production.",
+            context: "A flat angle is good for summer, a steep angle is good for winter. Budget is limited to a fixed system."
+        },
+        data: {
+            chartType: 'line',
+            description: "Monthly energy production (kWh) by installation angle",
+            chartData: [
+                { name: "Jan", value: 300 },
+                { name: "Apr", value: 550 },
+                { name: "Jul", value: 700 },
+                { name: "Oct", value: 450 }
+            ],
+            facts: [
+                "The location is at latitude 32 North.",
+                "The optimal annual angle is usually equal to the latitude.",
+                "Dust accumulates more on flat panels, reducing efficiency."
+            ]
+        },
+        analysis: {
+            questions: [
+                "How does the season affect energy production?",
+                "Why is the installation angle so important?"
+            ],
+            keyTerms: ["Incidence Angle", "Radiation", "Efficiency", "Seasonality"]
+        },
+        solutions: {
+            options: [
+                { id: "s11_1", text: "Flat installation (0 degrees) to save costs.", correct: false, resultId: "dusty" },
+                { id: "s11_2", text: "Installation at 30 degrees facing south.", correct: true, resultId: "optimal_solar" },
+                { id: "s11_3", text: "Installation at 60 degrees to maximize winter output.", correct: false, resultId: "summer_loss" }
+            ]
+        },
+        simulation: {
+            results: {
+                "dusty": { 
+                    summary: "Maintenance Issues", 
+                    detail: "Output was good in summer, but mud accumulated in winter and efficiency dropped.", 
+                    outcomeType: "neutral",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1508514177221-188b1cf2f24f?auto=format&fit=crop&w=800&q=80"
+                },
+                "optimal_solar": { 
+                    summary: "Maximum Efficiency", 
+                    detail: "The system produced the maximum possible throughout the year and returned the investment quickly.", 
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80"
+                },
+                "summer_loss": { 
+                    summary: "Summer Loss", 
+                    detail: "Winter output was excellent, but we lost the long sun hours of summer.", 
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["What is the relationship between latitude and panel angle?", "How do maintenance considerations affect engineering design?"]
+        }
     }
 ];
+

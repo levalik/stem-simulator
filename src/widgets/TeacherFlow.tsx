@@ -1,6 +1,5 @@
 import React from 'react';
 import { useStore } from '../app/store';
-import { useNavigate } from '@tanstack/react-router';
 import { OpeningStep } from '../features/simulation/ui/steps/OpeningStep';
 import { ProblemStep } from '../features/simulation/ui/steps/ProblemStep';
 import { DataStep } from '../features/simulation/ui/steps/DataStep';
@@ -9,17 +8,16 @@ import { SolutionsStep } from '../features/simulation/ui/steps/SolutionsStep';
 import { SimulationStep } from '../features/simulation/ui/steps/SimulationStep';
 import { ReflectionStep } from '../features/simulation/ui/steps/ReflectionStep';
 
-export const TeacherFlow = ({ currentStep }: { currentStep: number }) => {
+export const TeacherFlow = ({ currentStep, onStepChange }: { currentStep: number; onStepChange: (step: number) => void }) => {
     const { t, language } = useStore();
     const isRTL = language === 'he';
-    const navigate = useNavigate({ from: '/simulation/$scenarioId' });
 
     const handleNext = () => {
-        navigate({ search: (prev: any) => ({ ...prev, step: Math.min(currentStep + 1, 6) }) });
+        onStepChange(Math.min(currentStep + 1, 6));
     };
 
     const handlePrev = () => {
-        navigate({ search: (prev: any) => ({ ...prev, step: Math.max(currentStep - 1, 0) }) });
+        onStepChange(Math.max(currentStep - 1, 0));
     };
 
     // Progress Bar

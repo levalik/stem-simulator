@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useStore } from '../../../../app/store';
 import { CheckCircle, MessageSquare } from 'lucide-react';
 import { StepHeader, NavButtons } from './StepComponents';
+import { Card, TextArea } from '../../../../shared/ui/DesignSystem';
 
 export const SolutionsStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) => {
     const { activeScenario, activeSession, updateSessionResponse, t } = useStore();
@@ -60,7 +61,7 @@ export const SolutionsStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: 
 
             {selectedId && (
                 <div className="animate-fade-in-up">
-                    <div className="bg-white p-8 rounded-3xl border border-surface-100 shadow-xl shadow-surface-200/50">
+                    <Card className="p-8 shadow-xl shadow-surface-200/50">
                         <div className="flex items-center gap-4 mb-6">
                             <div className="bg-primary-100 p-3 rounded-2xl text-primary-600">
                                 <MessageSquare size={24} />
@@ -70,13 +71,13 @@ export const SolutionsStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: 
                                 <p className="text-surface-500 text-sm">{t('justify_choice_help')}</p>
                             </div>
                         </div>
-                        <textarea
-                            className="w-full bg-surface-50 border border-surface-200 rounded-2xl p-5 focus:bg-white focus:ring-4 focus:ring-primary-100 focus:border-primary-400 transition-all min-h-[150px] text-base resize-y"
+                        <TextArea
+                            className="bg-surface-50 border-surface-200 focus:bg-white min-h-[150px] text-base"
                             placeholder="..."
                             value={justification}
                             onChange={handleJustificationChange}
                         />
-                    </div>
+                    </Card>
                 </div>
             )}
 

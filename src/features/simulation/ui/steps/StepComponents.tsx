@@ -2,6 +2,7 @@ import React from 'react';
 import { useStore } from '../../../../app/store';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
 import { Tooltip } from '../../../../shared/ui/Tooltip';
+import { Button } from '../../../../shared/ui/DesignSystem';
 
 export const StepHeader = ({ title, step, subtitle, helpText }: { title: string; step: number; subtitle?: string; helpText?: string }) => {
     const { t } = useStore();
@@ -28,21 +29,24 @@ export const NavButtons = ({ onNext, onPrev, disabled = false, nextLabel }: { on
 
     return (
         <div className="flex justify-between items-center pt-8 border-t border-surface-100 mt-10">
-            <button
+            <Button
+                variant="ghost"
                 onClick={onPrev}
-                className="flex items-center text-surface-500 hover:text-surface-800 px-4 py-2 font-medium transition-colors text-sm gap-2"
+                icon={isRTL ? ArrowRight : ArrowLeft}
+                iconPosition="left"
             >
-                {isRTL ? <ArrowRight size={16} /> : <ArrowLeft size={16} />}
                 {t('back')}
-            </button>
-            <button
+            </Button>
+            <Button
+                variant="primary"
                 onClick={onNext}
                 disabled={disabled}
-                className={`flex items-center bg-surface-900 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-surface-200 gap-2 ${disabled ? 'opacity-50 cursor-not-allowed shadow-none' : 'hover:bg-primary-600 hover:shadow-primary-200 hover:-translate-y-1'}`}
+                icon={isRTL ? ArrowLeft : ArrowRight}
+                iconPosition="right"
+                className="px-8 py-3 text-base"
             >
                 {nextLabel || t('continue')}
-                {isRTL ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
-            </button>
+            </Button>
         </div>
     );
 };

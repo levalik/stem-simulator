@@ -38,8 +38,8 @@ const TeacherDashboard = () => {
     total: scenarios.length,
   };
 
-  const handleStartSimulation = (scenarioId) => {
-    navigate({ to: '/simulation/$scenarioId', params: { scenarioId } });
+  const handleStartSimulation = (scenarioId: string) => {
+    navigate({ to: '/simulation/$scenarioId', params: { scenarioId } } as any);
   };
 
   return (

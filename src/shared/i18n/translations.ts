@@ -223,6 +223,8 @@ export const TRANSLATIONS = {
     key_facts: "Key Facts",
     selected: "Selected",
     click_to_select: "Click to Select",
+    enter_topic: "Enter a topic (e.g., 'Water Conservation in Urban Areas')",
+    ai_hint: "Powered by Gemini AI. Enter a topic and let AI create the initial structure for you.",
   },
   he: {
     start: "התחלה",
@@ -448,6 +450,8 @@ export const TRANSLATIONS = {
     key_facts: "עובדות מפתח",
     selected: "נבחר",
     click_to_select: "לחץ לבחירה",
+    enter_topic: "הכנס נושא (לדוגמה: 'חיסכון במים באזורים עירוניים')",
+    ai_hint: "מופעל על ידי Gemini AI. הכנס נושא ותן ל-AI ליצור את המבנה הראשוני עבורך.",
   }
 } as const;
 

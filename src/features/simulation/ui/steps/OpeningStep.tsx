@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStore } from '../../../../app/store';
 import { Activity, Clock, ArrowLeft, ArrowRight, LineChart as ChartIcon, CheckCircle, BrainCircuit, Lightbulb, MessageSquare } from 'lucide-react';
+import { Button, Badge } from '../../../../shared/ui/DesignSystem';
 
 export const OpeningStep = ({ onNext }: { onNext: () => void }) => {
     const { activeScenario, t, language } = useStore();
@@ -25,12 +26,12 @@ export const OpeningStep = ({ onNext }: { onNext: () => void }) => {
                     {/* Content Section */}
                     <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center bg-white">
                         <div className="flex flex-wrap gap-3 mb-6">
-                             <span className="inline-flex items-center gap-1.5 bg-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-primary-100">
-                                <Activity size={12} /> {activeScenario.category}
-                            </span>
-                            <span className="inline-flex items-center gap-1.5 bg-surface-50 text-surface-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-surface-100">
-                                <Clock size={12} /> {activeScenario.duration}
-                            </span>
+                            <Badge color="blue">
+                                <Activity size={12} className="mr-1.5" /> {activeScenario.category}
+                            </Badge>
+                            <Badge color="gray">
+                                <Clock size={12} className="mr-1.5" /> {activeScenario.duration}
+                            </Badge>
                         </div>
 
                         <h1 className="text-3xl md:text-4xl font-extrabold text-surface-900 mb-4 leading-tight tracking-tight">
@@ -41,12 +42,14 @@ export const OpeningStep = ({ onNext }: { onNext: () => void }) => {
                             {activeScenario.opening.description}
                         </p>
 
-                        <button 
+                        <Button 
                             onClick={onNext} 
-                            className="w-fit bg-surface-900 text-white px-8 py-3.5 rounded-xl font-bold text-base hover:bg-primary-600 transition-all flex items-center gap-2 shadow-lg shadow-surface-200 hover:shadow-primary-200 hover:-translate-y-0.5"
+                            size="lg"
+                            rightIcon={isRTL ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
+                            className="w-fit shadow-lg shadow-surface-200 hover:shadow-primary-200 hover:-translate-y-0.5"
                         >
-                            {t('start_simulation')} {isRTL ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
-                        </button>
+                            {t('start_simulation')}
+                        </Button>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { useStore } from '../../../../app/store';
 import { Activity, Lightbulb } from 'lucide-react';
 import { StepHeader, NavButtons } from './StepComponents';
+import { Card } from '../../../../shared/ui/DesignSystem';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, Cell, PieChart, Pie, LineChart, Line } from 'recharts';
 
 export const DataStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) => {
@@ -79,7 +80,7 @@ export const DataStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: () =>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Main Chart Card */}
-                <div className="lg:col-span-2 bg-white rounded-3xl border border-surface-100 shadow-xl shadow-surface-200/50 p-8">
+                <Card className="lg:col-span-2 p-8 shadow-xl shadow-surface-200/50">
                     <div className="flex justify-between items-center mb-8">
                         <h3 className="text-xl font-bold text-surface-900 flex items-center gap-3">
                             <div className="p-2 bg-primary-100 rounded-lg text-primary-600">
@@ -92,11 +93,11 @@ export const DataStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: () =>
                     <div className="h-[400px] w-full">
                         {renderChart()}
                     </div>
-                </div>
+                </Card>
 
                 {/* Key Facts Sidebar */}
                 <div className="space-y-6">
-                    <div className="bg-surface-900 text-white rounded-3xl p-8 shadow-xl">
+                    <Card className="!bg-surface-900 text-white shadow-xl">
                         <h4 className="font-bold text-lg mb-6 flex items-center gap-2">
                             <Lightbulb size={20} className="text-secondary-400" />
                             {t('key_facts')}
@@ -111,14 +112,14 @@ export const DataStep = ({ onNext, onPrev }: { onNext: () => void; onPrev: () =>
                                 <li className="text-surface-400 italic text-sm">{t('no_facts')}</li>
                             )}
                         </ul>
-                    </div>
+                    </Card>
 
-                    <div className="bg-white rounded-3xl p-6 border border-surface-100 shadow-lg">
+                    <Card className="shadow-lg">
                         <h4 className="font-bold text-surface-900 mb-3 text-sm uppercase tracking-wider">{t('analysis_tip')}</h4>
                         <p className="text-sm text-surface-500 leading-relaxed">
                             {t('analysis_tip_content')}
                         </p>
-                    </div>
+                    </Card>
                 </div>
             </div>
 
