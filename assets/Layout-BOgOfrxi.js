@@ -1,4 +1,4 @@
-import{c as t,L as y}from"./Logo-CmuEw_j8.js";import{e as L,j as e,u as H,a as T,r as N}from"./index-C-1Mlfbx.js";function O(c){return L({select:a=>a.location})}/**
+import{c as t,L as y}from"./Logo-2fIic4rr.js";import{e as L,j as e,u as H,a as T,r as N}from"./index-BbeZAu8d.js";function O(c){return L({select:a=>a.location})}/**
  * @license lucide-react v0.555.0 - ISC
  *
  * This source code is licensed under the ISC license.
