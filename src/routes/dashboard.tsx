@@ -152,7 +152,12 @@ const TeacherDashboard = () => {
             const status = index < 2 ? 'completed' : index === 2 ? 'in_progress' : 'not_started';
 
             return (
-              <div key={scenario.id} className="group bg-white rounded-3xl border border-surface-200 shadow-sm hover:shadow-xl hover:border-primary-200 transition-all duration-300 overflow-hidden flex flex-col h-full animate-fade-in-up" style={{ animationDelay: `${(index + 3) * 100}ms` }}>
+              <div 
+                key={scenario.id} 
+                onClick={() => handleStartSimulation(scenario.id)}
+                className="group bg-white rounded-3xl border border-surface-200 shadow-sm hover:shadow-xl hover:border-primary-200 transition-all duration-300 overflow-hidden flex flex-col h-full animate-fade-in-up cursor-pointer" 
+                style={{ animationDelay: `${(index + 3) * 100}ms` }}
+              >
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={scenario.opening.imageUrl || "./placeholder.svg"}
@@ -190,7 +195,6 @@ const TeacherDashboard = () => {
                       <Clock size={14} /> {scenario.duration}
                     </span>
                     <button
-                      onClick={() => handleStartSimulation(scenario.id)}
                       className="flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-900 text-white text-sm font-bold transition-all shadow-lg shadow-surface-200 group-hover:bg-primary-600"
                       title={t('tooltip_start_scenario')}
                     >
