@@ -62,7 +62,7 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Heebo', 'Inter', 'system-ui', 'sans-serif'],
         display: ['Lexend', 'system-ui', 'sans-serif'],
       },
       animation: {

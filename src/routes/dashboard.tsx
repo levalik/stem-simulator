@@ -59,18 +59,7 @@ const TeacherDashboard = () => {
             </div>
           </div>
           <div className="flex gap-3">
-            <button
-              onClick={() => {
-                if (currentUser?.role === 'admin') {
-                  navigate({ to: '/admin' });
-                } else {
-                  alert(t('admin_only') || "This feature is for administrators only.");
-                }
-              }}
-              className="px-4 py-2 bg-surface-900 text-white rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-primary-600 transition-colors shadow-lg shadow-surface-200"
-            >
-              <Plus size={16} /> {t('new_scenario')}
-            </button>
+
             <span className="px-4 py-2 bg-primary-100 text-primary-700 rounded-xl text-sm font-bold flex items-center gap-2">
               <BookOpen size={16} /> {scenarios.length} {t('active_modules')}
             </span>
