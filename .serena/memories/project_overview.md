@@ -1,0 +1,4 @@
+- **Purpose:** STEM Simulator is a React + TypeScript web app for authoring and running STEM lesson scenarios with AI-assisted task generation and multi-language support.
+- **Key Features:** Admin panel for managing sample scenarios, teacher dashboard, scenario simulation flow, Gemini-powered task/image generation, i18n (Hebrew/English/Arabic), Zustand global store, TanStack Router navigation.
+- **Tech Stack:** React 19, TypeScript, Vite, Zustand, TanStack Router, TailwindCSS/PostCSS, Lucide icons, Recharts for charts, Google Gemini API integration.
+- **Important Files/Folders:** `src/app` (layout/store), `src/routes` (page routes), `src/entities`/`features`/`widgets` (FSD organization), `src/shared` (API, i18n, models, UI), `docs` (product requirements).

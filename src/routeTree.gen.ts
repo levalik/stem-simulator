@@ -10,18 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as SimulationScenarioIdRouteImport } from './routes/simulation.$scenarioId'
+import { Route as AdminScenariosCreateRouteImport } from './routes/admin.scenarios.create'
+import { Route as AdminScenariosScenarioIdEditRouteImport } from './routes/admin.scenarios.$scenarioId.edit'
 
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -29,44 +26,87 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SimulationScenarioIdRoute = SimulationScenarioIdRouteImport.update({
   id: '/simulation/$scenarioId',
   path: '/simulation/$scenarioId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminScenariosCreateRoute = AdminScenariosCreateRouteImport.update({
+  id: '/admin/scenarios/create',
+  path: '/admin/scenarios/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminScenariosScenarioIdEditRoute =
+  AdminScenariosScenarioIdEditRouteImport.update({
+    id: '/admin/scenarios/$scenarioId/edit',
+    path: '/admin/scenarios/$scenarioId/edit',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/dashboard': typeof DashboardRoute
   '/simulation/$scenarioId': typeof SimulationScenarioIdRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/scenarios/create': typeof AdminScenariosCreateRoute
+  '/admin/scenarios/$scenarioId/edit': typeof AdminScenariosScenarioIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/dashboard': typeof DashboardRoute
   '/simulation/$scenarioId': typeof SimulationScenarioIdRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/scenarios/create': typeof AdminScenariosCreateRoute
+  '/admin/scenarios/$scenarioId/edit': typeof AdminScenariosScenarioIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/dashboard': typeof DashboardRoute
   '/simulation/$scenarioId': typeof SimulationScenarioIdRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/scenarios/create': typeof AdminScenariosCreateRoute
+  '/admin/scenarios/$scenarioId/edit': typeof AdminScenariosScenarioIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/dashboard' | '/simulation/$scenarioId'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/simulation/$scenarioId'
+    | '/admin'
+    | '/admin/scenarios/create'
+    | '/admin/scenarios/$scenarioId/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/dashboard' | '/simulation/$scenarioId'
-  id: '__root__' | '/' | '/admin' | '/dashboard' | '/simulation/$scenarioId'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/simulation/$scenarioId'
+    | '/admin'
+    | '/admin/scenarios/create'
+    | '/admin/scenarios/$scenarioId/edit'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/simulation/$scenarioId'
+    | '/admin/'
+    | '/admin/scenarios/create'
+    | '/admin/scenarios/$scenarioId/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
   DashboardRoute: typeof DashboardRoute
   SimulationScenarioIdRoute: typeof SimulationScenarioIdRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminScenariosCreateRoute: typeof AdminScenariosCreateRoute
+  AdminScenariosScenarioIdEditRoute: typeof AdminScenariosScenarioIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -78,18 +118,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/simulation/$scenarioId': {
@@ -99,14 +139,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SimulationScenarioIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/scenarios/create': {
+      id: '/admin/scenarios/create'
+      path: '/admin/scenarios/create'
+      fullPath: '/admin/scenarios/create'
+      preLoaderRoute: typeof AdminScenariosCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/scenarios/$scenarioId/edit': {
+      id: '/admin/scenarios/$scenarioId/edit'
+      path: '/admin/scenarios/$scenarioId/edit'
+      fullPath: '/admin/scenarios/$scenarioId/edit'
+      preLoaderRoute: typeof AdminScenariosScenarioIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
   DashboardRoute: DashboardRoute,
   SimulationScenarioIdRoute: SimulationScenarioIdRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminScenariosCreateRoute: AdminScenariosCreateRoute,
+  AdminScenariosScenarioIdEditRoute: AdminScenariosScenarioIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

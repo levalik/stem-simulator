@@ -1,0 +1,6 @@
+- **Architecture:** Feature-Sliced Design (app/entities/features/widgets/shared) with TanStack Router for routing and Zustand store for state.
+- **Code Style:** Functional React components with hooks, TypeScript interfaces/types for models, TailwindCSS utility classes for styling, Lucide icons, prefer descriptive props and translation keys through `useStore().t`.
+- **Internationalization:** Strings pulled from `TRANSLATIONS` and `t(key)` helper; disciplines/grades converted to translation keys (e.g., `discipline_mathematics`).
+- **Data Models:** `Scenario` type (see `entities/scenario/model/types.ts`) defines tasks, disciplines, grades, etc. Use strongly typed fields when editing mock data.
+- **State Updates:** Use immutable updates via Zustand setters; avoid mutating store arrays directly.
+- **AI Integration:** `shared/api/geminiService.ts` exports helpers for generating tasks/solutions/images; async handlers should handle loading/error states.

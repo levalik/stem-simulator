@@ -2,221 +2,336 @@ import { Scenario } from './types';
 
 export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
     {
-        id: "scenario_001",
-        title: "אתגר התייעלות אנרגטית",
-        category: "פיזיקה / מדעי הסביבה",
-        duration: "20 דקות",
+        id: "scenario_017",
+        title: "תכנון מערכת סינון מים",
+        category: "כימיה / הנדסה",
+        grade: "Grade 9",
+        duration: 30,
+        disciplines: ["Chemistry", "Engineering"],
         opening: {
-            description: "מועצת העיר החליטה על יעד של הפחתת צריכת האנרגיה העירונית ב-20% כדי לעמוד ביעדי הקיימות החדשים.",
-            imageUrl: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            description: "כפר מרוחק סובל ממים מזוהמים. עליך לתכנן מערכת סינון זולה ויעילה מחומרים זמינים.",
+            imageUrl: "https://images.unsplash.com/photo-1538300342682-cf57afb97285?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
-            text: "כמהנדס העיר הראשי, עליך לזהות את המקור העיקרי לבזבוז אנרגיה ולהציע פתרון המאזן בין עלות, יעילות ותמיכה ציבורית.",
-            context: "קיצוצים בתקציב מרחפים מעל, והתושבים אינם מרוצים מהפסקות החשמל האחרונות."
+            text: "עליך לבחור את הרכב השכבות במסנן כדי להרחיק מקסימום מזהמים בעלות מינימלית.",
+            context: "התקציב מוגבל והחומרים חייבים להיות מקומיים (חול, חצץ, פחם)."
         },
         data: {
             chartType: 'bar',
-            description: "צריכת אנרגיה שנתית לפי מגזר (ב-GWh).",
+            description: "יעילות סינון של חומרים שונים (באחוזים)",
             chartData: [
-                { name: "מגורים", value: 450 },
-                { name: "תעשייה", value: 800 },
-                { name: "מסחר", value: 300 },
-                { name: "תחבורה", value: 600 }
+                { name: "חול דק", value: 40 },
+                { name: "חצץ", value: 20 },
+                { name: "פחם פעיל", value: 90 },
+                { name: "בד כותנה", value: 15 }
             ],
             facts: [
-                "המגזר התעשייתי אחראי ל-40% מסך הפליטות בעיר.",
-                "צריכת החשמל הביתית עולה ב-10% מדי שנה.",
-                "עלות ייצור קוט\"ש בתחנת כוח פחמית זולה ב-30% מאנרגיה ירוקה כרגע."
+                "פחם פעיל סופח כימיקלים ורעלים.",
+                "חול מסנן חלקיקים פיזיים גדולים.",
+                "המים חייבים לעבור הרתחה לאחר הסינון לחיטוי מלא."
             ]
         },
         analysis: {
             questions: [
-                "בהתבסס על הנתונים, איזה מגזר תורם הכי הרבה לצריכת האנרגיה?",
-                "אילו דפוסים אתה מזהה בנוגע ליחס בין השימוש התעשייתי לשימוש הביתי?"
+                "איזה חומר הוא היעיל ביותר לסינון כימי?",
+                "מדוע חשוב לשלב מספר שכבות שונות?"
             ],
-            keyTerms: ["תעשייה", "גבוה ביותר", "כפול", "משמעותי"]
+            keyTerms: ["ספיחה", "סינון מכני", "פחם פעיל", "רב-שכבתי"]
         },
         solutions: {
             options: [
-                { id: "sol_1", text: "הטלת מגבלות נוקשות על צריכת אנרגיה בתעשייה באופן מיידי.", correct: false, resultId: "backlash" },
-                { id: "sol_2", text: "תמריצים למעבר לתאורת LED באזורי מגורים ומסחר.", correct: true, resultId: "sustainable" },
-                { id: "sol_3", text: "בניית תחנת כוח פחמית חדשה כדי לענות על הביקוש.", correct: false, resultId: "pollution" }
+                { id: "s17_1", text: "שימוש בחצץ בלבד לזרימה מהירה.", correct: false, resultId: "dirty_water" },
+                { id: "s17_2", text: "שילוב של חצץ, חול ופחם פעיל בסדר הנכון.", correct: true, resultId: "clean_water" },
+                { id: "s17_3", text: "שימוש בבד כותנה בלבד לחיסכון בעלויות.", correct: false, resultId: "ineffective" }
             ]
         },
         simulation: {
             results: {
-                "backlash": {
-                    summary: "קיפאון כלכלי",
-                    detail: "מפעלים איימו לעזוב את העיר עקב הרגולציה הנוקשה, מה שגרם לאובדן מקומות עבודה.",
+                "dirty_water": {
+                    summary: "מים עכורים",
+                    detail: "המים זרמו מהר, אך נותרו מלאים בבוץ וכימיקלים.",
                     outcomeType: "failure",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1535132012373-3085fb089e3d?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1570649237964-34d53db5a2c6?auto=format&fit=crop&w=800&q=80"
                 },
-                "sustainable": {
-                    summary: "הפחתה הדרגתית",
-                    detail: "צריכת האנרגיה ירדה ב-15% בשנה הראשונה עם תמיכה ציבורית גבוהה.",
+                "clean_water": {
+                    summary: "מים צלולים",
+                    detail: "המערכת הפיקה מים נקיים ובטוחים לשתייה בעלות נמוכה.",
                     outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=800&q=80"
                 },
-                "pollution": {
-                    summary: "משבר סביבתי",
-                    detail: "אספקת האנרגיה ענתה על הביקוש, אך מדד איכות האוויר החמיר משמעותית.",
+                "ineffective": {
+                    summary: "סינון לא מספק",
+                    detail: "הבד עצר לכלוך גס, אך המים נותרו מסוכנים לשתייה.",
                     outcomeType: "failure",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1611273426761-53c8577a20fa?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
         reflection: {
-            questions: ["כיצד הנתונים השפיעו על ההחלטה שלך?", "מה היית עושה אחרת בהינתן התוצאה?"]
-        }
-    },
-    {
-        id: "scenario_002",
-        title: "חיסכון במים עירוניים",
-        category: "אקולוגיה / תכנון עירוני",
-        duration: "15 דקות",
-        opening: {
-            description: "בצורת ממושכת מאיימת על מפלס מאגרי המים של העיר, שירד ל-40% מהקיבולת.",
-            imageUrl: "https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            questions: ["מה חשיבות הסדר של שכבות הסינון?", "כיצד פתרון טכנולוגי פשוט יכול להציל חיים?"]
         },
-        problem: {
-            text: "עליך לבחור אסטרטגיה מיידית להפחתת השימוש במים מבלי לגרום לפאניקה ציבורית או לבעיות תברואה.",
-            context: "המגזר החקלאי דורש עדיפות, אך השימוש הביתי עולה בקיץ."
-        },
-        data: {
-            chartType: 'pie',
-            description: "התפלגות שימוש במים לפי מגזר",
-            chartData: [
-                { name: "חקלאות", value: 65 },
-                { name: "מגורים", value: 20 },
-                { name: "תעשייה", value: 10 },
-                { name: "פארקים ציבוריים", value: 5 }
-            ],
-            facts: [
-                "החקלאות צורכת 65% מהמים אך תורמת רק 2% לתמ\"ג העירוני.",
-                "צריכת המים הביתית מגיעה לשיא בין השעות 18:00-21:00.",
-                "קצב האידוי במאגרים גבוה ב-15% מהממוצע הרב-שנתי."
-            ]
-        },
-        analysis: {
-            questions: [
-                "איזה מגזר משתמש ברוב משאבי המים?",
-                "האם התמקדות בשימוש הביתי מספיקה כדי לפתור את המשבר?"
-            ],
-            keyTerms: ["חקלאות", "רוב", "לא מספיק", "השקיה"]
-        },
-        solutions: {
-            options: [
-                { id: "s2_1", text: "קיצוץ אספקת המים למגורים ב-50% באופן מיידי.", correct: false, resultId: "panic" },
-                { id: "s2_2", text: "יישום סובסידיות להשקיה בטפטוף לחקלאים.", correct: true, resultId: "efficiency" },
-                { id: "s2_3", text: "ייבוא מים ממדינות שכנות בעלות גבוהה.", correct: false, resultId: "debt" }
-            ]
-        },
-        simulation: {
-            results: {
-                "panic": {
-                    summary: "מהומות ציבוריות",
-                    detail: "התושבים התמרדו עקב הקיצוצים הדרסטיים בעוד החוות המשיכו להשתמש במים בחופשיות.",
-                    outcomeType: "failure",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1555862124-94036092ab14?auto=format&fit=crop&w=800&q=80"
-                },
-                "efficiency": {
-                    summary: "יציבות לטווח ארוך",
-                    detail: "שימוש המים בחקלאות ירד ב-30%, מה שייצב את המאגר.",
-                    outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1622383563227-0440114a8517?auto=format&fit=crop&w=800&q=80"
-                },
-                "debt": {
-                    summary: "משבר פיננסי",
-                    detail: "המים הובטחו, אך העיר פשטה רגל.",
-                    outcomeType: "failure",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80"
-                }
+        tasks: [
+            {
+                id: "t_017_1",
+                discipline: "Engineering",
+                description: "תכנן את סדר השכבות במסנן להשגת יעילות מקסימלית.",
+                solution: "יש להתחיל בחצץ לסינון גס, לאחר מכן חול לסינון עדין ולבסוף פחם פעיל לספיחת רעלים.",
+                coverImage: "https://images.unsplash.com/photo-1538300342682-cf57afb97285?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_017_2",
+                discipline: "Chemistry",
+                description: "הסבירו כיצד פחם פעיל מסלק מזהמים מהמים ומתי יש להחליף אותו.",
+                solution: "לפחם פעיל שטח פנים עצום הקולט יונים ומולקולות אורגניות. יש להחליפו כאשר הטעם והעכירות חוזרים (בדרך כלל לאחר 3 חודשים).",
+                coverImage: "https://images.unsplash.com/photo-1532634922-8fe0b757fb13?auto=format&fit=crop&w=800&q=80"
             }
-        },
-        reflection: {
-            questions: ["מדוע הנתונים היו חשובים בבחירת המגזר הנכון?", "כיצד משתווים פתרונות לטווח קצר לעומת טווח ארוך?"]
-        }
+        ]
     },
     {
-        id: "scenario_003",
-        title: "שלמות מבנית של גשר",
-        category: "הנדסה / פיזיקה",
-        duration: "25 דקות",
+        id: "scenario_018",
+        title: "תזמון רמזורים חכם",
+        category: "מדעי המחשב / מתמטיקה",
+        grade: "Grade 10",
+        duration: 20,
+        disciplines: ["Computer Science", "Mathematics"],
         opening: {
-            description: "גשר תלוי ישן מראה סימני שחיקה. התנועה גדלה ב-200% מאז שנבנה.",
-            imageUrl: "https://images.unsplash.com/photo-1513415277900-a62401e19be4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            description: "צומת מרכזי בעיר סובל מפקקים קשים בשעות העומס. מערכת הרמזורים הנוכחית מיושנת.",
+            imageUrl: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
-            text: "קבע אם הגשר זקוק לתיקון, חיזוק או החלפה בהתבסס על נתוני מבחן מאמץ.",
-            context: "החלפה היא יקרה ותגרום לפקקי תנועה למשך שנתיים."
+            text: "עליך לכתוב אלגוריתם לתזמון הרמזורים שיקטין את זמן ההמתנה הממוצע של הנהגים.",
+            context: "יש להתחשב בנפחי התנועה המשתנים בין הבוקר לערב."
         },
         data: {
             chartType: 'line',
-            description: "אמפליטודת רעידות הגשר מול עומס תנועה",
+            description: "עומס תנועה בצומת לפי שעה (מספר רכבים לדקה)",
             chartData: [
-                { name: "10 טון", value: 2 },
-                { name: "20 טון", value: 4 },
-                { name: "30 טון", value: 12 },
-                { name: "40 טון", value: 45 }
+                { name: "07:00", value: 20 },
+                { name: "08:00", value: 80 },
+                { name: "09:00", value: 60 },
+                { name: "12:00", value: 30 },
+                { name: "17:00", value: 90 }
             ],
             facts: [
-                "רעידות בעוצמה של מעל 10 מ״מ נחשבות למסוכנות למבנה.",
-                "הגשר תוכנן במקור לעומס של 15 טון בלבד.",
-                "עלות החלפת הגשר מוערכת ב-50 מיליון ש״ח."
+                "זמן מחזור רמזור קבוע הוא 90 שניות.",
+                "חיישנים יכולים לזהות נוכחות רכבים בזמן אמת.",
+                "המתנה ארוכה מדי גורמת לנהגים לעבור באדום."
             ]
         },
         analysis: {
             questions: [
-                "באיזה עומס הרעידות הופכות לבלתי יציבות?",
-                "האם הקשר בין העומס לרעידות הוא ליניארי?"
+                "כיצד משתנה העומס לאורך היום?",
+                "האם תזמון קבוע יכול להתאים לכל שעות היום?"
             ],
-            keyTerms: ["אקספוננציאלי", "30 טון", "לא יציב", "לא ליניארי"]
+            keyTerms: ["אלגוריתם אדפטיבי", "זמן המתנה", "עומס שיא", "חיישנים"]
         },
         solutions: {
             options: [
-                { id: "s3_1", text: "לסגור את הגשר ולבנות מחדש מיד.", correct: false, resultId: "traffic_chaos" },
-                { id: "s3_2", text: "להגביל משאיות כבדות (>20 טון) ולחזק.", correct: true, resultId: "safe_extend" },
-                { id: "s3_3", text: "לא לעשות כלום, זה נראה בסדר.", correct: false, resultId: "collapse" }
+                { id: "s18_1", text: "השארת התזמון הקבוע (45 שניות לכל כיוון).", correct: false, resultId: "gridlock" },
+                { id: "s18_2", text: "שינוי התזמון לפי שעות קבועות מראש (בוקר/ערב).", correct: false, resultId: "better_but_limited" },
+                { id: "s18_3", text: "מערכת אדפטיבית המבוססת על חיישנים בזמן אמת.", correct: true, resultId: "smooth_flow" }
             ]
         },
         simulation: {
             results: {
-                "traffic_chaos": {
-                    summary: "סיוט תחבורתי",
-                    detail: "העיר בפקק מוחלט. הגשר היה בטוח, אך המחיר היה גבוה מדי.",
-                    outcomeType: "neutral",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1566232392379-afd9298e6a46?auto=format&fit=crop&w=800&q=80"
-                },
-                "safe_extend": {
-                    summary: "בטיחות אופטימלית",
-                    detail: "חיי הגשר הוארכו ב-10 שנים עם הפרעה מינימלית.",
-                    outcomeType: "success",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1513415277900-a62401e19be4?auto=format&fit=crop&w=800&q=80"
-                },
-                "collapse": {
-                    summary: "כשל קטסטרופלי",
-                    detail: "הגשר קרס בשעת העומס.",
+                "gridlock": {
+                    summary: "פקק תנועה",
+                    detail: "העומס גבר, ונהגים מתוסכלים צפרו ללא הפסקה.",
                     outcomeType: "failure",
-                    outcomeImageUrl: "https://images.unsplash.com/photo-1594718360228-45c857632596?auto=format&fit=crop&w=800&q=80"
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=800&q=80"
+                },
+                "better_but_limited": {
+                    summary: "שיפור חלקי",
+                    detail: "העומס ירד בשעות הצפויות, אך תאונות קרו באירועים חריגים.",
+                    outcomeType: "neutral",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"
+                },
+                "smooth_flow": {
+                    summary: "זרימה חלקה",
+                    detail: "זמן ההמתנה ירד ב-40%. התנועה זורמת ביעילות בכל שעות היום.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80"
                 }
             }
         },
         reflection: {
-            questions: ["כיצד הנתונים הלא-ליניאריים שינו את הערכת הסיכונים שלך?"]
-        }
+            questions: ["מה היתרון של מערכת המגיבה לנתונים בזמן אמת?", "כיצד טכנולוגיה יכולה לשפר תשתיות עירוניות?"]
+        },
+        tasks: [
+            {
+                id: "t_018_1",
+                discipline: "Computer Science",
+                description: "כתבו פסאודו-קוד ללוגיקה שמאריכה ירוק כאשר העומס בציר הראשי גבוה.",
+                solution: "אם חיישן בציר הראשי > 10 רכבים בצומת, הארך ירוק ב-20 שניות. אחרת, עבור לרמזור הבא בלולאה.",
+                coverImage: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_018_2",
+                discipline: "Mathematics",
+                description: "חשב את חלוקת ה-90 שניות במחזור כך ש-60% מהזמן יוקדש לכיוון העמוס בשעות השיא.",
+                solution: "90 שניות × 0.6 = 54 שניות לכיוון העמוס ו-36 שניות לכיוון המשני. יש לעדכן את המחזור כאשר החיישנים מתחלפים.",
+                coverImage: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
+    },
+    {
+        id: "scenario_019",
+        title: "אוטומציה של חממה",
+        category: "ביולוגיה / טכנולוגיה",
+        grade: "Grade 10",
+        duration: 25,
+        disciplines: ["Biology", "Technology in Education"],
+        opening: {
+            description: "חקלאי רוצה לגדל עגבניות שרי בחממה מבוקרת אקלים כדי למקסם את היבול.",
+            imageUrl: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "עליך להגדיר את תנאי הסביבה (טמפרטורה, לחות, אור) האופטימליים לגידול עגבניות.",
+            context: "סטייה מהתנאים האידיאליים תפגע בטעם ובכמות היבול."
+        },
+        data: {
+            chartType: 'line',
+            description: "קצב פוטוסינתזה כתלות בטמפרטורה (מעלות צלזיוס)",
+            chartData: [
+                { name: "10°C", value: 20 },
+                { name: "20°C", value: 60 },
+                { name: "25°C", value: 95 },
+                { name: "30°C", value: 80 },
+                { name: "40°C", value: 10 }
+            ],
+            facts: [
+                "עגבניות זקוקות ל-8 שעות אור לפחות ביום.",
+                "לחות גבוהה מדי מעודדת פטריות.",
+                "טמפרטורה מעל 35 מעלות פוגעת באנזימים בצמח."
+            ]
+        },
+        analysis: {
+            questions: [
+                "מהי הטמפרטורה האופטימלית לפוטוסינתזה?",
+                "מה קורה לצמח בטמפרטורות קיצוניות?"
+            ],
+            keyTerms: ["פוטוסינתזה", "דנטורציה", "בקרת אקלים", "לחות"]
+        },
+        solutions: {
+            options: [
+                { id: "s19_1", text: "שמירה על 25 מעלות ולחות מבוקרת.", correct: true, resultId: "perfect_tomatoes" },
+                { id: "s19_2", text: "חימום ל-35 מעלות להאצת הגדילה.", correct: false, resultId: "wilted" },
+                { id: "s19_3", text: "השקיה מרובה ללא בקרת לחות.", correct: false, resultId: "fungus" }
+            ]
+        },
+        simulation: {
+            results: {
+                "perfect_tomatoes": {
+                    summary: "יבול משובח",
+                    detail: "העגבניות גדלו אדומות ומתוקות בכמות גדולה.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=800&q=80"
+                },
+                "wilted": {
+                    summary: "צמחים נבולים",
+                    detail: "החום הגבוה פגע בצמחים והיבול אבד.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1591586121440-58b868f6d72a?auto=format&fit=crop&w=800&q=80"
+                },
+                "fungus": {
+                    summary: "התקפת פטריות",
+                    detail: "הלחות הגבוהה גרמה לריקבון של הפירות.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["כיצד גורמים סביבתיים משפיעים על תהליכים ביולוגיים?", "מה חשיבות הדיוק בחקלאות מודרנית?"]
+        },
+        tasks: [
+            {
+                id: "t_019_1",
+                discipline: "Biology",
+                description: "הגדירו את טווח הטמפרטורה והלחות האידיאלי לעגבניות שרי.",
+                solution: "24-26 מעלות ביום, 60-70% לחות ותאורה של 12 שעות. חריגה מחמירה פוגעת בכמות ובטעם.",
+                coverImage: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_019_2",
+                discipline: "Technology in Education",
+                description: "כתבו תרחיש בקרה אוטומטי (IF/THEN) להפעלת מאווררים והשקיה לפי נתוני חיישנים.",
+                solution: "IF טמפרטורה > 30°C THEN הפעל מאוורר. IF לחות < 55% THEN הפעל מערכת ערפול ל-2 דקות. החיישנים מדווחים כל 10 דקות.",
+                coverImage: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
+    },
+    {
+        id: "new_scenario_he_001",
+        topic: "אנרגיה ירוקה בערים חכמות",
+        title: "אנרגיה ירוקה בערים חכמות",
+        grade: "Grade 9",
+        duration: 45,
+        disciplines: ["Physics", "Geography"],
+        category: "פיזיקה / גיאוגרפיה",
+        opening: {
+            description: "תכנון מערכת אנרגיה בת-קיימא לעיר עתידנית.",
+            imageUrl: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1000&q=80"
+        },
+        tasks: [
+            {
+                id: "t_he_1",
+                discipline: "Financial Education",
+                description: "נתח את האפשרויות התקציביות וקבע את ההקצאה האופטימלית.",
+                solution: "חלוקה מאוזנת: 2,500 ש\"ח לציוד לימודי חיוני, 1,500 ש\"ח לטיול קצר ו-1,000 ש\"ח לפעילות גיבוש מבטיחה גם חוסן לימודי וגם חווייתי.",
+                coverImage: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "t_009_2",
+                discipline: "Management",
+                description: "בנו טבלת תיעדוף שמחלקת את התקציב בין ציוד, טיולים ופעילויות כיתה תוך שמירה על 5,000 ש\"ח.",
+                solution: "מהלך ניהולי מומלץ: 2,200 ש\"ח לציוד בסיסי (לוחות, עפרונות, טאבלט אחד לכיתה), 1,300 ש\"ח לשדרוג טיול (הוזלה באמצעות השכרת אוטובוס משותף) ו-1,500 ש\"ח לפעילות חברתית. נשארים עם רזרבה של 0 ש\"ח ומכסים את כל הצרכים.",
+                coverImage: "https://images.unsplash.com/photo-1485727749690-d091e8284efc?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_he_1_2",
+                discipline: "Physics",
+                description: "כיצד תשפיע זווית ההטיה של הפאנלים הסולאריים על תפוקת האנרגיה בחורף לעומת הקיץ בקו רוחב 32 מעלות (ישראל)?",
+                solution: "בקיץ השמש גבוהה, ולכן זווית שטוחה יותר יעילה. בחורף השמש נמוכה, ונדרשת זווית תלולה יותר. זווית קבועה של כ-30 מעלות היא פשרה טובה, אך מערכת עקיבה תגדיל את התפוקה ב-20%.",
+                coverImage: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "t_he_2",
+                discipline: "Geography",
+                description: "נתח את ההשפעה הסביבתית של הצבת טורבינות רוח בפאתי העיר על משטר הרוחות המקומי ועל נתיבי נדידת הציפורים.",
+                solution: "יש להתחשב בכיווני הרוח השולטים (מערביות בדרך כלל בישראל) ולהימנע מהצבה בנתיבי נדידה מרכזיים (כגון השבר הסורי-אפריקאי). רעש הטורבינות מחייב מרחק של לפחות 1 ק\"מ מאזורי מגורים.",
+                coverImage: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "t_he_2_2",
+                discipline: "Geography",
+                description: "הצע מיקום אופטימלי להקמת שכונה חדשה בעיר החכמה, תוך התחשבות בטופוגרפיה (זרימת אוויר וניקוז) וקרבה לאזורי תעשייה.",
+                solution: "מומלץ למקם את השכונה במדרון דרומי לניצול מקסימלי של אור השמש, ובאזור גבוה לשיפור האוורור. יש להרחיק אותה מאזורי התעשייה הנמצאים בכיוון הרוח (מערב) כדי למנוע זיהום אוויר.",
+                coverImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=80"
+            }
+        ],
+        // Legacy fields placeholders
+        problem: { text: "", context: "" },
+        data: { chartType: 'bar', chartData: [], description: "" },
+        analysis: { questions: [], keyTerms: [] },
+        solutions: { options: [] },
+        simulation: { results: {} },
+        reflection: { questions: [] }
     },
     {
         id: "scenario_004",
-        title: "אופטימיזציה של מערך ההסעות",
-        category: "מתמטיקה / חקר ביצועים",
-        duration: "30 דקות",
+        title: "ייעול קווי הסעות הבוקר",
+        category: "לוגיסטיקה / מתמטיקה",
+        grade: "Grade 9",
+        duration: 20,
+        disciplines: ["Operations Research", "Mathematics"],
         opening: {
-            description: "תלמידים והורים מתלוננים על צפיפות בלתי נסבלת בקווי האוטובוס לבית הספר בשעות הבוקר.",
-            imageUrl: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            description: "תלמידים והורים מתלוננים על צפיפות בלתי נסבלת בקווי ההסעות לבית הספר בשעות הבוקר.",
+            imageUrl: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
-            text: "עליך לתכנן מחדש את לוח הזמנים של האוטובוסים כדי להפחית את הצפיפות, מבלי לחרוג מתקציב ההסעות הקבוע.",
-            context: "הוספת אוטובוסים נוספים היא יקרה מאוד, אך שינוי זמנים אפשרי."
+            text: "עליך לאזן מחדש את לוח ההסעות כדי לצמצם עומסים מבלי להגדיל את התקציב הקבוע לקווי ההסעה.",
+            context: "הוספת אוטובוסים יקרה מאוד, אך ניתן לשנות זמנים וקווים קיימים."
         },
         data: {
             chartType: 'bar',
@@ -231,8 +346,8 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
             ],
             facts: [
                 "קיבולת מקסימלית של אוטובוס היא 50 תלמידים.",
-                "עלות שעת נהג נוספת היא 200 ש״ח.",
-                "80% מהתלמידים גרים במרחק של פחות מ-5 ק״מ מבית הספר."
+                "עלות שעת נהג נוספת היא 200 ש\"ח.",
+                "80% מהתלמידים גרים במרחק של פחות מ-5 ק\"מ מבית הספר."
             ]
         },
         analysis: {
@@ -273,16 +388,27 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["כיצד ניתוח ההתפלגות עזר בפתרון הבעיה?", "מה ההבדל בין פתרון 'יקר' לפתרון 'חכם'?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_004_1",
+                discipline: "Mathematics",
+                description: "נתח את נתוני הנוסעים לפי שעה וזהה את שעות השיא.",
+                solution: "שעות 07:30-07:45 הן שעות השיא עם 85-90 נוסעים. יש לחזק את הקווים בשעות אלה.",
+                coverImage: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_005",
         title: "התפרצות חיידק עמיד",
         category: "ביולוגיה / רפואה",
-        duration: "25 דקות",
+        grade: "Grade 11",
+        duration: 25,
+        disciplines: ["Biology", "Medicine"],
         opening: {
             description: "במחלקה הפנימית בבית החולים זוהתה התפרצות של זיהום חיידקי שאינו מגיב לטיפול האנטיביוטי הסטנדרטי.",
-            imageUrl: "https://images.unsplash.com/photo-1584362917165-526a968579e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך להחליט על פרוטוקול טיפול חדש כדי לעצור את ההתפרצות ולמנוע תמותה, תוך מזעור הסיכון ליצירת עמידות נוספת.",
@@ -343,16 +469,27 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["מהו הקשר בין מינון חלקי לבין אבולוציה של חיידקים?", "כיצד נתונים כמותיים מצילים חיים ברפואה?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_005_1",
+                discipline: "Biology",
+                description: "נתח את נתוני רגישות החיידקים וקבע את הטיפול האופטימלי.",
+                solution: "רק אנטיביוטיקה C (MIC = 2 מ\"ג/ל) תהיה יעילה לחיידק עמיד זה.",
+                coverImage: "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_006",
         title: "בטיחות בדרכים - מרחק עצירה",
         category: "פיזיקה / קינמטיקה",
-        duration: "20 דקות",
+        grade: "Grade 10",
+        duration: 20,
+        disciplines: ["Physics", "Kinematics"],
         opening: {
             description: "בצומת עירוני ראשי מתרחשות תאונות רבות בימי גשם, למרות שהנהגים נוסעים במהירות המותרת (50 קמ״ש).",
-            imageUrl: "https://images.unsplash.com/photo-1465447142348-e9952c393450?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1490902931801-d6f80ca94fe4?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לקבוע את מהירות הנסיעה הבטוחה החדשה לימי גשם, בהתבסס על הפיזיקה של מרחקי עצירה.",
@@ -411,16 +548,27 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["מדוע שינוי קטן במהירות משפיע משמעותית על מרחק העצירה?", "כיצד ידע בפיזיקה יכול להשפיע על חוקי תנועה?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_006_1",
+                discipline: "Physics",
+                description: "חשב את מרחק העצירה במהירויות שונות וקבע את המהירות הבטוחה.",
+                solution: "מרחק העצירה גדל ב-30% כשהמהירות עולה ב-20%. הגבלת המהירות ל-40 קמ\"ש היא הפתרון האופטימלי.",
+                coverImage: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_007",
         title: "זיהום בנהר הקישון",
         category: "כימיה / איכות סביבה",
-        duration: "30 דקות",
+        grade: "Grade 11",
+        duration: 30,
+        disciplines: ["Chemistry", "Environmental Quality"],
         opening: {
             description: "דגים רבים נמצאו מתים בנהר הקישון. בדיקות מעבדה גילו חומציות גבוהה (pH נמוך) במים.",
-            imageUrl: "https://images.unsplash.com/photo-1583325958573-3c89e40551ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לזהות את מקור הזיהום ולבחור בשיטת הטיפול הכימית המתאימה ביותר לנטרול החומציות והצלת המערכת האקולוגית.",
@@ -479,16 +627,27 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["מה ההבדל בין מהילה לנטרול כימי?", "מדוע חשוב להבין את סולם ה-pH בטיפול בשפכים?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_007_1",
+                discipline: "Chemistry",
+                description: "נתח את נתוני ה-pH וקבע את שיטת הטיפול המתאימה.",
+                solution: "יש להשתמש בנטרול כימי עם סיד (בסיס) כדי להעלות את ה-pH מ-3 ל-7 ולהציל את המערכת האקולוגית.",
+                coverImage: "https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_008",
         title: "אופטימיזציה של תמחור פיצה",
         category: "מתמטיקה / כלכלה",
-        duration: "25 דקות",
+        grade: "Grade 9",
+        duration: 25,
+        disciplines: ["Mathematics", "Economics"],
         opening: {
             description: "פיצרייה שכונתית חדשה רוצה למקסם את הרווח היומי שלה, אך מתלבטת לגבי המחיר הנכון למגש.",
-            imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לקבוע את מחיר הפיצה האופטימלי (בין 40, 60, או 80 ש״ח) כדי להשיג את הרווח המקסימלי.",
@@ -546,16 +705,34 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["מדוע מקסימום מכירות לא תמיד מוביל למקסימום רווח?", "כיצד משפיעות הוצאות קבועות על ההחלטה?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_008_1",
+                discipline: "Mathematics",
+                description: "חשב את הרווח היומי עבור כל מחיר וקבע את המחיר האופטימלי.",
+                solution: "מחיר 40 ש\"ח: (40-20)*100 - 500 = 1,500 ש\"ח. מחיר 60 ש\"ח: (60-20)*60 - 500 = 1,900 ש\"ח. מחיר 80 ש\"ח: (80-20)*20 - 500 = 700 ש\"ח. המחיר האופטימלי הוא 60 ש\"ח.",
+                coverImage: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_008_2",
+                discipline: "Economics",
+                description: "הסבר את הקשר בין גמישות הביקוש למחיר לבין קביעת מחיר אופטימלי בשוק הפיצה.",
+                solution: "גמישות הביקוש היא מדד לשינוי בכמות הנדרשת בעקבות שינוי במחיר. כאשר המחיר עלה מ-40 ל-60 ש\"ח (עלייה של 50%), הכמות ירדה מ-100 ל-60 (ירידה של 40%). הביקוש גמיש יחסית. המחיר האופטימלי נמצא בנקודה שבה ההכנסה השולית שווה לעלות השולית.",
+                coverImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_009",
         title: "ניהול תקציב כיתתי",
         category: "ניהול / חינוך פיננסי",
-        duration: "20 דקות",
+        grade: "Grade 8",
+        duration: 20,
+        disciplines: ["Management", "Financial Education"],
         opening: {
             description: "קיבלת תקציב שנתי של 5,000 ש״ח לכיתה שלך. עליך להחליט כיצד לחלק אותו בין צרכים שונים.",
-            imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לבחור את אסטרטגיית ההוצאה הטובה ביותר שתמקסם את הלמידה והגיבוש החברתי, מבלי לחרוג מהתקציב.",
@@ -614,16 +791,27 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["מה למדת על ניהול תקציב מוגבל?", "כיצד איזנת בין צרכים לימודיים לחברתיים?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_009_1",
+                discipline: "Economics",
+                description: "נתח את האפשרויות התקציביות וקבע את ההקצאה האופטימלית.",
+                solution: "חלוקה מאוזנת: 2500 ש\"ח ללוחות מחיקים, 1500 ש\"ח ליציאה קצרה, מביאה לאיזון בין צרכים לימודיים וחברתיים.",
+                coverImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_010",
         title: "שילוב טכנולוגיה בכיתה",
         category: "טכנולוגיה בחינוך",
-        duration: "15 דקות",
+        grade: "Grade 7",
+        duration: 15,
+        disciplines: ["Technology in Education"],
         opening: {
             description: "בית הספר קיבל תרומה לרכישת טכנולוגיה חדשה לכיתה אחת.",
-            imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לבחור את הטכנולוגיה שתביא את הערך המוסף הגבוה ביותר ללמידה.",
@@ -681,16 +869,27 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["כיצד הטכנולוגיה משנה את תפקיד המורה?", "האם הכלי היקר ביותר הוא תמיד הטוב ביותר?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_010_1",
+                discipline: "Technology in Education",
+                description: "השווה בין אפשרויות הטכנולוגיה וקבע איזו תביא את הערך המוסף הגבוה ביותר.",
+                solution: "טאבלטים אישיים מאפשרים למידה מותאמת אישית והם בעלי ההשפעה הגבוהה ביותר על מעורבות תלמידים.",
+                coverImage: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_011",
         title: "אופטימיזציה של אנרגיה סולארית",
         category: "פיזיקה / אנרגיה מתחדשת",
-        duration: "20 דקות",
+        grade: "Grade 11",
+        duration: 20,
+        disciplines: ["Physics", "Renewable Energy"],
         opening: {
             description: "בית הספר החליט להתקין פאנלים סולאריים על הגג כדי לחסוך בחשמל ולתרום לסביבה.",
-            imageUrl: "https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1508514177221-188b1cf2f24f?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "עליך לקבוע את הזווית האופטימלית להצבת הפאנלים כדי להפיק את המקסימום אנרגיה שנתית.",
@@ -749,16 +948,34 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["מה הקשר בין קו הרוחב לזווית הפאנל?", "כיצד שיקולי תחזוקה משפיעים על התכנון ההנדסי?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_011_1",
+                discipline: "Physics",
+                description: "קבע את זווית ההתקנה האופטימלית לפאנלים סולאריים בישראל.",
+                solution: "זווית 30 מעלות דרומה היא האופטימלית לקו רוחב 32, ומאזנת בין תפוקה קיצית וחורפית.",
+                coverImage: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_011_2",
+                discipline: "Renewable Energy",
+                description: "תכנן לוח תחזוקה שמבטיח יעילות מקסימלית של הפאנלים לאורך כל השנה.",
+                solution: "ניקוי אבק אחת לחודש באביב/קיץ ואחת לשבועיים בסתיו/חורף מעלה תפוקה בכ-8%. יש לעקוב אחרי תפוקת המערכת באפליקציה ולהתריע אם הירידה עולה על 5%.",
+                coverImage: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_012",
         title: "חשבון - חיבור בסיסי",
         category: "מתמטיקה / חשבון",
-        duration: "10 דקות",
+        grade: "Grade 1",
+        duration: 10,
+        disciplines: ["Mathematics", "Arithmetic"],
         opening: {
             description: "תרגול חיבור בסיסי באמצעות פירות.",
-            imageUrl: "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=1000&q=80"
+            imageUrl: "https://images.unsplash.com/photo-1611270629569-8b357cb88da9?auto=format&fit=crop&w=1000&q=80"
         },
         problem: {
             text: "ליוסי יש 5 תפוחים. דנה נתנה לו עוד 3 תפוחים. כמה תפוחים יש ליוסי כעת?",
@@ -808,13 +1025,31 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["איך הגעת לתשובה?", "האם אפשר לחבר דברים אחרים באותה דרך?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_012_1",
+                discipline: "Arithmetic",
+                description: "חשב כמה תפוחים יש בסל בסך הכל.",
+                solution: "5 תפוחים ועוד 3 תפוחים שווה ל-8 תפוחים.",
+                coverImage: "https://images.unsplash.com/photo-1611270629569-8b357cb88da9?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_012_2",
+                discipline: "Mathematics",
+                description: "כתבו משוואה המסבירה כיצד להגיע לתוצאה בחיבור 5 ו-3 והסבירו את סדר הצעדים.",
+                solution: "המשוואה היא 5 + 3 = 8. תחילה מזהים את האיברים (5 ו-3), מוסיפים אותם ומוודאים שהתוצאה גדולה מכל אחד מהם כי נוספה כמות.",
+                coverImage: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_013",
         title: "חשבון - חיסור בסיסי",
         category: "מתמטיקה / חשבון",
-        duration: "10 דקות",
+        grade: "Grade 1",
+        duration: 10,
+        disciplines: ["Mathematics", "Arithmetic"],
         opening: {
             description: "תרגול חיסור בסיסי באמצעות ממתקים.",
             imageUrl: "https://images.unsplash.com/photo-1499195333224-3ce974eecb47?auto=format&fit=crop&w=1000&q=80"
@@ -867,13 +1102,31 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["האם נשארו יותר או פחות סוכריות ממה שהיו בהתחלה?", "למה זה קרה?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_013_1",
+                discipline: "Arithmetic",
+                description: "חשב כמה סוכריות נשארו אחרי שנתת לחבר.",
+                solution: "10 סוכריות פחות 4 סוכריות שווה ל-6 סוכריות.",
+                coverImage: "https://images.unsplash.com/photo-1499195333224-3ce974eecb47?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_013_2",
+                discipline: "Mathematics",
+                description: "ייצגו את הבעיה כמשוואה ובדקו אם התוצאה הגיונית בהשוואה למספר ההתחלתי.",
+                solution: "המשוואה: 10 - 4 = 6. התוצאה קטנה מהמספר ההתחלתי ולכן הגיונית, כי הורדנו חלק מהכמות.",
+                coverImage: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_014",
         title: "חשבון - כפל בסיסי",
         category: "מתמטיקה / חשבון",
-        duration: "10 דקות",
+        grade: "Grade 2",
+        duration: 10,
+        disciplines: ["Mathematics", "Arithmetic"],
         opening: {
             description: "תרגול כפל באמצעות סידור פרחים בגינה.",
             imageUrl: "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -927,13 +1180,31 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["איך כפל עוזר לנו לספור מהר יותר?", "איפה עוד משתמשים בכפל?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_014_1",
+                discipline: "Arithmetic",
+                description: "חשב כמה פרחים יש בסך הכל בכל הערוגות.",
+                solution: "3 ערוגות כפול 4 פרחים = 12 פרחים בסך הכל.",
+                coverImage: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_014_2",
+                discipline: "Mathematics",
+                description: "כתבו את פעולת הכפל המתאימה והסבירו כיצד היא מייצגת חיבור חוזר.",
+                solution: "3 × 4 = 12 והוא שקול לחיבור 4+4+4. כפל משמש לחיבור אותו המספר מספר פעמים.",
+                coverImage: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_015",
         title: "חשבון - חילוק בסיסי",
         category: "מתמטיקה / חשבון",
-        duration: "10 דקות",
+        grade: "Grade 2",
+        duration: 10,
+        disciplines: ["Mathematics", "Arithmetic"],
         opening: {
             description: "חלוקת עוגיות שווה בשווה בין חברים.",
             imageUrl: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=1000&q=80"
@@ -987,13 +1258,31 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["מה קורה אם אי אפשר לחלק שווה בשווה?", "איך בדקתם את התשובה?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_015_1",
+                discipline: "Arithmetic",
+                description: "חלק 12 עוגיות שווה בשווה בין 3 ילדים.",
+                solution: "12 חלקי 3 = 4. כל ילד יקבל 4 עוגיות.",
+                coverImage: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_015_2",
+                discipline: "Mathematics",
+                description: "בדקו את התוצאה באמצעות פעולת כפל הפוכה ותעדו את השלבים.",
+                solution: "כדי לוודא: 4 × 3 = 12 ולכן חלוקת 12 ל-3 קבוצות של 4 נכונה. רושמים: 12 ÷ 3 = 4 ואז מאמתים באמצעות כפל.",
+                coverImage: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_016",
         title: "חשבון - שברים (פיצה)",
         category: "מתמטיקה / שברים",
-        duration: "15 דקות",
+        grade: "Grade 3",
+        duration: 15,
+        disciplines: ["Mathematics", "Fractions"],
         opening: {
             description: "הבנת שברים באמצעות משולשי פיצה.",
             imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
@@ -1046,16 +1335,70 @@ export const HEBREW_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["למה 2/8 זה אותו דבר כמו 1/4?", "האם עדיף לקבל 1/4 פיצה או 1/8 פיצה?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_016_1",
+                discipline: "Fractions",
+                description: "ייצגו באמצעות שבר את חלק הפיצה שדני אכל והסבירו למה ניתן לצמצמו.",
+                solution: "דני אכל 2 מתוך 8 חלקים ולכן השבר הוא 2/8. צמצום במספר 2 נותן 1/4, כלומר רבע מגש.",
+                coverImage: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_016_2",
+                discipline: "Mathematics",
+                description: "שרטטו דיאגרמה שמראה כיצד ניתן להשוות בין 1/4 ל-1/2 והסיקו מי גדול יותר.",
+                solution: "בציור של פיצה מחולקת ל-4 חלקים, 1/4 הוא משולש אחד, בעוד 1/2 הוא שני משולשים. לכן 1/2 גדול יותר מ-1/4.",
+                coverImage: "https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     }
 ];
 
 export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
     {
+        id: "new_scenario_en_001",
+        topic: "Sustainable Energy in Smart Cities",
+        title: "Sustainable Energy in Smart Cities",
+        grade: "Grade 9",
+        duration: 45,
+        disciplines: ["Physics", "Geography"],
+        category: "Physics / Geography",
+        opening: {
+            description: "Designing a sustainable energy system for a futuristic city.",
+            imageUrl: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+        },
+        tasks: [
+            {
+                id: "t_en_1",
+                discipline: "Physics",
+                description: "Calculate the required efficiency of solar panels to supply electricity to a neighborhood of 500 households, given an average of 8 hours of sunlight per day and an average consumption of 10 kWh per house.",
+                solution: "Total daily consumption: 500 * 10 = 5000 kWh. Required power per hour (in 8 hours): 5000 / 8 = 625 kW. If a standard panel produces 300 watts, about 2084 panels are needed.",
+                coverImage: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: "t_en_2",
+                discipline: "Geography",
+                description: "Analyze the environmental impact of placing wind turbines on the outskirts of the city on local wind regimes and bird migration routes.",
+                solution: "Consider prevailing wind directions (usually westerlies) and avoid placing them in major migration routes. Turbine noise requires a distance of at least 1 km from residential areas.",
+                coverImage: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=800&q=80"
+            }
+        ],
+        // Legacy fields placeholders
+        problem: { text: "", context: "" },
+        data: { chartType: 'bar', chartData: [], description: "" },
+        analysis: { questions: [], keyTerms: [] },
+        solutions: { options: [] },
+        simulation: { results: {} },
+        reflection: { questions: [] }
+    },
+    {
         id: "scenario_001",
         title: "Energy Efficiency Challenge",
         category: "Physics / Environmental Science",
-        duration: "20 mins",
+        grade: "Grade 10",
+        duration: 20,
+        disciplines: ["Physics", "Environmental Science"],
         opening: {
             description: "The city council has decided on a goal of reducing urban energy consumption by 20% to meet new sustainability goals.",
             imageUrl: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -1123,7 +1466,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_002",
         title: "Urban Water Conservation",
         category: "Ecology / Urban Planning",
-        duration: "15 mins",
+        grade: "Grade 9",
+        duration: 15,
+        disciplines: ["Ecology", "Urban Planning"],
         opening: {
             description: "A prolonged drought threatens the city's water reservoir levels, which have dropped to 40% of capacity.",
             imageUrl: "https://images.unsplash.com/photo-1519817650390-64a93db51149?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -1191,7 +1536,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_003",
         title: "Bridge Structural Integrity",
         category: "Engineering / Physics",
-        duration: "25 mins",
+        grade: "Grade 11",
+        duration: 25,
+        disciplines: ["Engineering", "Physics"],
         opening: {
             description: "An old suspension bridge is showing signs of wear. Traffic has increased by 200% since it was built.",
             imageUrl: "https://images.unsplash.com/photo-1513415277900-a62401e19be4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -1259,7 +1606,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_004",
         title: "Bus Schedule Optimization",
         category: "Mathematics / Operations Research",
-        duration: "30 mins",
+        grade: "Grade 10",
+        duration: 30,
+        disciplines: ["Mathematics", "Operations Research"],
         opening: {
             description: "Students and parents are complaining about unbearable overcrowding on school bus lines in the morning.",
             imageUrl: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -1329,7 +1678,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_005",
         title: "Resistant Bacteria Outbreak",
         category: "Biology / Medicine",
-        duration: "25 mins",
+        grade: "Grade 11",
+        duration: 25,
+        disciplines: ["Biology", "Medicine"],
         opening: {
             description: "An outbreak of a bacterial infection that does not respond to standard antibiotic treatment has been identified in the internal medicine ward.",
             imageUrl: "https://images.unsplash.com/photo-1584362917165-526a968579e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -1399,7 +1750,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_006",
         title: "Road Safety - Stopping Distance",
         category: "Physics / Kinematics",
-        duration: "20 mins",
+        grade: "Grade 10",
+        duration: 20,
+        disciplines: ["Physics", "Kinematics"],
         opening: {
             description: "Many accidents occur at a main city intersection on rainy days, even though drivers are driving at the speed limit (50 km/h).",
             imageUrl: "https://images.unsplash.com/photo-1465447142348-e9952c393450?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -1467,7 +1820,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_007",
         title: "Kishon River Pollution",
         category: "Chemistry / Environmental Quality",
-        duration: "30 mins",
+        grade: "Grade 11",
+        duration: 30,
+        disciplines: ["Chemistry", "Environmental Quality"],
         opening: {
             description: "Many dead fish were found in the Kishon River. Lab tests revealed high acidity (low pH) in the water.",
             imageUrl: "https://images.unsplash.com/photo-1583325958573-3c89e40551ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -1535,7 +1890,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_008",
         title: "Pizza Pricing Optimization",
         category: "Mathematics / Economics",
-        duration: "25 mins",
+        grade: "Grade 9",
+        duration: 25,
+        disciplines: ["Economics", "Mathematics"],
         opening: {
             description: "A new neighborhood pizza place wants to maximize its daily profit but is unsure about the right price per tray.",
             imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
@@ -1596,13 +1953,24 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         },
         reflection: {
             questions: ["Why does maximum sales not always lead to maximum profit?", "How do fixed costs affect the decision?"]
-        }
+        },
+        tasks: [
+            {
+                id: "t_008_1",
+                discipline: "Economics",
+                description: "Calculate the profit for each price point.",
+                solution: "Profit = (Price - 20) * Quantity - 500. For 40 NIS: (20*100)-500 = 1500. For 60 NIS: (40*60)-500 = 1900. For 80 NIS: (60*20)-500 = 700.",
+                coverImage: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     },
     {
         id: "scenario_009",
         title: "Classroom Budget Management",
         category: "Management / Financial Literacy",
-        duration: "20 mins",
+        grade: "Grade 8",
+        duration: 20,
+        disciplines: ["Management", "Financial Education"],
         opening: {
             description: "You received an annual budget of 5,000 NIS for your class. You must decide how to allocate it between different needs.",
             imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -1670,7 +2038,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_010",
         title: "Integrating Technology in Class",
         category: "EdTech",
-        duration: "15 mins",
+        grade: "Grade 7",
+        duration: 15,
+        disciplines: ["Technology in Education"],
         opening: {
             description: "The school received a donation to purchase new technology for one classroom.",
             imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -1737,7 +2107,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_011",
         title: "Solar Energy Optimization",
         category: "Physics / Renewable Energy",
-        duration: "20 mins",
+        grade: "Grade 11",
+        duration: 20,
+        disciplines: ["Physics", "Renewable Energy"],
         opening: {
             description: "The school has decided to install solar panels on the roof to save electricity and contribute to the environment.",
             imageUrl: "https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -1805,7 +2177,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_012",
         title: "Arithmetic - Basic Addition",
         category: "Mathematics / Arithmetic",
-        duration: "10 mins",
+        grade: "Grade 1",
+        duration: 10,
+        disciplines: ["Mathematics", "Arithmetic"],
         opening: {
             description: "Practice basic addition using apples.",
             imageUrl: "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=1000&q=80"
@@ -1864,7 +2238,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_013",
         title: "Arithmetic - Basic Subtraction",
         category: "Mathematics / Arithmetic",
-        duration: "10 mins",
+        grade: "Grade 1",
+        duration: 10,
+        disciplines: ["Mathematics", "Arithmetic"],
         opening: {
             description: "Practice basic subtraction using candies.",
             imageUrl: "https://images.unsplash.com/photo-1499195333224-3ce974eecb47?auto=format&fit=crop&w=1000&q=80"
@@ -1923,7 +2299,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_014",
         title: "Arithmetic - Basic Multiplication",
         category: "Mathematics / Arithmetic",
-        duration: "10 mins",
+        grade: "Grade 2",
+        duration: 10,
+        disciplines: ["Mathematics", "Arithmetic"],
         opening: {
             description: "Practice multiplication by arranging flowers in a garden.",
             imageUrl: "https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
@@ -1983,7 +2361,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_015",
         title: "Arithmetic - Basic Division",
         category: "Mathematics / Arithmetic",
-        duration: "10 mins",
+        grade: "Grade 2",
+        duration: 10,
+        disciplines: ["Mathematics", "Arithmetic"],
         opening: {
             description: "Sharing cookies equally among friends.",
             imageUrl: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=1000&q=80"
@@ -2043,7 +2423,9 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         id: "scenario_016",
         title: "Arithmetic - Fractions (Pizza)",
         category: "Mathematics / Fractions",
-        duration: "15 mins",
+        grade: "Grade 3",
+        duration: 15,
+        disciplines: ["Mathematics", "Fractions"],
         opening: {
             description: "Understanding fractions using pizza slices.",
             imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80"
@@ -2097,6 +2479,259 @@ export const ENGLISH_MOCK_SCENARIOS: Scenario[] = [
         reflection: {
             questions: ["Why is 2/8 the same as 1/4?", "Is it better to get 1/4 of a pizza or 1/8?"]
         }
+    },
+    {
+        id: "scenario_017",
+        title: "Designing a Low-Cost Water Filter",
+        category: "Chemistry / Engineering",
+        grade: "Grade 9",
+        duration: 30,
+        disciplines: ["Chemistry", "Engineering"],
+        opening: {
+            description: "A remote village depends on a shallow well, but the water is cloudy and unsafe. You must design a filter using only local materials.",
+            imageUrl: "https://images.unsplash.com/photo-1538300342682-cf57afb97285?auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "Choose the order and composition of the filter layers to remove the most contaminants with the lowest cost.",
+            context: "Only gravel, sand, cotton cloth and activated carbon are available locally, and the budget is tight."
+        },
+        data: {
+            chartType: 'bar',
+            description: "Filtration efficiency of common materials (% of contaminants removed)",
+            chartData: [
+                { name: "Fine Sand", value: 40 },
+                { name: "Gravel", value: 20 },
+                { name: "Activated Carbon", value: 90 },
+                { name: "Cotton Cloth", value: 15 }
+            ],
+            facts: [
+                "Activated carbon adsorbs dissolved chemicals and toxins.",
+                "Sand captures suspended particles and mud.",
+                "Water must still be boiled after filtration to eliminate microbes."
+            ]
+        },
+        analysis: {
+            questions: [
+                "Which material is best for removing dissolved chemicals?",
+                "Why is a multi-layer design more effective than a single material?"
+            ],
+            keyTerms: ["Adsorption", "Mechanical Filtration", "Activated Carbon", "Multi-layer"]
+        },
+        solutions: {
+            options: [
+                { id: "s17_1", text: "Use gravel only so the water flows faster.", correct: false, resultId: "dirty_water" },
+                { id: "s17_2", text: "Layer gravel, sand, and activated carbon in the correct order.", correct: true, resultId: "clean_water" },
+                { id: "s17_3", text: "Use cotton cloth only to save money.", correct: false, resultId: "ineffective" }
+            ]
+        },
+        simulation: {
+            results: {
+                "dirty_water": {
+                    summary: "Cloudy Output",
+                    detail: "Water moved quickly through the gravel, but mud and chemicals remained.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1570649237964-34d53db5a2c6?auto=format&fit=crop&w=800&q=80"
+                },
+                "clean_water": {
+                    summary: "Clear Water",
+                    detail: "The layered filter produced safe drinking water at a minimal cost.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=800&q=80"
+                },
+                "ineffective": {
+                    summary: "Insufficient Filtration",
+                    detail: "The cloth blocked only large debris, leaving the water unsafe.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["How does the order of materials change the result?", "What other low-tech solutions could keep the water safe?"]
+        },
+        tasks: [
+            {
+                id: "t_017_1",
+                discipline: "Engineering",
+                description: "Propose the optimal order of gravel, sand, and activated carbon to maximize efficiency.",
+                solution: "Start with coarse gravel for debris, add sand for fine particles, and finish with activated carbon for chemical adsorption.",
+                coverImage: "https://images.unsplash.com/photo-1538300342682-cf57afb97285?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_017_2",
+                discipline: "Chemistry",
+                description: "Explain how activated carbon removes contaminants and when it must be replaced.",
+                solution: "Activated carbon has an enormous porous surface that traps organic molecules and heavy metals. Replace it once taste or odor returns—typically every three months of daily use.",
+                coverImage: "https://images.unsplash.com/photo-1532634922-8fe0b757fb13?auto=format&fit=crop&w=800&q=80"
+            }
+        ]
+    },
+    {
+        id: "scenario_011",
+        title: "תזמון רמזורים חכם",
+        category: "מדעי המחשב / מתמטיקה",
+        grade: "Grade 10",
+        duration: 20,
+        disciplines: ["Computer Science", "Mathematics"],
+        opening: {
+            description: "צומת מרכזי בעיר סובל מפקקים קשים בשעות העומס. מערכת הרמזורים הנוכחית מיושנת.",
+            imageUrl: "https://images.unsplash.com/photo-1566232392379-afd9298e6a46?auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "עליך לכתוב אלגוריתם לתזמון הרמזורים שיקטין את זמן ההמתנה הממוצע של הנהגים.",
+            context: "יש להתחשב בנפחי התנועה המשתנים בין הבוקר לערב."
+        },
+        data: {
+            chartType: 'line',
+            description: "עומס תנועה בצומת לפי שעה (מספר רכבים לדקה)",
+            chartData: [
+                { name: "07:00", value: 20 },
+                { name: "08:00", value: 80 },
+                { name: "09:00", value: 60 },
+                { name: "12:00", value: 30 },
+                { name: "17:00", value: 90 }
+            ],
+            facts: [
+                "זמן מחזור רמזור קבוע הוא 90 שניות.",
+                "חיישנים יכולים לזהות נוכחות רכבים בזמן אמת.",
+                "המתנה ארוכה מדי גורמת לנהגים לעבור באדום."
+            ]
+        },
+        analysis: {
+            questions: [
+                "כיצד משתנה העומס לאורך היום?",
+                "האם תזמון קבוע יכול להתאים לכל שעות היום?"
+            ],
+            keyTerms: ["אלגוריתם אדפטיבי", "זמן המתנה", "עומס שיא", "חיישנים"]
+        },
+        solutions: {
+            options: [
+                { id: "s11_1", text: "השארת התזמון הקבוע (45 שניות לכל כיוון).", correct: false, resultId: "gridlock" },
+                { id: "s11_2", text: "שינוי התזמון לפי שעות קבועות מראש (בוקר/ערב).", correct: false, resultId: "better_but_limited" },
+                { id: "s11_3", text: "מערכת אדפטיבית המבוססת על חיישנים בזמן אמת.", correct: true, resultId: "smooth_flow" }
+            ]
+        },
+        simulation: {
+            results: {
+                "gridlock": {
+                    summary: "פקק תנועה",
+                    detail: "העומס גבר, ונהגים מתוסכלים צפרו ללא הפסקה.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=800&q=80"
+                },
+                "better_but_limited": {
+                    summary: "שיפור חלקי",
+                    detail: "העומס ירד בשעות הצפויות, אך תאונות קרו באירועים חריגים.",
+                    outcomeType: "neutral",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"
+                },
+                "smooth_flow": {
+                    summary: "זרימה חלקה",
+                    detail: "זמן ההמתנה ירד ב-40%. התנועה זורמת ביעילות בכל שעות היום.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["מה היתרון של מערכת המגיבה לנתונים בזמן אמת?", "כיצד טכנולוגיה יכולה לשפר תשתיות עירוניות?"]
+        },
+        tasks: [
+            {
+                id: "t_011_1",
+                discipline: "Computer Science",
+                description: "פתח לוגיקה למערכת רמזורים המגיבה לעומס.",
+                solution: "אם חיישן מזהה > 10 רכבים, הארך ירוק ב-20 שניות. אחרת, עבור לאדום.",
+                coverImage: "https://images.unsplash.com/photo-1566232392379-afd9298e6a46?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
+    },
+    {
+        id: "scenario_019",
+        title: "Automating a Climate-Controlled Greenhouse",
+        category: "Biology / Technology",
+        grade: "Grade 10",
+        duration: 25,
+        disciplines: ["Biology", "Technology in Education"],
+        opening: {
+            description: "A farmer wants to grow cherry tomatoes year-round inside a smart greenhouse to maximize yield and flavor.",
+            imageUrl: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1000&q=80"
+        },
+        problem: {
+            text: "Set the optimal temperature, humidity, and lighting profile so the plants thrive without wasting energy.",
+            context: "Any deviation from the ideal climate will reduce sweetness and total harvest." 
+        },
+        data: {
+            chartType: 'line',
+            description: "Photosynthesis rate vs. temperature (°C)",
+            chartData: [
+                { name: "10°C", value: 20 },
+                { name: "20°C", value: 60 },
+                { name: "25°C", value: 95 },
+                { name: "30°C", value: 80 },
+                { name: "40°C", value: 10 }
+            ],
+            facts: [
+                "Tomatoes need at least 8 hours of light per day.",
+                "High humidity encourages fungal diseases.",
+                "Above 35°C the plant enzymes denature and growth stalls."
+            ]
+        },
+        analysis: {
+            questions: [
+                "At what temperature does photosynthesis peak?",
+                "What happens to the plant at extreme temperatures?"
+            ],
+            keyTerms: ["Photosynthesis", "Denaturation", "Climate Control", "Humidity"]
+        },
+        solutions: {
+            options: [
+                { id: "s19_1", text: "Maintain 25°C with balanced humidity.", correct: true, resultId: "perfect_tomatoes" },
+                { id: "s19_2", text: "Raise to 35°C to accelerate growth.", correct: false, resultId: "wilted" },
+                { id: "s19_3", text: "Water heavily without humidity control.", correct: false, resultId: "fungus" }
+            ]
+        },
+        simulation: {
+            results: {
+                "perfect_tomatoes": {
+                    summary: "Premium Harvest",
+                    detail: "Tomatoes ripened evenly, tasted sweet, and yielded record amounts.",
+                    outcomeType: "success",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=800&q=80"
+                },
+                "wilted": {
+                    summary: "Wilted Plants",
+                    detail: "Excess heat damaged the leaves and fruit set failed.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1591586121440-58b868f6d72a?auto=format&fit=crop&w=800&q=80"
+                },
+                "fungus": {
+                    summary: "Fungal Outbreak",
+                    detail: "Humidity stayed above 80% and gray mold destroyed half the crop.",
+                    outcomeType: "failure",
+                    outcomeImageUrl: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80"
+                }
+            }
+        },
+        reflection: {
+            questions: ["How do environmental variables influence plant biology?", "Why is precision agriculture becoming essential?"]
+        },
+        tasks: [
+            {
+                id: "t_019_1",
+                discipline: "Biology",
+                description: "Define the ideal temperature, humidity, and lighting window for cherry tomatoes in the greenhouse.",
+                solution: "Keep daytime temperatures between 24–26°C, night around 20°C, humidity at 60–70%, and provide at least 12 hours of light to maintain steady photosynthesis.",
+                coverImage: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1000&q=80"
+            },
+            {
+                id: "t_019_2",
+                discipline: "Technology in Education",
+                description: "Write an IF/THEN automation script that triggers fans and misting valves using sensor readings.",
+                solution: "IF temperature > 30°C THEN start fans; IF humidity < 55% THEN run the misting system for 2 minutes; sensors report every 10 minutes and the controller logs each action.",
+                coverImage: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1000&q=80"
+            }
+        ]
     }
 ];
 

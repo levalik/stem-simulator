@@ -13,7 +13,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    document.documentElement.dir = language === 'he' ? 'rtl' : 'ltr';
+    document.documentElement.dir = (language === 'he' || language === 'ar') ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
   }, [language]);
 
@@ -57,10 +57,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   };
 
   return (
-    <div className={`flex h-screen bg-surface-50 font-sans ${language === 'he' ? 'rtl' : 'ltr'} overflow-hidden`}>
+    <div className={`flex h-screen bg-surface-50 font-sans ${(language === 'he' || language === 'ar') ? 'rtl' : 'ltr'} overflow-hidden`} dir={(language === 'he' || language === 'ar') ? 'rtl' : 'ltr'}>
 
       {/* Sidebar (Desktop) */}
-      <aside className="hidden md:flex w-72 flex-col bg-surface-50/50 border-r border-surface-200/60 backdrop-blur-xl">
+      <aside className="hidden md:flex w-72 flex-col bg-surface-50/50 ltr:border-r rtl:border-l border-surface-200/60 backdrop-blur-xl">
         {/* Logo Area */}
         <div className="h-24 flex items-center px-8">
           <div
@@ -97,30 +97,23 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                   tooltip={t('admin_panel')}
                 />
               )}
-              <NavItem
-                icon={BookOpen}
-                label={t('courses')}
-                onClick={() => alert(t('feature_coming_soon') || "Feature coming soon")}
-                tooltip={t('tooltip_courses')}
-              />
-              <NavItem
-                icon={Calendar}
-                label={t('schedule')}
-                onClick={() => alert(t('feature_coming_soon') || "Feature coming soon")}
-                tooltip={t('tooltip_schedule')}
-              />
             </div>
+          </div>
+
+          <div className="mt-auto">
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-surface-500 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group"
+            >
+              <LogOut size={20} className="text-surface-400 group-hover:text-red-600" />
+              <span className="font-medium">{t('sign_out')}</span>
+            </button>
           </div>
         </nav>
 
         {/* Bottom Actions */}
         <div className="p-6 border-t border-surface-200/60">
-          <NavItem
-            icon={Settings}
-            label={t('settings') || 'Settings'}
-            onClick={() => { }}
-            tooltip={t('tooltip_settings')}
-          />
+          {/* Empty for now or add Help/Support later */}
         </div>
       </aside>
 
@@ -128,71 +121,68 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       <div className="flex-1 flex flex-col min-w-0 relative">
 
         {/* Header */}
-        <header className="h-20 md:h-24 flex items-center justify-between px-4 sm:px-8 bg-surface-50/50 backdrop-blur-sm z-20 transition-all duration-300">
+        <header className="h-16 md:h-20 flex items-center gap-4 px-4 md:px-6 lg:px-8 bg-white/90 backdrop-blur-md border-b border-surface-200/60 z-20 w-full">
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden p-2 text-surface-600 hover:bg-white rounded-xl transition-colors shadow-sm border border-transparent hover:border-surface-200"
+            className="md:hidden p-2 text-surface-600 hover:bg-surface-50 rounded-xl transition-colors"
           >
-            <Menu size={24} />
+            <Menu size={22} />
           </button>
 
-          {/* Search Bar */}
-          <div className="hidden md:flex flex-1 max-w-5xl relative group ml-4 rtl:ml-0 rtl:mr-4 transition-all duration-300">
-            <div className="absolute inset-y-0 left-0 rtl:left-auto rtl:right-0 pl-4 rtl:pr-4 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-surface-400 group-focus-within:text-primary-500 transition-colors" />
+          {/* Search Bar - Full width */}
+          <div className="flex-1 relative group">
+            <div className="absolute inset-y-0 left-0 rtl:left-auto rtl:right-0 pl-3 rtl:pr-3 rtl:pl-0 flex items-center pointer-events-none">
+              <Search className="h-4 w-4 text-surface-400 group-focus-within:text-primary-500 transition-colors" />
             </div>
             <input
               type="text"
-              className="block w-full pl-11 rtl:pr-11 rtl:pl-4 pr-4 py-3 border-none rounded-2xl bg-white shadow-sm text-surface-900 placeholder-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:bg-white transition-all"
+              className="block w-full pl-9 rtl:pr-9 rtl:pl-3 pr-3 py-2.5 border border-surface-200 rounded-xl bg-surface-50 text-sm text-surface-900 placeholder-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-400 focus:bg-white transition-all"
               placeholder={t('search_scenarios') || "Search..."}
               dir="auto"
             />
           </div>
 
           {/* Right Controls */}
-          <div className="flex items-center gap-4 ml-auto">
-            {/* Language Switcher */}
-            <div className="flex items-center bg-white rounded-full p-1 border border-surface-200 shadow-sm">
+          <div className="flex items-center gap-2 md:gap-3 shrink-0">
+            {/* Language Switcher - Compact on mobile */}
+            <div className="flex items-center bg-surface-100 rounded-lg p-0.5 border border-surface-200">
               <button
                 onClick={() => setLanguage('en')}
-                className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${language === 'en' ? 'bg-surface-900 text-white shadow-md' : 'text-surface-500 hover:text-surface-700 hover:bg-surface-50'}`}
+                className={`px-2 md:px-3 py-1.5 rounded-md text-xs font-bold transition-all ${language === 'en' ? 'bg-white text-surface-900 shadow-sm' : 'text-surface-500 hover:text-surface-700'}`}
               >
                 EN
               </button>
               <button
                 onClick={() => setLanguage('he')}
-                className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${language === 'he' ? 'bg-surface-900 text-white shadow-md' : 'text-surface-500 hover:text-surface-700 hover:bg-surface-50'}`}
+                className={`px-2 md:px-3 py-1.5 rounded-md text-xs font-bold transition-all ${language === 'he' ? 'bg-white text-surface-900 shadow-sm' : 'text-surface-500 hover:text-surface-700'}`}
               >
                 עב
+              </button>
+              <button
+                onClick={() => setLanguage('ar')}
+                className={`px-2 md:px-3 py-1.5 rounded-md text-xs font-bold transition-all ${language === 'ar' ? 'bg-white text-surface-900 shadow-sm' : 'text-surface-500 hover:text-surface-700'}`}
+              >
+                عربي
               </button>
             </div>
 
             {currentUser && (
-              <div className="flex items-center gap-4 pl-4 rtl:pl-0 rtl:pr-4 border-l rtl:border-l-0 rtl:border-r border-surface-200">
+              <div className="flex items-center gap-2 md:gap-3 pl-2 md:pl-3 rtl:pl-0 rtl:pr-2 md:rtl:pr-3 ltr:border-l rtl:border-r border-surface-200">
                 <Tooltip content={t('tooltip_notifications')}>
-                  <button className="relative p-3 bg-white rounded-full text-surface-400 hover:text-primary-600 hover:bg-primary-50 border border-surface-200 shadow-sm transition-all group">
-                    <span className="absolute top-2.5 right-3 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white group-hover:animate-pulse"></span>
-                    <Bell size={20} />
-                  </button>
-                </Tooltip>
-
-                <Tooltip content={t('tooltip_logout')}>
-                  <button
-                    onClick={handleLogout}
-                    className="p-3 bg-white rounded-full text-surface-400 hover:text-red-600 hover:bg-red-50 border border-surface-200 shadow-sm transition-all"
-                  >
-                    <LogOut size={20} />
+                  <button className="hidden md:flex relative p-2 bg-surface-50 rounded-lg text-surface-400 hover:text-primary-600 hover:bg-primary-50 border border-surface-200 transition-all">
+                    <span className="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+                    <Bell size={18} />
                   </button>
                 </Tooltip>
 
                 <Tooltip content={t('tooltip_user_profile')}>
-                  <div className="flex items-center gap-3 pl-2 rtl:pr-2 cursor-pointer group">
+                  <div className="flex items-center gap-2 cursor-pointer group">
                     <div className="relative">
-                      <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white text-sm font-bold shadow-md ring-4 ring-white group-hover:ring-primary-100 transition-all">
+                      <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white text-sm font-bold shadow-md ring-2 ring-white group-hover:ring-primary-100 transition-all">
                         {currentUser.name?.charAt(0) || 'U'}
                       </div>
-                      <div className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full bg-green-500 ring-2 ring-white"></div>
+                      <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 ring-2 ring-white"></div>
                     </div>
                     <div className="hidden lg:flex flex-col items-start">
                       <span className="text-sm font-bold text-surface-900 leading-tight group-hover:text-primary-600 transition-colors">{currentUser.name?.split(' ')[0]}</span>

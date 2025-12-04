@@ -42,6 +42,10 @@ const LoginPage = () => {
             onClick={() => setLanguage('he')}
             className={`text-xs font-bold px-2 py-1 rounded transition-colors ${language === 'he' ? 'bg-surface-200 text-surface-900' : 'text-surface-400 hover:text-surface-600'}`}
           >עב</button>
+          <button
+            onClick={() => setLanguage('ar')}
+            className={`text-xs font-bold px-2 py-1 rounded transition-colors ${language === 'ar' ? 'bg-surface-200 text-surface-900' : 'text-surface-400 hover:text-surface-600'}`}
+          >عربي</button>
         </div>
 
         <div className="text-center mb-8">

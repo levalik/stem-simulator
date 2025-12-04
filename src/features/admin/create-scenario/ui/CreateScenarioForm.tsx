@@ -1,606 +1,501 @@
-import React, { useState } from 'react';
-import { Wand2, FileText, Image as ImageIcon, BarChart3, TrendingUp, HelpCircle, CheckCircle, Save, PieChart as PieChartIcon, Trash2, Plus, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Wand2, Save, ArrowRight, ArrowLeft, Image as ImageIcon, Loader2, Trash2, Check } from 'lucide-react';
 import { useStore } from '../../../../app/store';
-import { generateScenarioFromTopic, generateSection } from '../../../../shared/api/geminiService';
-import { Scenario } from '../../../../entities/scenario';
+import { generateTaskContent, generateTaskSolution, generateImagePrompt } from '../../../../shared/api/geminiService';
+import { Scenario, Discipline, GradeLevel, Task } from '../../../../entities/scenario/model/types';
 import { Button, Input, TextArea } from '../../../../shared/ui/DesignSystem';
+import { generateId } from '../../../../shared/utils/id';
 
-// Category options for dropdown
-const CATEGORY_OPTIONS = [
-    { value: 'פיזיקה / מדעי הסביבה', label: { en: 'Physics / Environmental Science', he: 'פיזיקה / מדעי הסביבה' } },
-    { value: 'אקולוגיה / תכנון עירוני', label: { en: 'Ecology / Urban Planning', he: 'אקולוגיה / תכנון עירוני' } },
-    { value: 'הנדסה / פיזיקה', label: { en: 'Engineering / Physics', he: 'הנדסה / פיזיקה' } },
-    { value: 'מתמטיקה / חקר ביצועים', label: { en: 'Mathematics / Operations Research', he: 'מתמטיקה / חקר ביצועים' } },
-    { value: 'ביולוגיה / רפואה', label: { en: 'Biology / Medicine', he: 'ביולוגיה / רפואה' } },
-    { value: 'פיזיקה / קינמטיקה', label: { en: 'Physics / Kinematics', he: 'פיזיקה / קינמטיקה' } },
-    { value: 'כימיה / איכות סביבה', label: { en: 'Chemistry / Environmental Quality', he: 'כימיה / איכות סביבה' } },
-    { value: 'מדעי המחשב / אלגוריתמים', label: { en: 'Computer Science / Algorithms', he: 'מדעי המחשב / אלגוריתמים' } },
-    { value: 'גיאוגרפיה / אקלים', label: { en: 'Geography / Climate', he: 'גיאוגרפיה / אקלים' } },
+const GRADES: GradeLevel[] = [
+    'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grade 6',
+    'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'
 ];
 
-// Duration options for dropdown
-const DURATION_OPTIONS = [
-    { value: '10 דקות', label: { en: '10 minutes', he: '10 דקות' } },
-    { value: '15 דקות', label: { en: '15 minutes', he: '15 דקות' } },
-    { value: '20 דקות', label: { en: '20 minutes', he: '20 דקות' } },
-    { value: '25 דקות', label: { en: '25 minutes', he: '25 דקות' } },
-    { value: '30 דקות', label: { en: '30 minutes', he: '30 דקות' } },
-    { value: '45 דקות', label: { en: '45 minutes', he: '45 דקות' } },
-    { value: '60 דקות', label: { en: '60 minutes', he: '60 דקות' } },
+const DISCIPLINES: Discipline[] = [
+    'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Engineering',
+    'Ecology', 'Environmental Science', 'Geography', 'Economics', 'Medicine',
+    'Kinematics', 'Operations Research', 'Urban Planning', 'Financial Education',
+    'Arithmetic', 'Fractions', 'Technology in Education', 'Renewable Energy', 'Management'
 ];
 
-// Chart type options
-const CHART_TYPE_OPTIONS = [
-    { value: 'bar', label: { en: 'Bar Chart', he: 'תרשים עמודות' } },
-    { value: 'pie', label: { en: 'Pie Chart', he: 'תרשים עוגה' } },
-    { value: 'line', label: { en: 'Line Chart', he: 'תרשים קווי' } },
-];
+const DURATIONS = [30, 45, 60, 90];
 
 export const CreateScenarioForm = ({ onSave, onCancel, initialData }: { onSave: (s: Scenario) => void; onCancel: () => void; initialData?: Scenario | null }) => {
     const { t, language } = useStore();
+    const isRTL = language === 'he' || language === 'ar';
     const [step, setStep] = useState(1);
-    const [isGenerating, setIsGenerating] = useState(false);
-    const [generatingSection, setGeneratingSection] = useState<string | null>(null);
-    const [topicPrompt, setTopicPrompt] = useState('');
-    const [formData, setFormData] = useState<Partial<Scenario>>(initialData || {
-        id: crypto.randomUUID(),
-        title: '',
-        category: '',
-        duration: '',
-        opening: { description: '', imageUrl: '' },
-        problem: { text: '', context: '', imageUrl: '' },
-        data: { description: '', chartType: 'bar', chartData: [] },
-        analysis: { questions: [], keyTerms: [] },
-        solutions: { options: [] },
-        simulation: { results: {} },
-        reflection: { questions: [] }
-    });
 
-    const handleGenerate = async () => {
-        if (!topicPrompt.trim()) return;
-        setIsGenerating(true);
-        try {
-            const generated = await generateScenarioFromTopic(topicPrompt);
-            if (generated) {
-                setFormData(prev => ({
-                    ...prev,
-                    ...generated,
-                    id: prev.id // Keep the ID
-                }));
+    // Helper functions for translation
+    const getGradeLabel = (g: GradeLevel) => {
+        if (!g) return '';
+        // 'Grade 1' -> 'grade_1'
+        const parts = g.split(' ');
+        if (parts.length < 2) return g;
+        const key = `grade_${parts[1]}`;
+        return t ? (t(key as any) || g) : g;
+    };
+
+    const getDisciplineLabel = (d: Discipline) => {
+        if (!d) return '';
+        // 'Computer Science' -> 'discipline_computer_science'
+        const key = `discipline_${d.toLowerCase().replace(/ /g, '_')}`;
+        return t ? (t(key as any) || d) : d;
+    };
+
+    // State
+    const [topic, setTopic] = useState(initialData?.topic || initialData?.title || '');
+    const [grade, setGrade] = useState<GradeLevel>(initialData?.grade || 'Grade 9');
+    const [duration, setDuration] = useState<number>(initialData?.duration ? Number(initialData.duration) : 45);
+    const [selectedDisciplines, setSelectedDisciplines] = useState<Discipline[]>(initialData?.disciplines || []);
+    const [tasks, setTasks] = useState<Task[]>(initialData?.tasks || []);
+    const [activeTaskId, setActiveTaskId] = useState<string | null>(initialData?.tasks?.[0]?.id || null);
+
+    // Loading states
+    const [generatingTaskFor, setGeneratingTaskFor] = useState<string | null>(null); // discipline
+    const [solvingTaskFor, setSolvingTaskFor] = useState<string | null>(null); // discipline
+    const [generatingImageFor, setGeneratingImageFor] = useState<string | null>(null); // discipline
+
+    useEffect(() => {
+        if (tasks.length === 0) {
+            setActiveTaskId(null);
+            return;
+        }
+
+        if (!activeTaskId || !tasks.some(task => task.id === activeTaskId)) {
+            setActiveTaskId(tasks[0].id);
+        }
+    }, [tasks, activeTaskId]);
+
+    // Initialize tasks when disciplines change (only if adding)
+    useEffect(() => {
+        if (step === 1) {
+            // We don't update tasks automatically here to avoid overwriting user data if they go back and forth
+            // But we will sync them when moving to step 2
+        }
+    }, [selectedDisciplines]);
+
+    const handleNext = () => {
+        if (step === 1) {
+            if (!topic || selectedDisciplines.length === 0) {
+                alert(t('please_fill_required') || "Please fill all required fields");
+                return;
             }
-        } catch (error) {
-            console.error("Failed to generate", error);
-        } finally {
-            setIsGenerating(false);
+
+            // Sync tasks with disciplines
+            const newTasks = [...tasks];
+            // Remove tasks for deselected disciplines
+            const validTasks = newTasks.filter(t => selectedDisciplines.includes(t.discipline));
+
+            // Add new tasks for newly selected disciplines
+            selectedDisciplines.forEach(d => {
+                if (!validTasks.find(t => t.discipline === d)) {
+                    validTasks.push({
+                        id: generateId(),
+                        discipline: d,
+                        description: '',
+                        solution: '',
+                        coverImage: ''
+                    });
+                }
+            });
+
+            setTasks(validTasks);
+            setStep(2);
         }
     };
 
-    const handleSectionGenerate = async (section: 'problem' | 'data' | 'analysis' | 'solutions' | 'reflection') => {
-        const topic = topicPrompt || formData.title || "STEM Scenario";
-        setGeneratingSection(section);
+    const handleGenerateTask = async (taskIndex: number) => {
+        if (taskIndex < 0 || taskIndex >= tasks.length) return;
+        const task = tasks[taskIndex];
+        setGeneratingTaskFor(task.discipline);
         try {
-            const result = await generateSection(section, topic);
+            const result = await generateTaskContent(topic, grade, task.discipline);
             if (result) {
-                setFormData(prev => ({
-                    ...prev,
-                    [section]: { ...prev[section] as any, ...result }
-                }));
+                setTasks(prev => {
+                    if (taskIndex < 0 || taskIndex >= prev.length) return prev;
+                    const updated = [...prev];
+                    updated[taskIndex] = {
+                        ...updated[taskIndex],
+                        description: result.description,
+                        solution: result.solution
+                    };
+                    return updated;
+                });
             }
-        } catch (error) {
-            console.error(`Failed to generate ${section}`, error);
+        } catch (e) {
+            console.error(e);
         } finally {
-            setGeneratingSection(null);
+            setGeneratingTaskFor(null);
         }
     };
 
-    const handleInputChange = (section: keyof Scenario, field: string, value: any) => {
-        setFormData(prev => ({
-            ...prev,
-            [section]: {
-                ...prev[section] as any,
-                [field]: value
+    const handleSolveTask = async (taskIndex: number) => {
+        if (taskIndex < 0 || taskIndex >= tasks.length) return;
+        const task = tasks[taskIndex];
+        if (!task.description) return;
+
+        setSolvingTaskFor(task.discipline);
+        try {
+            const solution = await generateTaskSolution(topic, grade, task.discipline, task.description);
+            if (solution) {
+                setTasks(prev => {
+                    if (taskIndex < 0 || taskIndex >= prev.length) return prev;
+                    const updated = [...prev];
+                    updated[taskIndex] = { ...updated[taskIndex], solution };
+                    return updated;
+                });
             }
-        }));
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setSolvingTaskFor(null);
+        }
     };
 
-    const handleRootChange = (field: string, value: any) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
+    const handleGenerateImage = async (taskIndex: number) => {
+        if (taskIndex < 0 || taskIndex >= tasks.length) return;
+        const task = tasks[taskIndex];
+        if (!task.description) return;
+
+        setGeneratingImageFor(task.discipline);
+        try {
+            // In a real app, this would call an image generation API and return a URL.
+            // Here we will generate a prompt and maybe use a placeholder service with the prompt keywords.
+            const prompt = await generateImagePrompt(topic, task.discipline, task.description);
+            if (prompt) {
+                // Using a placeholder service for now as we don't have a real image gen API connected to the frontend
+                // In a real scenario, you'd send this prompt to DALL-E / Midjourney API
+                const encodedPrompt = encodeURIComponent(prompt.substring(0, 50)); // Truncate for URL
+                const imageUrl = `https://placehold.co/600x400?text=${encodedPrompt}`;
+
+                setTasks(prev => {
+                    if (taskIndex < 0 || taskIndex >= prev.length) return prev;
+                    const updated = [...prev];
+                    updated[taskIndex] = { ...updated[taskIndex], coverImage: imageUrl };
+                    return updated;
+                });
+            }
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setGeneratingImageFor(null);
+        }
     };
 
-    const renderStep = () => {
-        switch (step) {
-            case 1: return (
-                <div className="space-y-6 animate-fade-in">
-                    {/* AI Generator Section */}
-                    {!initialData && (
-                        <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-2xl border border-purple-100 mb-8">
-                            <div className="flex items-center gap-2 mb-3 text-purple-800 font-bold">
-                                <Wand2 size={20} />
-                                <h3>{t('ai_generator') || "AI Scenario Generator"}</h3>
-                            </div>
-                            <div className="flex gap-3">
-                                <Input
-                                    placeholder={t('enter_topic') || "Enter a topic (e.g., 'Water Conservation in Urban Areas')"}
-                                    value={topicPrompt}
-                                    onChange={(e) => setTopicPrompt(e.target.value)}
-                                    className="bg-white"
-                                />
-                                <Button
-                                    onClick={handleGenerate}
-                                    isLoading={isGenerating}
-                                    variant="secondary"
-                                    leftIcon={<Wand2 size={16} />}
-                                >
-                                    {t('generate') || "Generate"}
-                                </Button>
-                            </div>
-                            <p className="text-xs text-purple-600 mt-2">
-                                {t('ai_hint') || "Powered by Gemini AI. Enter a topic and let AI create the initial structure for you."}
-                            </p>
-                        </div>
-                    )}
+    const handleSave = () => {
+        const scenario: Scenario = {
+            id: initialData?.id || generateId(),
+            topic,
+            grade,
+            duration,
+            disciplines: selectedDisciplines,
+            tasks,
+            // Legacy fields - keep them empty or minimal to satisfy type if needed, 
+            // but we marked them optional so it should be fine.
+        };
+        onSave(scenario);
+    };
 
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center text-primary-600">
-                            <FileText size={20} />
-                        </div>
+    const toggleDiscipline = (d: Discipline) => {
+        if (selectedDisciplines.includes(d)) {
+            setSelectedDisciplines(selectedDisciplines.filter(item => item !== d));
+        } else {
+            setSelectedDisciplines([...selectedDisciplines, d]);
+        }
+    };
+
+    const activeTaskIndex = activeTaskId ? tasks.findIndex(task => task.id === activeTaskId) : (tasks.length ? 0 : -1);
+    const activeTask = activeTaskIndex >= 0 ? tasks[activeTaskIndex] : null;
+
+    return (
+        <div className="max-w-4xl mx-auto bg-white rounded-3xl border border-surface-200 shadow-xl overflow-hidden flex flex-col min-h-[600px]">
+            {/* Header */}
+            <div className="p-8 border-b border-surface-100 bg-surface-50/50 flex justify-between items-center">
+                <div>
+                    <h2 className="text-2xl font-extrabold text-surface-900">
+                        {initialData ? t('edit_scenario') : t('create_new_scenario')}
+                    </h2>
+                    <p className="text-surface-500 text-sm">
+                        {step === 1 ? t('scenario_initialization') : t('task_generation')}
+                    </p>
+                </div>
+                <div className="flex items-center gap-2">
+                    <div className={`w-3 h-3 rounded-full transition-colors ${step >= 1 ? 'bg-primary-600' : 'bg-surface-200'}`} />
+                    <div className={`w-8 h-1 rounded-full transition-colors ${step >= 2 ? 'bg-primary-600' : 'bg-surface-200'}`} />
+                    <div className={`w-3 h-3 rounded-full transition-colors ${step >= 2 ? 'bg-primary-600' : 'bg-surface-200'}`} />
+                </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-8 flex-1 overflow-y-auto">
+                {step === 1 && (
+                    <div className="space-y-8 animate-fade-in">
+                        {/* Topic */}
                         <div>
-                            <h3 className="text-xl font-bold text-surface-900">{t('step_1_opening')}</h3>
-                            <p className="text-sm text-surface-500">Basic scenario information</p>
-                        </div>
-                    </div>
-                    <div className="grid gap-5">
-                        <div>
+                            <label className="block text-sm font-bold text-surface-700 mb-2">
+                                {t('topic')} <span className="text-red-500">*</span>
+                            </label>
                             <Input
-                                label={t('scenario_title')}
-                                value={formData.title}
-                                onChange={e => handleRootChange('title', e.target.value)}
-                                placeholder={language === 'he' ? 'הכנס כותרת לתרחיש...' : t('enter_title')}
+                                value={topic}
+                                onChange={(e) => setTopic(e.target.value)}
+                                placeholder={t('enter_topic_placeholder') || "e.g., Sustainable Energy in Smart Cities"}
+                                className="text-lg"
                             />
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {/* Grade */}
                             <div>
-                                <label className="block text-sm font-semibold text-surface-700 mb-2">{t('category')} <span className="text-accent-500">*</span></label>
+                                <label className="block text-sm font-bold text-surface-700 mb-2">
+                                    {t('grade')} <span className="text-red-500">*</span>
+                                </label>
                                 <select
-                                    className="w-full p-2.5 border border-surface-200 rounded-lg bg-surface-50 focus:bg-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all appearance-none cursor-pointer"
-                                    value={formData.category}
-                                    onChange={e => handleRootChange('category', e.target.value)}
+                                    value={grade}
+                                    onChange={(e) => setGrade(e.target.value as GradeLevel)}
+                                    className={`w-full p-3 border border-surface-200 rounded-xl bg-surface-50 focus:bg-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all outline-none ${isRTL ? 'text-right' : 'text-left'}`}
                                 >
-                                    <option value="">{language === 'he' ? 'בחר קטגוריה...' : t('select_category')}</option>
-                                    {CATEGORY_OPTIONS.map(opt => (
-                                        <option key={opt.value} value={opt.value}>
-                                            {language === 'he' ? opt.label.he : opt.label.en}
-                                        </option>
+                                    {GRADES.map(g => (
+                                        <option key={g} value={g}>{getGradeLabel(g)}</option>
                                     ))}
                                 </select>
                             </div>
+
+                            {/* Duration */}
                             <div>
-                                <label className="block text-sm font-semibold text-surface-700 mb-2">{t('duration')} <span className="text-accent-500">*</span></label>
+                                <label className="block text-sm font-bold text-surface-700 mb-2">
+                                    {t('duration')} <span className="text-red-500">*</span>
+                                </label>
                                 <select
-                                    className="w-full p-2.5 border border-surface-200 rounded-lg bg-surface-50 focus:bg-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all appearance-none cursor-pointer"
-                                    value={formData.duration}
-                                    onChange={e => handleRootChange('duration', e.target.value)}
+                                    value={duration}
+                                    onChange={(e) => setDuration(Number(e.target.value))}
+                                    className={`w-full p-3 border border-surface-200 rounded-xl bg-surface-50 focus:bg-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all outline-none ${isRTL ? 'text-right' : 'text-left'}`}
                                 >
-                                    <option value="">{language === 'he' ? 'בחר משך...' : t('select_duration')}</option>
-                                    {DURATION_OPTIONS.map(opt => (
-                                        <option key={opt.value} value={opt.value}>
-                                            {language === 'he' ? opt.label.he : opt.label.en}
-                                        </option>
+                                    {DURATIONS.map(d => (
+                                        <option key={d} value={d}>{d} {t('minutes')}</option>
                                     ))}
                                 </select>
                             </div>
                         </div>
+
+                        {/* Disciplines */}
                         <div>
-                            <TextArea
-                                label={t('scenario_description')}
-                                value={formData.opening?.description}
-                                onChange={e => handleInputChange('opening', 'description', e.target.value)}
-                                placeholder={language === 'he' ? 'תאר את התרחיש בקצרה...' : t('brief_description')}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-surface-700 mb-2">{t('image_url')}</label>
-                            <div className="flex gap-3">
-                                <Input
-                                    className="flex-1"
-                                    value={formData.opening?.imageUrl}
-                                    onChange={e => handleInputChange('opening', 'imageUrl', e.target.value)}
-                                    placeholder="https://images.unsplash.com/..."
-                                />
-                                <button type="button" className="px-4 py-2 bg-surface-100 text-surface-600 rounded-xl hover:bg-surface-200 transition-colors flex items-center gap-2">
-                                    <ImageIcon size={18} />
-                                </button>
-                            </div>
-                            <p className="text-xs text-surface-400 mt-1.5">{language === 'he' ? 'השתמש בתמונה מ-Unsplash או כתובת URL אחרת' : t('use_image_url')}</p>
-                        </div>
-                    </div>
-                </div>
-            );
-            case 2: return (
-                <div className="space-y-6 animate-fade-in">
-                    <div className="flex justify-between items-center">
-                        <h3 className="text-xl font-bold text-surface-900">{t('step_2_problem')}</h3>
-                        <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => handleSectionGenerate('problem')}
-                            isLoading={generatingSection === 'problem'}
-                            leftIcon={<Wand2 size={16} />}
-                            className="text-purple-600 hover:bg-purple-50"
-                        >
-                            {t('generate_with_ai') || "Generate with AI"}
-                        </Button>
-                    </div>
-                    <div className="grid gap-4">
-                        <TextArea
-                            label={t('problem_statement')}
-                            value={formData.problem?.text}
-                            onChange={e => handleInputChange('problem', 'text', e.target.value)}
-                            rows={4}
-                        />
-                        <TextArea
-                            label={t('context')}
-                            value={formData.problem?.context}
-                            onChange={e => handleInputChange('problem', 'context', e.target.value)}
-                            rows={3}
-                        />
-                        <Input
-                            label={t('image_url')}
-                            value={formData.problem?.imageUrl}
-                            onChange={e => handleInputChange('problem', 'imageUrl', e.target.value)}
-                        />
-                    </div>
-                </div>
-            );
-            case 3: return (
-                <div className="space-y-6 animate-fade-in">
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600">
-                            <BarChart3 size={20} />
-                        </div>
-                        <div>
-                            <h3 className="text-xl font-bold text-surface-900">{t('data_analysis')}</h3>
-                            <p className="text-sm text-surface-500">{language === 'he' ? 'הגדר את הנתונים שיוצגו לתלמידים' : 'Configure data to be shown to students'}</p>
-                        </div>
-                        <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => handleSectionGenerate('data')}
-                            isLoading={generatingSection === 'data'}
-                            leftIcon={<Wand2 size={16} />}
-                            className="text-purple-600 hover:bg-purple-50 ml-auto"
-                        >
-                            {t('generate_with_ai') || "Generate with AI"}
-                        </Button>
-                    </div>
-                    <div className="grid gap-5">
-                        <TextArea
-                            label={t('description')}
-                            value={formData.data?.description}
-                            onChange={e => handleInputChange('data', 'description', e.target.value)}
-                            placeholder={language === 'he' ? 'תאר את הנתונים שיוצגו בתרשים...' : 'Describe the data to be shown in the chart...'}
-                            rows={3}
-                        />
-                        <div>
-                            <label className="block text-sm font-semibold text-surface-700 mb-2">{t('chart_type')} <span className="text-accent-500">*</span></label>
-                            <div className="grid grid-cols-3 gap-3">
-                                {CHART_TYPE_OPTIONS.map(opt => (
+                            <label className="block text-sm font-bold text-surface-700 mb-3">
+                                {t('disciplines')} <span className="text-red-500">*</span>
+                            </label>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                {DISCIPLINES.map(d => (
                                     <button
-                                        key={opt.value}
-                                        type="button"
-                                        onClick={() => handleInputChange('data', 'chartType', opt.value)}
-                                        className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${formData.data?.chartType === opt.value
-                                            ? 'border-primary-500 bg-primary-50 text-primary-700'
-                                            : 'border-surface-200 bg-white text-surface-600 hover:border-primary-200 hover:bg-primary-50/50'
+                                        key={d}
+                                        onClick={() => toggleDiscipline(d)}
+                                        className={`p-3 rounded-xl border transition-all text-left flex items-center justify-between group ${selectedDisciplines.includes(d)
+                                            ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-sm'
+                                            : 'border-surface-200 bg-white text-surface-600 hover:border-primary-200 hover:bg-surface-50'
                                             }`}
                                     >
-                                        {opt.value === 'bar' && <BarChart3 size={24} />}
-                                        {opt.value === 'pie' && <PieChartIcon size={24} />}
-                                        {opt.value === 'line' && <TrendingUp size={24} />}
-                                        <span className="text-sm font-medium">{language === 'he' ? opt.label.he : opt.label.en}</span>
+                                        <span className="font-medium">{getDisciplineLabel(d)}</span>
+                                        {selectedDisciplines.includes(d) && (
+                                            <Check size={16} className="text-primary-600" />
+                                        )}
                                     </button>
                                 ))}
                             </div>
                         </div>
-                        <div className="bg-accent-50 border border-accent-100 rounded-xl p-4 flex gap-3">
-                            <HelpCircle size={20} className="text-accent-500 shrink-0 mt-0.5" />
-                            <div>
-                                <p className="text-sm text-accent-800 font-medium">{language === 'he' ? 'טיפ' : 'Tip'}</p>
-                                <p className="text-xs text-accent-700">{language === 'he' ? 'נקודות הנתונים יכולות להיערך בשלב מתקדם יותר או מיובאות מקובץ CSV.' : 'Data points can be edited in advanced mode or imported from CSV.'}</p>
-                            </div>
-                        </div>
                     </div>
-                </div>
-            );
-            case 4: return (
-                <div className="space-y-6 animate-fade-in">
-                    <div className="flex justify-between items-center">
-                        <h3 className="text-xl font-bold text-surface-900">{t('critical_analysis')}</h3>
-                        <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => handleSectionGenerate('analysis')}
-                            isLoading={generatingSection === 'analysis'}
-                            leftIcon={<Wand2 size={16} />}
-                            className="text-purple-600 hover:bg-purple-50"
-                        >
-                            {t('generate_with_ai') || "Generate with AI"}
-                        </Button>
-                    </div>
-                    <div className="grid gap-4">
-                        <TextArea
-                            label={t('analysis_questions')}
-                            helperText="Separate questions with a new line"
-                            value={formData.analysis?.questions.join('\n')}
-                            onChange={e => handleInputChange('analysis', 'questions', e.target.value.split('\n'))}
-                            rows={6}
-                        />
-                        <Input
-                            label={t('key_terms')}
-                            helperText="Comma separated"
-                            value={formData.analysis?.keyTerms.join(', ')}
-                            onChange={e => handleInputChange('analysis', 'keyTerms', e.target.value.split(',').map(s => s.trim()))}
-                        />
-                    </div>
-                </div>
-            );
-            case 5: return (
-                <div className="space-y-6 animate-fade-in">
-                    <div className="flex justify-between items-center">
-                        <h3 className="text-xl font-bold text-surface-900">{t('solution_options')}</h3>
-                        <div className="flex gap-2">
-                            <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => handleSectionGenerate('solutions')}
-                                isLoading={generatingSection === 'solutions'}
-                                leftIcon={<Wand2 size={16} />}
-                                className="text-purple-600 hover:bg-purple-50"
-                            >
-                                {t('generate_with_ai') || "Generate with AI"}
-                            </Button>
-                            <Button
-                                onClick={() => {
-                                    const newId = `opt_${Date.now()}`;
-                                    const newResultId = `res_${Date.now()}`;
-                                    setFormData(prev => ({
-                                        ...prev,
-                                        solutions: {
-                                            options: [
-                                                ...(prev.solutions?.options || []),
-                                                { id: newId, text: '', correct: false, resultId: newResultId }
-                                            ]
-                                        },
-                                        simulation: {
-                                            results: {
-                                                ...(prev.simulation?.results || {}),
-                                                [newResultId]: { summary: '', detail: '', outcomeType: 'neutral' }
-                                            }
-                                        }
-                                    }));
-                                }}
-                                leftIcon={<Plus size={16} />}
-                                size="sm"
-                            >
-                                {t('add_option')}
-                            </Button>
-                        </div>
-                    </div>
-                    <div className="grid gap-4">
-                        {formData.solutions?.options.map((option, idx) => (
-                            <div key={option.id} className="bg-surface-50 p-4 rounded-xl border border-surface-200 relative group">
-                                <button
-                                    onClick={() => {
-                                        const newOptions = [...(formData.solutions?.options || [])];
-                                        newOptions.splice(idx, 1);
-                                        // Also remove associated result
-                                        const newResults = { ...(formData.simulation?.results || {}) };
-                                        delete newResults[option.resultId];
+                )}
 
-                                        setFormData(prev => ({
-                                            ...prev,
-                                            solutions: { options: newOptions },
-                                            simulation: { results: newResults }
-                                        }));
-                                    }}
-                                    className="absolute top-2 right-2 rtl:right-auto rtl:left-2 text-surface-400 hover:text-red-500 transition-colors"
-                                >
-                                    <X size={16} />
-                                </button>
-                                <div className="grid gap-3">
-                                    <Input
-                                        label={`${t('option')} ${idx + 1}`}
-                                        value={option.text}
-                                        onChange={e => {
-                                            const newOptions = [...(formData.solutions?.options || [])];
-                                            newOptions[idx].text = e.target.value;
-                                            setFormData(prev => ({ ...prev, solutions: { options: newOptions } }));
-                                        }}
-                                        placeholder={language === 'he' ? 'תיאור הפתרון...' : 'Solution description...'}
-                                    />
-                                    <div className="flex items-center gap-4">
-                                        <label className="flex items-center gap-2 cursor-pointer">
-                                            <input
-                                                type="checkbox"
-                                                checked={option.correct}
-                                                onChange={e => {
-                                                    const newOptions = [...(formData.solutions?.options || [])];
-                                                    newOptions[idx].correct = e.target.checked;
-                                                    setFormData(prev => ({ ...prev, solutions: { options: newOptions } }));
-                                                }}
-                                                className="w-4 h-4 rounded border-surface-300 text-primary-600 focus:ring-primary-500"
-                                            />
-                                            <span className="text-sm font-medium text-surface-700">{t('is_correct')}</span>
-                                        </label>
-                                        <div className="text-xs text-surface-400 font-mono bg-surface-100 px-2 py-1 rounded">
-                                            ID: {option.resultId}
+                {step === 2 && (
+                    <div className="space-y-6 animate-fade-in">
+                        {tasks.length > 0 ? (
+                            <>
+                                <div className="flex flex-wrap gap-3 border border-surface-200 rounded-2xl p-3 bg-surface-50 overflow-x-auto">
+                                    {tasks.map(task => {
+                                        const isActive = task.id === activeTaskId;
+                                        return (
+                                            <button
+                                                key={task.id}
+                                                onClick={() => setActiveTaskId(task.id)}
+                                                className={`flex-1 min-w-[150px] px-4 py-2 rounded-xl border text-left transition-all ${isActive
+                                                    ? 'bg-surface-900 text-white border-surface-900 shadow-md shadow-surface-400'
+                                                    : 'bg-white text-surface-600 border-surface-200 hover:border-surface-300'}
+                                                `}
+                                            >
+                                                <p className="text-[11px] uppercase tracking-wider font-bold text-surface-400 mb-1">
+                                                    {(t('task_generation') || 'Task')} #{tasks.indexOf(task) + 1}
+                                                </p>
+                                                <p className="text-base font-semibold">{getDisciplineLabel(task.discipline)}</p>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+
+                                {activeTask && (
+                                    <div className="bg-white border border-surface-200 rounded-2xl shadow-sm overflow-hidden transition-all hover:shadow-md">
+                                        <div className="bg-surface-50 px-6 py-4 border-b border-surface-100 flex flex-wrap justify-between items-center gap-4">
+                                            <h3 className="font-bold text-lg text-surface-800 flex items-center gap-2">
+                                                <span className="w-2 h-8 bg-primary-500 rounded-full"></span>
+                                                {getDisciplineLabel(activeTask.discipline)}
+                                            </h3>
+                                            <div className="flex gap-2 flex-wrap">
+                                                <Button
+                                                    size="sm"
+                                                    variant="ghost"
+                                                    onClick={() => handleGenerateTask(activeTaskIndex)}
+                                                    isLoading={generatingTaskFor === activeTask.discipline}
+                                                    leftIcon={<Wand2 size={14} />}
+                                                    className="text-purple-600 hover:bg-purple-50"
+                                                    disabled={activeTaskIndex < 0}
+                                                >
+                                                    {t('ai_fill_task')}
+                                                </Button>
+                                                <Button
+                                                    size="sm"
+                                                    variant="ghost"
+                                                    onClick={() => handleSolveTask(activeTaskIndex)}
+                                                    isLoading={solvingTaskFor === activeTask.discipline}
+                                                    disabled={activeTaskIndex < 0 || !activeTask.description}
+                                                    leftIcon={<Wand2 size={14} />}
+                                                    className="text-purple-600 hover:bg-purple-50"
+                                                >
+                                                    {t('ai_solve')}
+                                                </Button>
+                                            </div>
+                                        </div>
+
+                                        <div className="p-6 grid gap-6">
+                                            <div>
+                                                <label className="block text-sm font-semibold text-surface-700 mb-2">
+                                                    {t('task_problem')}
+                                                </label>
+                                                <TextArea
+                                                    value={activeTask.description}
+                                                    onChange={(e) => {
+                                                        const value = e.target.value;
+                                                        setTasks(prev => {
+                                                            if (activeTaskIndex < 0 || activeTaskIndex >= prev.length) return prev;
+                                                            const updated = [...prev];
+                                                            updated[activeTaskIndex] = { ...updated[activeTaskIndex], description: value };
+                                                            return updated;
+                                                        });
+                                                    }}
+                                                    rows={4}
+                                                    placeholder={t('task_description_placeholder') || "Describe the task..."}
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <label className="block text-sm font-semibold text-surface-700">
+                                                        {t('solution')} <span className="text-xs font-normal text-surface-400">({t('teacher_only')})</span>
+                                                    </label>
+                                                </div>
+                                                <TextArea
+                                                    value={activeTask.solution}
+                                                    onChange={(e) => {
+                                                        const value = e.target.value;
+                                                        setTasks(prev => {
+                                                            if (activeTaskIndex < 0 || activeTaskIndex >= prev.length) return prev;
+                                                            const updated = [...prev];
+                                                            updated[activeTaskIndex] = { ...updated[activeTaskIndex], solution: value };
+                                                            return updated;
+                                                        });
+                                                    }}
+                                                    rows={3}
+                                                    className="bg-yellow-50/50 border-yellow-200 focus:border-yellow-400 focus:ring-yellow-400/20"
+                                                    placeholder={t('solution_placeholder') || "The expected solution..."}
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <label className="block text-sm font-semibold text-surface-700">
+                                                        {t('cover_image')}
+                                                    </label>
+                                                    <div className="flex gap-2">
+                                                        <Button
+                                                            size="sm"
+                                                            variant="ghost"
+                                                            onClick={() => alert("Upload feature coming soon")}
+                                                            leftIcon={<ImageIcon size={14} />}
+                                                            className="text-surface-600 hover:bg-surface-50 h-8"
+                                                        >
+                                                            {t('upload') || "Upload"}
+                                                        </Button>
+                                                        <Button
+                                                            size="sm"
+                                                            variant="ghost"
+                                                            onClick={() => handleGenerateImage(activeTaskIndex)}
+                                                            isLoading={generatingImageFor === activeTask.discipline}
+                                                            disabled={activeTaskIndex < 0 || !activeTask.description}
+                                                            leftIcon={<Wand2 size={14} />}
+                                                            className="text-blue-600 hover:bg-blue-50 h-8"
+                                                        >
+                                                            {t('generate_image')}
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                                <div className="flex gap-4 items-start">
+                                                    <div className="flex-1">
+                                                        <Input
+                                                            value={activeTask.coverImage || ''}
+                                                            onChange={(e) => {
+                                                                const value = e.target.value;
+                                                                setTasks(prev => {
+                                                                    if (activeTaskIndex < 0 || activeTaskIndex >= prev.length) return prev;
+                                                                    const updated = [...prev];
+                                                                    updated[activeTaskIndex] = { ...updated[activeTaskIndex], coverImage: value };
+                                                                    return updated;
+                                                                });
+                                                            }}
+                                                            placeholder={t('image_url_placeholder') || "Enter image URL..."}
+                                                        />
+                                                    </div>
+                                                    {activeTask.coverImage && (
+                                                        <div className="w-24 h-24 rounded-lg border border-surface-200 overflow-hidden bg-surface-50 shrink-0">
+                                                            <img src={activeTask.coverImage} alt="Cover" className="w-full h-full object-cover" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        ))}
-                        {(!formData.solutions?.options || formData.solutions.options.length === 0) && (
-                            <div className="text-center py-8 text-surface-500 bg-surface-50 rounded-xl border border-dashed border-surface-300">
-                                {language === 'he' ? 'אין אפשרויות. הוסף אפשרות חדשה.' : 'No options. Add a new option.'}
+                                )}
+                            </>
+                        ) : (
+                            <div className="bg-white border border-dashed border-surface-300 rounded-3xl p-10 text-center">
+                                <p className="text-surface-500 font-medium">
+                                    {'No tasks available. Please select at least one discipline in Step 1.'}
+                                </p>
                             </div>
                         )}
                     </div>
-                </div>
-            );
-            case 6: return (
-                <div className="space-y-6 animate-fade-in">
-                    <h3 className="text-xl font-bold text-surface-900">{t('simulation_results')}</h3>
-                    <p className="text-sm text-surface-500 mb-4">
-                        {language === 'he'
-                            ? 'הגדר את התוצאה עבור כל אפשרות פתרון שהוגדרה בשלב הקודם.'
-                            : 'Define the outcome for each solution option defined in the previous step.'}
-                    </p>
-                    <div className="grid gap-6">
-                        {formData.solutions?.options.map((option, idx) => {
-                            const result = formData.simulation?.results[option.resultId] || { summary: '', detail: '', outcomeType: 'neutral' };
-                            return (
-                                <div key={option.id} className="bg-surface-50 p-5 rounded-xl border border-surface-200">
-                                    <div className="mb-4 pb-3 border-b border-surface-200 flex justify-between items-center">
-                                        <h4 className="font-bold text-surface-800 flex items-center gap-2">
-                                            <span className="w-6 h-6 rounded-full bg-surface-200 flex items-center justify-center text-xs">{idx + 1}</span>
-                                            {option.text || (language === 'he' ? '(ללא כותרת)' : '(Untitled Option)')}
-                                        </h4>
-                                        <span className={`text-xs px-2 py-1 rounded-full font-bold ${option.correct ? 'bg-emerald-100 text-emerald-700' : 'bg-surface-200 text-surface-600'}`}>
-                                            {option.correct ? t('correct') : t('incorrect')}
-                                        </span>
-                                    </div>
-                                    <div className="grid gap-4">
-                                        <Input
-                                            label={t('result_summary')}
-                                            value={result.summary}
-                                            onChange={e => {
-                                                const newResults = { ...(formData.simulation?.results || {}) };
-                                                newResults[option.resultId] = { ...result, summary: e.target.value };
-                                                setFormData(prev => ({ ...prev, simulation: { results: newResults } }));
-                                            }}
-                                            placeholder={language === 'he' ? 'כותרת התוצאה...' : 'Outcome headline...'}
-                                        />
-                                        <TextArea
-                                            label={t('result_detail')}
-                                            value={result.detail}
-                                            onChange={e => {
-                                                const newResults = { ...(formData.simulation?.results || {}) };
-                                                newResults[option.resultId] = { ...result, detail: e.target.value };
-                                                setFormData(prev => ({ ...prev, simulation: { results: newResults } }));
-                                            }}
-                                            rows={3}
-                                            placeholder={language === 'he' ? 'תיאור מפורט של מה קרה בעקבות הבחירה...' : 'Detailed description of what happened...'}
-                                        />
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <div>
-                                                <label className="block text-sm font-semibold text-surface-700 mb-2">{t('outcome')} <span className="text-accent-500">*</span></label>
-                                                <select
-                                                    className="w-full p-2.5 border border-surface-200 rounded-lg bg-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
-                                                    value={result.outcomeType}
-                                                    onChange={e => {
-                                                        const newResults = { ...(formData.simulation?.results || {}) };
-                                                        newResults[option.resultId] = { ...result, outcomeType: e.target.value as any };
-                                                        setFormData(prev => ({ ...prev, simulation: { results: newResults } }));
-                                                    }}
-                                                >
-                                                    <option value="success">{language === 'he' ? 'הצלחה' : 'Success'}</option>
-                                                    <option value="failure">{language === 'he' ? 'כישלון' : 'Failure'}</option>
-                                                    <option value="neutral">{language === 'he' ? 'ניטרלי' : 'Neutral'}</option>
-                                                </select>
-                                            </div>
-                                            <Input
-                                                label={t('image_url')}
-                                                value={result.outcomeImageUrl || ''}
-                                                onChange={e => {
-                                                    const newResults = { ...(formData.simulation?.results || {}) };
-                                                    newResults[option.resultId] = { ...result, outcomeImageUrl: e.target.value };
-                                                    setFormData(prev => ({ ...prev, simulation: { results: newResults } }));
-                                                }}
-                                                placeholder="https://..."
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            );
-            case 7: return (
-                <div className="space-y-6 animate-fade-in">
-                    <div className="flex justify-between items-center">
-                        <h3 className="text-xl font-bold text-surface-900">{t('reflection')}</h3>
-                        <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => handleSectionGenerate('reflection')}
-                            isLoading={generatingSection === 'reflection'}
-                            leftIcon={<Wand2 size={16} />}
-                            className="text-purple-600 hover:bg-purple-50"
-                        >
-                            {t('generate_with_ai') || "Generate with AI"}
-                        </Button>
-                    </div>
-                    <div className="grid gap-4">
-                        <TextArea
-                            label={t('reflection_questions')}
-                            helperText="Separate questions with a new line"
-                            value={formData.reflection?.questions.join('\n')}
-                            onChange={e => handleInputChange('reflection', 'questions', e.target.value.split('\n'))}
-                            rows={6}
-                        />
-                    </div>
-                </div>
-            );
-            default: return (
-                <div className="text-center py-10">
-                    <CheckCircle size={48} className="mx-auto text-secondary-500 mb-4" />
-                    <h3 className="text-xl font-bold text-surface-900">{t('ready_to_create')}</h3>
-                    <p className="text-surface-500">{t('review_scenario')}</p>
-                </div>
-            );
-        }
-    };
-
-    return (
-        <div className="max-w-3xl mx-auto bg-white rounded-3xl border border-surface-200 shadow-xl overflow-hidden flex flex-col min-h-[600px]">
-            <div className="p-8 border-b border-surface-100 flex justify-between items-center bg-surface-50/50">
-                <div>
-                    <h2 className="text-2xl font-extrabold text-surface-900">{t('create_new')}</h2>
-                    <p className="text-surface-500 text-sm">{t('step')} {step} {t('of')} 7</p>
-                </div>
-                <div className="flex gap-1">
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map(s => (
-                        <div key={s} className={`w-2 h-2 rounded-full transition-all ${step >= s ? 'bg-primary-600' : 'bg-surface-200'}`}></div>
-                    ))}
-                </div>
+                )}
             </div>
 
-            <div className="p-8 flex-1 overflow-y-auto">
-                {renderStep()}
-            </div>
-
+            {/* Footer */}
             <div className="p-6 border-t border-surface-100 bg-surface-50 flex justify-between items-center">
                 <Button
                     variant="ghost"
-                    onClick={() => step === 1 ? onCancel() : setStep(s => Math.max(1, s - 1))}
+                    onClick={() => step === 1 ? onCancel() : setStep(1)}
+                    leftIcon={step === 1 ? undefined : (isRTL ? <ArrowRight size={18} /> : <ArrowLeft size={18} />)}
                 >
-                    {t('back')}
+                    {step === 1 ? t('cancel') : t('back')}
                 </Button>
 
-                {step < 8 ? (
+                {step === 1 ? (
                     <Button
-                        onClick={() => setStep(s => Math.min(8, s + 1))}
+                        onClick={handleNext}
+                        rightIcon={isRTL ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
+                        disabled={!topic || selectedDisciplines.length === 0}
                     >
-                        {t('continue')}
+                        {t('next_step')}
                     </Button>
                 ) : (
                     <Button
-                        onClick={() => onSave(formData as Scenario)}
+                        onClick={handleSave}
                         variant="secondary"
                         leftIcon={<Save size={18} />}
                     >
-                        {t('save_library')}
+                        {t('save_scenario')}
                     </Button>
                 )}
             </div>

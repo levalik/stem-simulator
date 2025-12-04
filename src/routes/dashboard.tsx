@@ -4,42 +4,106 @@ import { useMemo, useState } from 'react';
 import { Layout } from '../app/layouts/Layout';
 import {
   PlayCircle, Clock, Tag, ArrowRight, ArrowLeft, Filter,
-  BookOpen, Trophy, TrendingUp, CheckCircle2, Zap, Plus
+  BookOpen, Trophy, TrendingUp, CheckCircle2, Zap, Plus, X
 } from 'lucide-react';
 
 const TeacherDashboard = () => {
   const { scenarios, t, language, currentUser } = useStore();
   const navigate = useNavigate();
   const isRTL = language === 'he';
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDisciplines, setSelectedDisciplines] = useState<string[]>([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(true);
 
-  // Get unique categories
-  const categories = useMemo(() => {
-    const cats = [...new Set(scenarios.map(s => s.category))];
-    return ['all', ...cats];
+  // Extract all unique disciplines from scenarios
+  const allDisciplines = useMemo(() => {
+    const disciplines = new Set<string>();
+    scenarios.forEach(s => {
+      if (s.disciplines) {
+        s.disciplines.forEach(d => disciplines.add(d));
+      } else if (s.category) {
+        s.category.split('/').forEach(c => disciplines.add(c.trim()));
+      }
+    });
+    return Array.from(disciplines).sort();
   }, [scenarios]);
 
   // Filter scenarios
   const filteredScenarios = useMemo(() => {
     return scenarios.filter(s => {
-      const matchesCategory = selectedCategory === 'all' || s.category === selectedCategory;
-      const matchesSearch = s.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        s.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        s.opening.description.toLowerCase().includes(searchTerm.toLowerCase());
-      return matchesCategory && matchesSearch;
-    });
-  }, [scenarios, selectedCategory, searchTerm]);
+      const matchesSearch = (
+        (s.title || s.topic || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (s.opening?.description || '').toLowerCase().includes(searchTerm.toLowerCase())
+      );
 
-  // Mock progress data (in real app would come from store/API)
-  const mockProgress = {
-    completed: 2,
-    inProgress: 1,
-    total: scenarios.length,
+      const scenarioDisciplines = s.disciplines || (s.category ? s.category.split('/').map(c => c.trim()) : []);
+      const matchesDiscipline = selectedDisciplines.length === 0 ||
+        selectedDisciplines.some(d => scenarioDisciplines.includes(d));
+
+      return matchesSearch && matchesDiscipline;
+    });
+  }, [scenarios, searchTerm, selectedDisciplines]);
+
+  const toggleDiscipline = (discipline: string) => {
+    setSelectedDisciplines(prev =>
+      prev.includes(discipline)
+        ? prev.filter(d => d !== discipline)
+        : [...prev, discipline]
+    );
   };
 
   const handleStartSimulation = (scenarioId: string) => {
     navigate({ to: '/simulation/$scenarioId', params: { scenarioId } } as any);
+  };
+
+  // Map Hebrew discipline names to English keys for translation
+  const hebrewToEnglish: Record<string, string> = {
+    'מתמטיקה': 'Mathematics',
+    'פיזיקה': 'Physics',
+    'כימיה': 'Chemistry',
+    'ביולוגיה': 'Biology',
+    'גיאוגרפיה': 'Geography',
+    'הנדסה': 'Engineering',
+    'אקולוגיה': 'Ecology',
+    'תכנון עירוני': 'Urban Planning',
+    'רפואה': 'Medicine',
+    'קינמטיקה': 'Kinematics',
+    'חקר ביצועים': 'Operations Research',
+    'כלכלה': 'Economics',
+    'ניהול': 'Management',
+    'חינוך פיננסי': 'Financial Education',
+    'מדעי הסביבה': 'Environmental Science',
+    'איכות הסביבה': 'Environmental Quality',
+    'חשבון': 'Arithmetic',
+    'שברים': 'Fractions',
+  };
+
+  const getDisciplineLabel = (d: string) => {
+    if (!d) return '';
+    // If it's Hebrew, map to English first
+    const englishName = hebrewToEnglish[d] || d;
+    const safeKey = englishName.toLowerCase().replace(/ /g, '_');
+    const key = `discipline_${safeKey}`;
+    const translated = t ? t(key as any) : null;
+    // Return translation if found, otherwise return original
+    return translated && !translated.startsWith('discipline_') ? translated : (hebrewToEnglish[d] ? d : englishName);
+  };
+
+  const getGradeLabel = (grade?: string) => {
+    if (!grade) return t('general') || 'General';
+    // Handle "Grade X" format
+    const gradeMatch = grade.match(/Grade\s*(\d+)/i);
+    if (gradeMatch) {
+      const gradeNum = gradeMatch[1];
+      return `${t('grade') || 'Grade'} ${gradeNum}`;
+    }
+    // Handle Hebrew grade format
+    const hebrewGradeMatch = grade.match(/כיתה\s*(\d+)/i);
+    if (hebrewGradeMatch) {
+      const gradeNum = hebrewGradeMatch[1];
+      return `${t('grade') || 'Grade'} ${gradeNum}`;
+    }
+    return grade;
   };
 
   return (
@@ -54,152 +118,136 @@ const TeacherDashboard = () => {
               </div>
               <div>
                 <h2 className="text-3xl font-extrabold text-surface-900 tracking-tight">{t('welcome')}, {currentUser?.name?.split(' ')[0] || t('teacher')}</h2>
-                <p className="text-surface-500">{t('select_training_module')}</p>
+                <p className="text-surface-500">{t('manage_scenarios_desc') || "Manage and organize your lesson scenarios"}</p>
               </div>
             </div>
           </div>
           <div className="flex gap-3">
-
-            <span className="px-4 py-2 bg-primary-100 text-primary-700 rounded-xl text-sm font-bold flex items-center gap-2">
-              <BookOpen size={16} /> {scenarios.length} {t('active_modules')}
-            </span>
+            <button
+              onClick={() => navigate({ to: '/admin' })}
+              className="px-4 py-2 bg-primary-600 text-white rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-primary-700 transition-colors shadow-lg shadow-primary-200"
+            >
+              <Plus size={18} /> {t('create_new_scenario')}
+            </button>
           </div>
         </div>
 
-        {/* Progress Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-          <div className="bg-surface-50 p-6 rounded-2xl border border-surface-100 shadow-sm hover:shadow-md transition-all">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-emerald-100 text-emerald-600">
-                <Trophy size={20} />
-              </div>
-              <span className="text-sm font-medium text-surface-500">{t('completed_scenarios')}</span>
+        {/* Smart Filter Bar */}
+        <div className="bg-white p-4 rounded-2xl border border-surface-200 shadow-sm space-y-4 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+          <div className="flex gap-3">
+            <div className="relative flex-1">
+              <Filter size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400 rtl:left-auto rtl:right-3" />
+              <input
+                type="text"
+                placeholder={t('search_scenarios') || "Search scenarios..."}
+                className="w-full pl-10 pr-4 rtl:pr-10 rtl:pl-4 py-2.5 bg-surface-50 border border-surface-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-extrabold text-surface-900">{mockProgress.completed}</span>
-              <span className="text-surface-400">/ {mockProgress.total}</span>
-            </div>
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className={`px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 font-bold text-sm shadow-sm ${isFilterOpen || selectedDisciplines.length > 0
+                ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white border border-primary-500'
+                : 'bg-surface-100 border border-surface-200 text-surface-700 hover:bg-surface-200'
+                }`}
+            >
+              <Filter size={16} />
+              <span>{t('filter')}</span>
+              {selectedDisciplines.length > 0 && (
+                <span className="bg-white/20 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[1.25rem] text-center">
+                  {selectedDisciplines.length}
+                </span>
+              )}
+            </button>
           </div>
 
-          <div className="bg-surface-50 p-6 rounded-2xl border border-surface-100 shadow-sm hover:shadow-md transition-all">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-amber-100 text-amber-600">
-                <Zap size={20} />
+          {/* Discipline Multi-Select Tags */}
+          {(isFilterOpen || selectedDisciplines.length > 0) && (
+            <div className="pt-3 border-t border-surface-100 animate-slide-down">
+              <div className="flex flex-wrap gap-2">
+                {allDisciplines.map(discipline => (
+                  <button
+                    key={discipline}
+                    onClick={() => toggleDiscipline(discipline)}
+                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedDisciplines.includes(discipline)
+                      ? 'bg-primary-600 text-white shadow-md shadow-primary-200'
+                      : 'bg-surface-100 text-surface-600 hover:bg-surface-200 border border-surface-200'
+                      }`}
+                  >
+                    {getDisciplineLabel(discipline)}
+                  </button>
+                ))}
+                {selectedDisciplines.length > 0 && (
+                  <button
+                    onClick={() => setSelectedDisciplines([])}
+                    className="px-3 py-1.5 rounded-full text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 transition-all flex items-center gap-1 border border-red-200 ml-auto rtl:mr-auto rtl:ml-0"
+                  >
+                    <X size={14} /> {t('clear_all')}
+                  </button>
+                )}
               </div>
-              <span className="text-sm font-medium text-surface-500">{t('in_progress')}</span>
             </div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-extrabold text-surface-900">{mockProgress.inProgress}</span>
-              <span className="text-surface-400">{t('active_modules')}</span>
-            </div>
-          </div>
-
-          <div className="bg-surface-50 p-6 rounded-2xl border border-surface-100 shadow-sm hover:shadow-md transition-all">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-secondary-100 text-secondary-600">
-                <TrendingUp size={20} />
-              </div>
-              <span className="text-sm font-medium text-surface-500">{t('success_rate')}</span>
-            </div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-extrabold text-surface-900">87%</span>
-              <span className="text-emerald-500 text-sm font-medium">+5%</span>
-            </div>
-          </div>
-
-          <div className="bg-surface-50 p-6 rounded-2xl border border-surface-100 shadow-sm hover:shadow-md transition-all">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-primary-100 text-primary-600">
-                <Clock size={20} />
-              </div>
-              <span className="text-sm font-medium text-surface-500">{t('avg_time')}</span>
-            </div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-extrabold text-surface-900">18</span>
-              <span className="text-surface-400">{t('mins')}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Filter Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-surface-50 p-2 rounded-2xl border border-surface-100 shadow-sm animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-          <div className="flex gap-1 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${selectedCategory === cat ? 'bg-surface-900 text-white' : 'text-surface-600 hover:bg-white hover:shadow-sm'}`}
-              >
-                {cat === 'all' ? t('all_categories') : cat}
-              </button>
-            ))}
-          </div>
-          <div className="relative w-full sm:w-64">
-            <input
-              type="text"
-              placeholder={t('search_scenarios')}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-4 pr-10 py-2 bg-white border border-surface-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
-            />
-            <Filter size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-400" />
-          </div>
+          )}
         </div>
 
         {/* Scenarios Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredScenarios.map((scenario, index) => {
-            // Mock status for each scenario
-            const status = index < 2 ? 'completed' : index === 2 ? 'in_progress' : 'not_started';
-
+            const coverImage = scenario.tasks?.[0]?.coverImage || scenario.opening?.imageUrl;
             return (
               <div
                 key={scenario.id}
                 onClick={() => handleStartSimulation(scenario.id)}
                 className="group bg-surface-50 rounded-3xl border border-surface-100 shadow-sm hover:shadow-xl hover:border-primary-200 transition-all duration-300 overflow-hidden flex flex-col h-full animate-fade-in-up cursor-pointer"
-                style={{ animationDelay: `${(index + 3) * 100}ms` }}
+                style={{ animationDelay: `${(index + 1) * 100}ms` }}
               >
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={scenario.opening.imageUrl || "./placeholder.svg"}
-                    alt={scenario.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+                <div className="relative h-48 overflow-hidden bg-surface-200">
+                  {/* Use first task image or placeholder */}
+                  {coverImage ? (
+                    <img
+                      src={coverImage}
+                      alt={scenario.topic || scenario.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-surface-400">
+                      <BookOpen size={48} />
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
-
-                  {/* Status Badge */}
-                  <div className="absolute top-4 right-4 rtl:right-auto rtl:left-4">
-                    {status === 'completed' && (
-                      <span className="flex items-center gap-1 bg-emerald-500 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg">
-                        <CheckCircle2 size={12} /> {t('completed')}
-                      </span>
-                    )}
-                    {status === 'in_progress' && (
-                      <span className="flex items-center gap-1 bg-amber-500 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg">
-                        <Zap size={12} /> {t('in_progress')}
-                      </span>
-                    )}
-                  </div>
 
                   <div className="absolute top-4 left-4 rtl:left-auto rtl:right-4">
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-white/90 backdrop-blur-sm text-surface-600 shadow-sm">
-                      <Tag size={12} className="text-primary-500" /> {scenario.category}
+                      <Tag size={12} className="text-primary-500" /> {getGradeLabel(scenario.grade)}
                     </span>
                   </div>
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold text-surface-900 mb-2 group-hover:text-primary-600 transition-colors">{scenario.title}</h3>
-                  <p className="text-surface-500 text-sm line-clamp-2 mb-4 flex-grow">{scenario.opening.description}</p>
+                  <h3 className="text-xl font-bold text-surface-900 mb-2 group-hover:text-primary-600 transition-colors">
+                    {scenario.topic || scenario.title}
+                  </h3>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {scenario.disciplines?.slice(0, 3).map(d => (
+                      <span key={d} className="text-xs bg-surface-100 text-surface-600 px-2 py-1 rounded-md border border-surface-200">
+                        {getDisciplineLabel(d)}
+                      </span>
+                    ))}
+                    {(scenario.disciplines?.length || 0) > 3 && (
+                      <span className="text-xs bg-surface-100 text-surface-600 px-2 py-1 rounded-md border border-surface-200">
+                        +{scenario.disciplines!.length - 3}
+                      </span>
+                    )}
+                  </div>
 
                   <div className="flex items-center justify-between mt-auto pt-4 border-t border-surface-200">
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-white text-surface-600 border border-surface-200">
-                      <Clock size={14} /> {scenario.duration}
+                      <Clock size={14} /> {scenario.duration} {t('minutes')}
                     </span>
                     <button
                       className="flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-900 text-white text-sm font-bold transition-all shadow-lg shadow-surface-200 group-hover:bg-primary-600"
-                      title={t('tooltip_start_scenario')}
                     >
-                      {status === 'completed' ? t('try_again') : status === 'in_progress' ? t('continue') : t('start')} {isRTL ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
+                      {t('view_plan') || "View Plan"} {isRTL ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
                     </button>
                   </div>
                 </div>

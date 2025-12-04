@@ -1,0 +1,4 @@
+- Before finishing a task, run `npm run build` to ensure the Vite bundle compiles cleanly (this also updates the version file).
+- Verify UI logic by loading the relevant route in `npm run dev` when practical (especially after modifying forms/routes).
+- Keep mock data and translations in sync (Hebrew/English/Arabic) when adding new scenario-related strings.
+- Document notable changes in README/docs if they affect workflows (e.g., new routes or admin behaviors).

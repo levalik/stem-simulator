@@ -1,0 +1,7 @@
+- `src/app`: global store (`store.ts`), layouts, and app-level utilities.
+- `src/routes`: TanStack Router file routes (`__root.tsx`, `index.tsx`, `dashboard.tsx`, `admin.tsx`, `simulation.$scenarioId.tsx`).
+- `src/entities`: domain slices (scenario, session, user) with model types and UI building blocks.
+- `src/features`: feature-level UI (admin create/manage scenarios, simulation steps, analytics, etc.).
+- `src/widgets`: composite widgets like `AdminPanel`, `LessonPlanView`, `TeacherFlow`.
+- `src/shared`: shared api clients (Gemini), mock data, translations, design system, types.
+- `public`/`scripts`: static assets and helper scripts (e.g., `update-version.js`).

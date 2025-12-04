@@ -2,40 +2,41 @@ import { create } from 'zustand';
 import { Scenario, User, SimulationSession } from '../shared/model/types';
 import { TRANSLATIONS, TranslationKey } from '../shared/i18n/translations';
 import { HEBREW_MOCK_SCENARIOS, ENGLISH_MOCK_SCENARIOS } from '../shared/model/mockData';
+import { generateId } from '../shared/utils/id';
 
 interface AppState {
   // User state
   currentUser: User | null;
-  
+
   // Scenarios state
   scenarios: Scenario[];
-  
+
   // Simulation state
   activeScenario: Scenario | null;
   activeSession: SimulationSession | null;
   currentStep: number; // 0-6 for the 7 steps
-  
+
   // Language state
-  language: 'en' | 'he';
+  language: 'en' | 'he' | 'ar';
 
   // Actions - Authentication
   login: (user: User) => void;
   logout: () => void;
-  
+
   // Actions - Simulation
   startSimulation: (scenarioId: string) => void;
   nextStep: () => void;
   prevStep: () => void;
   updateSessionResponse: (section: keyof SimulationSession['responses'], data: any) => void;
   resetSimulation: () => void;
-  
+
   // Actions - Scenarios CRUD
   addScenario: (scenario: Scenario) => void;
   updateScenario: (scenario: Scenario) => void;
   deleteScenario: (id: string) => void;
-  
+
   // Actions - Language
-  setLanguage: (lang: 'en' | 'he') => void;
+  setLanguage: (lang: 'en' | 'he' | 'ar') => void;
   t: (key: TranslationKey) => string;
 }
 
@@ -50,11 +51,11 @@ export const useStore = create<AppState>((set, get) => ({
 
   // Authentication actions
   login: (user) => set({ currentUser: user }),
-  logout: () => set({ 
-    currentUser: null, 
-    activeScenario: null, 
+  logout: () => set({
+    currentUser: null,
+    activeScenario: null,
     activeSession: null,
-    currentStep: 0 
+    currentStep: 0
   }),
 
   // Simulation actions
@@ -63,7 +64,7 @@ export const useStore = create<AppState>((set, get) => ({
     if (!scenario) return;
 
     const newSession: SimulationSession = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       scenarioId: scenario.id,
       userId: get().currentUser?.id || 'guest',
       startedAt: Date.now(),
@@ -73,57 +74,57 @@ export const useStore = create<AppState>((set, get) => ({
       }
     };
 
-    set({ 
-      activeScenario: scenario, 
-      activeSession: newSession, 
-      currentStep: 0 
+    set({
+      activeScenario: scenario,
+      activeSession: newSession,
+      currentStep: 0
     });
   },
 
-  nextStep: () => set((state) => ({ 
-    currentStep: Math.min(state.currentStep + 1, 6) 
+  nextStep: () => set((state) => ({
+    currentStep: Math.min(state.currentStep + 1, 6)
   })),
-  
-  prevStep: () => set((state) => ({ 
-    currentStep: Math.max(state.currentStep - 1, 0) 
+
+  prevStep: () => set((state) => ({
+    currentStep: Math.max(state.currentStep - 1, 0)
   })),
 
   updateSessionResponse: (section, data) => set((state) => {
     if (!state.activeSession) return {};
-    
+
     const updatedSession = { ...state.activeSession };
 
     if (section === 'analysis') {
-      updatedSession.responses.analysis = { 
-        ...updatedSession.responses.analysis, 
+      updatedSession.responses.analysis = {
+        ...updatedSession.responses.analysis,
         ...data as Record<string, string>
       };
     } else if (section === 'reflection') {
-      updatedSession.responses.reflection = { 
-        ...updatedSession.responses.reflection, 
+      updatedSession.responses.reflection = {
+        ...updatedSession.responses.reflection,
         ...data as Record<string, string>
       };
     } else {
       // Handle other response fields
       (updatedSession.responses as Record<string, unknown>)[section] = data;
     }
-    
+
     return { activeSession: updatedSession };
   }),
 
-  resetSimulation: () => set({ 
-    activeScenario: null, 
-    activeSession: null, 
-    currentStep: 0 
+  resetSimulation: () => set({
+    activeScenario: null,
+    activeSession: null,
+    currentStep: 0
   }),
 
   // Scenarios CRUD actions
-  addScenario: (scenario) => set((state) => ({ 
-    scenarios: [...state.scenarios, scenario] 
+  addScenario: (scenario) => set((state) => ({
+    scenarios: [...state.scenarios, scenario]
   })),
 
   updateScenario: (updatedScenario) => set((state) => ({
-    scenarios: state.scenarios.map(s => 
+    scenarios: state.scenarios.map(s =>
       s.id === updatedScenario.id ? updatedScenario : s
     )
   })),
@@ -133,9 +134,9 @@ export const useStore = create<AppState>((set, get) => ({
   })),
 
   // Language actions
-  setLanguage: (lang) => set({ 
+  setLanguage: (lang) => set({
     language: lang,
-    scenarios: lang === 'he' ? HEBREW_MOCK_SCENARIOS : ENGLISH_MOCK_SCENARIOS
+    scenarios: lang === 'he' ? HEBREW_MOCK_SCENARIOS : ENGLISH_MOCK_SCENARIOS // Fallback to English for Arabic for now
   }),
 
   t: (key) => {

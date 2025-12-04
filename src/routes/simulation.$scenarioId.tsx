@@ -2,11 +2,13 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { useStore } from '../app/store';
 import { Layout } from '../app/layouts/Layout';
-import { TeacherFlow } from '../widgets/TeacherFlow';
+
 
 export type SimulationSearch = {
   step: number;
 };
+
+import { LessonPlanView } from '../widgets/LessonPlanView';
 
 const SimulationPage = () => {
   const { scenarioId } = Route.useParams();
@@ -39,9 +41,10 @@ const SimulationPage = () => {
     );
   }
 
+  // Always show the Lesson Plan View (Teacher Guide Mode) for all scenarios
   return (
     <Layout>
-      <TeacherFlow currentStep={step} onStepChange={handleStepChange} />
+      <LessonPlanView scenario={activeScenario} />
     </Layout>
   );
 };

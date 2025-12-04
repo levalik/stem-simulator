@@ -60,72 +60,20 @@ export const analyzeJustification = async (
   return generateFeedback(prompt, "You are a critical thinking evaluator.");
 };
 
-export const generateScenarioFromTopic = async (topic: string): Promise<Partial<Scenario> | null> => {
+
+export const generateTaskContent = async (topic: string, grade: string, discipline: string): Promise<{ description: string; solution: string } | null> => {
   if (!API_KEY) return null;
 
-  const prompt = `Create a STEM simulation scenario about "${topic}" in JSON format.
-  Structure it exactly like this TypeScript interface:
-  {
-    title: string,
-    category: string,
-    duration: string,
-    opening: { description: string },
-    problem: { text: string, context: string },
-    data: { chartType: 'bar', chartData: [{name: string, value: number}], description: string },
-    analysis: { questions: string[], keyTerms: string[] },
-    solutions: { options: [{id: string, text: string, correct: boolean, resultId: string}] },
-    simulation: { results: { [resultId]: { summary: string, detail: string, outcomeType: 'success'|'failure' } } },
-    reflection: { questions: string[] }
-  }
-  Ensure the IDs are unique strings. Return ONLY the JSON.`;
+  const prompt = `Create a specific task/problem for a lesson scenario.
+  Topic: "${topic}"
+  Grade Level: "${grade}"
+  Discipline: "${discipline}"
 
-  try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-      config: {
-        responseMimeType: "application/json"
-      }
-    });
-
-    const text = response.text;
-    if (!text) return null;
-    return JSON.parse(text) as Partial<Scenario>;
-  } catch (error) {
-    console.error("Scenario Generation Error:", error);
-    return null;
-  }
-};
-
-export const generateSection = async (section: 'problem' | 'data' | 'analysis' | 'solutions' | 'reflection', topic: string, currentContext?: any) => {
-  if (!API_KEY) return null;
-
-  let prompt = '';
-  let responseSchema = {};
-
-  switch (section) {
-    case 'problem':
-      prompt = `Generate a STEM problem statement and context about "${topic}". 
-      Return JSON: { text: string, context: string }`;
-      break;
-    case 'data':
-      prompt = `Generate a dataset for a STEM scenario about "${topic}".
-      Return JSON: { description: string, chartType: 'bar'|'pie'|'line', chartData: [{name: string, value: number}], facts: string[] }`;
-      break;
-    case 'analysis':
-      prompt = `Generate analysis questions and key terms for a STEM scenario about "${topic}".
-      Return JSON: { questions: string[], keyTerms: string[] }`;
-      break;
-    case 'solutions':
-      prompt = `Generate 3 solution options for a STEM scenario about "${topic}".
-      Return JSON: { options: [{id: string, text: string, correct: boolean, resultId: string}] }
-      Use unique IDs like "opt_1", "opt_2", "opt_3" and resultIds like "res_1", "res_2", "res_3".`;
-      break;
-    case 'reflection':
-      prompt = `Generate reflection questions for a STEM scenario about "${topic}".
-      Return JSON: { questions: string[] }`;
-      break;
-  }
+  Return a JSON object with:
+  - description: The task or problem statement for the student.
+  - solution: The correct answer or solution for the teacher.
+  
+  JSON format: { "description": "...", "solution": "..." }`;
 
   try {
     const response = await ai.models.generateContent({
@@ -140,7 +88,53 @@ export const generateSection = async (section: 'problem' | 'data' | 'analysis' |
     if (!text) return null;
     return JSON.parse(text);
   } catch (error) {
-    console.error(`Section Generation Error (${section}):`, error);
+    console.error("Task Generation Error:", error);
     return null;
   }
 };
+
+export const generateTaskSolution = async (topic: string, grade: string, discipline: string, description: string): Promise<string | null> => {
+  if (!API_KEY) return null;
+
+  const prompt = `Provide a solution for the following task.
+  Topic: "${topic}"
+  Grade Level: "${grade}"
+  Discipline: "${discipline}"
+  Task Description: "${description}"
+
+  Return ONLY the solution text.`;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+    });
+
+    return response.text || null;
+  } catch (error) {
+    console.error("Solution Generation Error:", error);
+    return null;
+  }
+};
+
+export const generateImagePrompt = async (topic: string, discipline: string, description: string): Promise<string | null> => {
+  if (!API_KEY) return null;
+
+  const prompt = `Create a detailed image generation prompt for a cover image representing this task.
+    Topic: "${topic}"
+    Discipline: "${discipline}"
+    Task: "${description}"
+    
+    The prompt should be descriptive and suitable for an AI image generator. Return ONLY the prompt text.`;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+    });
+    return response.text || null;
+  } catch (error) {
+    console.error("Image Prompt Generation Error:", error);
+    return null;
+  }
+}

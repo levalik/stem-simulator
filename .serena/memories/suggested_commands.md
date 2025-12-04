@@ -1,0 +1,6 @@
+- `npm install` – install dependencies.
+- `npm run dev` – start Vite dev server.
+- `npm run build` – update version, build production bundle, and copy 404 fallback; use before delivering changes.
+- `npm run preview` – preview production build locally.
+- `npm run predeploy`/`npm run deploy` – build and publish to GitHub Pages.
+- `node scripts/update-version.js` – bump version in metadata (also run automatically via build).

@@ -3,10 +3,10 @@ import { useStore } from '../app/store';
 import { Plus, Users, Settings, LayoutDashboard, BarChart3 } from 'lucide-react';
 import { Scenario } from '../entities/scenario';
 import { ScenarioList } from '../features/admin/manage-scenarios/ui/ScenarioList';
-import { CreateScenarioForm } from '../features/admin/create-scenario/ui/CreateScenarioForm';
 import { UserManagement } from '../features/admin/manage-users/ui/UserManagement';
 import { AnalyticsDashboard } from '../features/admin/view-analytics/ui/AnalyticsDashboard';
 import { SystemSettings } from '../features/admin/system-settings/ui/SystemSettings';
+import { useNavigate } from '@tanstack/react-router';
 
 const SidebarItem = ({ icon: Icon, label, active, onClick }: { icon: any, label: string, active: boolean, onClick: () => void }) => (
     <button
@@ -19,23 +19,19 @@ const SidebarItem = ({ icon: Icon, label, active, onClick }: { icon: any, label:
 );
 
 export const AdminPanel = () => {
-    const { scenarios, addScenario, updateScenario, deleteScenario, t } = useStore();
-    const [view, setView] = useState<'list' | 'create' | 'analytics' | 'users' | 'settings'>('list');
-    const [editingScenario, setEditingScenario] = useState<Scenario | null>(null);
+    const { scenarios, deleteScenario, t } = useStore();
+    const [view, setView] = useState<'list' | 'analytics' | 'users' | 'settings'>('list');
+    const navigate = useNavigate({ from: '/admin' });
 
-    const handleSaveScenario = (scenario: Scenario) => {
-        if (editingScenario) {
-            updateScenario(scenario);
-        } else {
-            addScenario(scenario);
-        }
-        setEditingScenario(null);
-        setView('list');
+    const handleCreateScenario = () => {
+        navigate({ to: '/admin/scenarios/create' });
     };
 
     const handleEditScenario = (scenario: Scenario) => {
-        setEditingScenario(scenario);
-        setView('create');
+        navigate({
+            to: '/admin/scenarios/$scenarioId/edit',
+            params: { scenarioId: scenario.id },
+        });
     };
 
     const handleDeleteScenario = (id: string) => {
@@ -46,11 +42,10 @@ export const AdminPanel = () => {
 
     const renderContent = () => {
         switch (view) {
-            case 'create': return <CreateScenarioForm initialData={editingScenario} onSave={handleSaveScenario} onCancel={() => { setEditingScenario(null); setView('list'); }} />;
             case 'analytics': return <AnalyticsDashboard />;
             case 'users': return <UserManagement />;
             case 'settings': return <SystemSettings />;
-            default: return <ScenarioList onViewCreate={() => { setEditingScenario(null); setView('create'); }} onEdit={handleEditScenario} onDelete={handleDeleteScenario} />;
+            default: return <ScenarioList onEdit={handleEditScenario} onDelete={handleDeleteScenario} />;
         }
     };
 
@@ -75,8 +70,8 @@ export const AdminPanel = () => {
                         <SidebarItem
                             icon={Plus}
                             label={t('new_scenario')}
-                            active={view === 'create'}
-                            onClick={() => setView('create')}
+                            active={false}
+                            onClick={handleCreateScenario}
                         />
                         <div className="h-px bg-surface-100 my-2"></div>
                         <SidebarItem
